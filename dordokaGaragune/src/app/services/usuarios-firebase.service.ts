@@ -116,88 +116,25 @@ export class UsuariosFirebaseService {
     return this.usuarioListRef.update( "Erik",x);//
   }
 
-  //create datos de prueba
-  createUsuarioPrueba(apt: any) {
-    console.log(this);
-    console.log(this.usuarioRef);
-    console.log(this.usuarioListRef);
-
-    var idCreate = "12012021" + this.makeid(16);
-    var idPic = "12012021" + this.makeid(16);
-    var idKat = "12012021" + this.makeid(16);
-
-    return this.usuarioListRef.push({
-      //uIdMonitorea: 'M12012021'+idCreate,
-      monitoreIzena: "Monitorea izena",
-
-      erabiltzaileak: [
-        {
-          //usuarios con discapacidad
-          id: idCreate,
-          erabiltzaileIzena: "Erabiltzailearen izena",
-          kategoriak: [
-            {
-              idKategoria: idKat,
-              kategoriaIzena: "Kategoriaren izena",
-              KategoriaIkono: "ikonoarenHelbidea",
-
-              piktogramak: [
-                {
-                  idPic: idPic,
-                  piktogramaIzena: "Piktogramaren izena",
-                  piktogramaHelbidea: "Pictogramaren izena",
-                },
-              ],
-            },
-            {
-              idKategoria: idKat,
-              kategoriaIzena: "Kategoriaren izena",
-              KategoriaIkono: "ikonoarenHelbidea",
-              piktogramak: [
-                {
-                  idPic: idPic,
-                  piktogramaIzena: "Piktogramaren izena",
-                  piktogramaHelbidea: "Pictogramaren izena",
-                },
-              ],
-            },
-          ],
-          //fin de usuario
-        },
-        {
-          //usuarios con discapacidad
-          id: idCreate,
-          erabiltzaileIzena: "Erabiltzailearen izena",
-          kategoriak: [
-            {
-              idKategoria: idKat,
-              kategoriaIzena: "Kategoriaren izena",
-              KategoriaIkono: "ikonoarenHelbidea",
-
-              piktogramak: [
-                {
-                  idPic: idPic,
-                  piktogramaIzena: "Piktogramaren izena",
-                  piktogramaHelbidea: "Pictogramaren izena",
-                },
-              ],
-            },
-            {
-              idKategoria: idKat,
-              kategoriaIzena: "Kategoriaren izena",
-              KategoriaIkono: "ikonoarenHelbidea",
-              piktogramak: [
-                {
-                  idPic: idPic,
-                  piktogramaIzena: "Piktogramaren izena",
-                  piktogramaHelbidea: "Pictogramaren izena",
-                },
-              ],
-            },
-          ],
-          //fin de usuario
-        },
-      ],
-    });
+  //create datos de admin google
+  createUsuarioAdmin(id: any,name: any) 
+  {
+    return this.usuarioListRef.push(
+      {
+      uIdMonitorea: id,
+      monitoreIzena: name,
+      erabiltzaileak: [],
+      }
+    );
   }
+   //create datos de admin google
+   public createUsuarioAdminconId(id: any,name: string) 
+   {
+     console.log(id, name);
+     
+    var x = {} as Monitorea;
+    x.monitoreIzena=name;
+    x.erabiltzaileak=[];
+    return this.usuarioListRef.update( id,x);
+   }
 }

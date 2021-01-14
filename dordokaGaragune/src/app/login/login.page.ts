@@ -16,7 +16,7 @@ export class LoginPage {
       const user = await this.authSvc.login(email.value, password.value);
       if (user) {
         // const isVerified = this.authSvc.isEmailVerified(user);
-        this.router.navigate(['admin']);
+        this.router.navigate(['admin-user-view']);
       }
     } catch (error) {
       console.log('Error->', error);
@@ -28,7 +28,8 @@ export class LoginPage {
       const user = await this.authSvc.loginGoogle();
       if (user) {
         // const isVerified = this.authSvc.isEmailVerified(user);
-        this.router.navigate(['admin']);
+
+        this.router.navigate(['admin-user-view']);
       }
     } catch (error) {
       console.log('Error->', error);
