@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "pruebaionic-94717": {
+      "hosting": {
+        "app": [
+          "pruebaionic-94717"
+        ]
+      }
+    }
+  }
+}
