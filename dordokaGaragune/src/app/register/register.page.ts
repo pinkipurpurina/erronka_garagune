@@ -23,4 +23,6 @@ export class RegisterPage implements OnInit {
       console.log('Error->', error);
     }
   }
+
+  
 }

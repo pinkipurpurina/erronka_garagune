@@ -52,7 +52,6 @@ export class AuthService {
       // await this.sendVerificationEmail();
       var userUID = this.afAuth.authState.subscribe(res => {
         if (res && res.uid) {
-          console.log("Jodete no funciona",nickname)
           this.firebase2.createUsuarioAdminconId(res.uid, nickname)
         }
       });
