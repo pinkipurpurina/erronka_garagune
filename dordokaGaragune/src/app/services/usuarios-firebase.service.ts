@@ -137,4 +137,15 @@ export class UsuariosFirebaseService {
     x.erabiltzaileak=[];
     return this.usuarioListRef.update( id,x);
    }
+
+   public createUsuarioNormal(id: any,name: string, idAdmin: any) 
+   {
+     console.log(id, name);
+     
+    var x = {} as Erabiltzailea;
+    
+    x.erabiltzaileIzena=name;
+    x.kategoriak=[];
+    return this.db.object('users/'+idAdmin+'/erabiltzaileak').set(name);
+   }
 }

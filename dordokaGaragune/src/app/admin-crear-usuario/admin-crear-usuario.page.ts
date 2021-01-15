@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import firebase from 'firebase/app';
 
+import { UsuariosFirebaseService } from '../services/usuarios-firebase.service'
+
 @Component({
   selector: 'app-admin-crear-usuario',
   templateUrl: './admin-crear-usuario.page.html',
@@ -12,7 +14,7 @@ import firebase from 'firebase/app';
 })
 export class AdminCrearUsuarioPage implements OnInit {
 
-  constructor(private modalCtrl:ModalController,private authSvc: AuthService, private router: Router) { }
+  constructor(private modalCtrl:ModalController,private authSvc: AuthService, private router: Router,private firebase2:UsuariosFirebaseService) { }
 
   async close(){
     await this.modalCtrl.dismiss();
@@ -23,7 +25,7 @@ export class AdminCrearUsuarioPage implements OnInit {
 
   async onUserRegister(email, password,nick) {
     try {
-      const user = await this.authSvc.register(email.value, password.value,nick.value);
+      const user = await this.authSvc.userRegister(email.value, password.value,nick.value);
       await this.modalCtrl.dismiss();
     console.log("UID: ", firebase.auth().currentUser.uid);
     console.log("EMAIL: ", firebase.auth().currentUser.email);

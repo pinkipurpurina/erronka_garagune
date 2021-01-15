@@ -1,21 +1,27 @@
-import { Injectable } from '@angular/core';
-import { User } from '../shared/user.interface';
-import { AngularFireAuth } from '@angular/fire/auth';
-import * as firebase from 'firebase';
+import { User } from './../shared/user.interface';
 
+import { Injectable } from '@angular/core';
+
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { UsuariosFirebaseService } from '../services/usuarios-firebase.service'
+
+import { environment } from '../../environments/environment';
+import firebase from 'firebase';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   public user$: Observable<User>;
-
-  constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore,private firebase2:UsuariosFirebaseService) {
+  authState: any = null;
+  
+  constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore,private firebase2:UsuariosFirebaseService,public secondaryAuth: AngularFireAuth) {
     this.user$ = this.afAuth.authState.pipe(
       switchMap((user) => {
         if (user) {
@@ -39,7 +45,7 @@ export class AuthService {
   async loginGoogle(): Promise<User> {
     try {
       const { user } = await this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-      this.updateUserData(user);
+      // this.updateUserData(user);
       return user;
     } catch (error) {
       console.log('Error->', error);
@@ -62,10 +68,29 @@ export class AuthService {
     }
   }
 
+  async userRegister(email: string, password: string,nickname:string): Promise<User> {
+    try {
+      // Esto crea una nueva sesion internamente para poder crear el usuario desde la cuenta de administrador sin afectar la sesion de este
+      var idAdminActual = (await this.afAuth.currentUser).uid
+      const { user } = await this.secondaryAuth.createUserWithEmailAndPassword(email, password);
+      // await this.sendVerificationEmail();
+      var userUID = this.secondaryAuth.authState.subscribe(res => {
+        if (res && res.uid) {
+          this.firebase2.createUsuarioNormal(res.uid, nickname, idAdminActual)
+          this.secondaryAuth.signOut();
+        }
+      });
+      
+      return user;
+    } catch (error) {
+      console.log('Error->', error);
+    }
+  }
+
   async login(email: string, password: string): Promise<User> {
     try {
       const { user } = await this.afAuth.signInWithEmailAndPassword(email, password);
-      this.updateUserData(user);
+      // this.updateUserData(user);
       return user;
     } catch (error) {
       console.log('Error->', error);
