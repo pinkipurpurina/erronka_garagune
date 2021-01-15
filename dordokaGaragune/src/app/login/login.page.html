@@ -5,19 +5,33 @@
 </ion-header>
 
 <ion-content>
-    <ion-item lines="full">
-        <ion-label position="floating">Email</ion-label>
-        <ion-input type="text" #email required></ion-input>
-    </ion-item>
-    <ion-item lines="full">
-        <ion-label position="floating">Password</ion-label>
-        <ion-input type="password" #password required></ion-input>
-    </ion-item>
-    <ion-row>
-        <ion-col>
-            <ion-button type="submit" (click)="onLogin(email,password)" expand="block">Login</ion-button>
-        </ion-col>
-    </ion-row>
+    <form [formGroup]="ionicForm" (ngSubmit)="onLogin(email,password)" novalidate>
+        <ion-item lines="full">
+            <ion-label position="floating">Email</ion-label>
+            <ion-input formControlName="email" type="text" #email required></ion-input>
+        </ion-item>
+        <span class="red error ion-padding" *ngIf="isSubmitted && errorControl.email.errors?.required">
+            Email requerido.
+        </span>
+        <span class="red error ion-padding" *ngIf="isSubmitted && errorControl.email.errors?.pattern">
+            Por favor, introduzca un Email valido.
+        </span>
+        <ion-item lines="full">
+            <ion-label position="floating">Password</ion-label>
+            <ion-input formControlName="password" type="password" #password required></ion-input>
+        </ion-item>
+        <span class="red error ion-padding" *ngIf="isSubmitted && errorControl.password.errors?.required">
+            Contraseña requerida.
+        </span>
+        <span class="red error ion-padding" *ngIf="isSubmitted && errorControl.password.errors?.pattern">
+            Por favor, introduzca una contraseña más segura.
+        </span>
+        <ion-row>
+            <ion-col>
+                <ion-button type="submit" expand="block">Login</ion-button>
+            </ion-col>
+        </ion-row>
+    </form>
     <span class="centrado"> or </span>
     <ion-row>
         <ion-col>

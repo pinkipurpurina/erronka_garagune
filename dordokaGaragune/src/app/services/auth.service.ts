@@ -64,6 +64,12 @@ export class AuthService {
 
   async login(email: string, password: string): Promise<User> {
     try {
+  //     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+  // .then(function() { 
+    
+  //   }).catch(function(error){
+  //   console.log("failed to set persistence: " + error.message)
+  // });
       const { user } = await this.afAuth.signInWithEmailAndPassword(email, password);
       this.updateUserData(user);
       return user;
