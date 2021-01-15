@@ -146,6 +146,6 @@ export class UsuariosFirebaseService {
     
     x.erabiltzaileIzena=name;
     x.kategoriak=[];
-    return this.db.object('users/'+idAdmin+'/erabiltzaileak').set(name);
+    return this.db.list('users/'+idAdmin+'/erabiltzaileak/'+id).push({name});
    }
 }

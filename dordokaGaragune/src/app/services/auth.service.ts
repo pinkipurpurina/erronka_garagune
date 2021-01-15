@@ -74,6 +74,7 @@ export class AuthService {
       var idAdminActual = (await this.afAuth.currentUser).uid
       const { user } = await this.secondaryAuth.createUserWithEmailAndPassword(email, password);
       // await this.sendVerificationEmail();
+      
       var userUID = this.secondaryAuth.authState.subscribe(res => {
         if (res && res.uid) {
           this.firebase2.createUsuarioNormal(res.uid, nickname, idAdminActual)
