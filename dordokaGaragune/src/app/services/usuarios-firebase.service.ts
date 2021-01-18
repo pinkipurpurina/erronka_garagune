@@ -12,6 +12,7 @@ import {
   AngularFireObject,
 } from "@angular/fire/database";
 import { stringify } from "@angular/compiler/src/util";
+import firebase from "firebase";
 
 @Injectable({
   providedIn: "root",
@@ -20,8 +21,12 @@ export class UsuariosFirebaseService {
   usuarioListRef: AngularFireList<any>;
   usuarioRef: AngularFireObject<any>;
 
-  constructor(private db: AngularFireDatabase) {
+  constructor(private db: AngularFireDatabase,private afAuth: AngularFireDatabase) {
     this.usuarioListRef = this.db.list("/users");
+  }
+
+  erabiltzaileakKargatu(): any {
+    return firebase.database().ref("/users/"+firebase.auth().currentUser.uid+'/erabiltzaileak');
   }
 
   makeid(length) {
