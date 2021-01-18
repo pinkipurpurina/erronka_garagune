@@ -106,23 +106,11 @@ getPiktogramaList(){
   }
 
   // Create Piktograma
-  createPiktograma(apt: any) {
-    console.log(this);
-    console.log(this.usuarioRef);
-    console.log(this.usuarioListRef);
-
-    var idCreate = "12012021" + this.makeid(16);
-    var idPic = "12012021" + this.makeid(16);
-    var idKat = "12012021" + this.makeid(16);
-    var monitorearenUId = "";
-    this.usuarioListRef = this.db.list(
-      "/users/-MQptEJuTP67l8RQES6K/" +
-        /*monitorearenUId+*/ "erabiltzaileak/0/kategoriak/0/piktogramak"
-    );
+  createPiktograma(path:string,name:string) {  
+    this.usuarioListRef = this.db.list("/users/" + firebase.auth().currentUser.uid + "/erabiltzaileak/"+this.erabiltzaileNormalaUID +"/kategoriak/"+this.kategoriaUID+"/piktogramak");
     return this.usuarioListRef.push({
-      idPic: idPic,
-      piktogramaIzena: "Piktogramaren izena",
-      piktogramaHelbidea: "Pictogramaren izena****",
+      piktogramaIzena: name,
+      piktogramaHelbidea: path,
     });
   }
 
