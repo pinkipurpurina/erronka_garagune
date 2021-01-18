@@ -26,6 +26,16 @@ const routes: Routes = [
     path: 'admin-crear-usuario',
     loadChildren: () => import('./admin-crear-usuario/admin-crear-usuario.module').then( m => m.AdminCrearUsuarioPageModule)
   },
+  {
+    path: 'kategoriak',
+    loadChildren: () => import('./kategoriak-ikusi/kategoriak-ikusi.module').then( m => m.KategoriakIkusiPageModule)
+  },
+  {
+    path: 'piktogramak',
+    loadChildren: () => import('./piktogramak-ikusi/piktogramak-ikusi.module').then( m => m.PiktogramakIkusiPageModule)
+  },
+
+
 
 ];
 

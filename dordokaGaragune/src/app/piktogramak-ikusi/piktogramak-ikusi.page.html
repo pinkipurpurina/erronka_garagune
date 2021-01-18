@@ -1,0 +1,17 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>piktogramakIkusi</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <!-- List of Text Items-->
+    <ion-list *ngFor="let item of piktogramak">
+        <ion-item>
+            <ion-label>{{item.uid}}</ion-label>
+            <ion-label>{{item.data.piktogramaIzena}}</ion-label>
+
+        </ion-item>
+
+    </ion-list>
+</ion-content>
