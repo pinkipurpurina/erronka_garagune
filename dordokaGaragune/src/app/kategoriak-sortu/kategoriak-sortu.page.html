@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>kategoriakSortu</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <form>
+    <ion-item lines="full">
+        <ion-label position="floating">Kategoriaren izena</ion-label>
+        <ion-input type="text" #izenaKategoria required></ion-input>
+      </ion-item>
+     
+      <ion-row>
+          <ion-col>
+              <ion-button type="submit" (click)="onKategoriaSortu(izenaKategoria)" expand="block" >Register</ion-button>
+          </ion-col>
+      </ion-row>
+  </form>
+
+</ion-content>
