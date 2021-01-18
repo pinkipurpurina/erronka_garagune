@@ -2,6 +2,7 @@ import { Component, NgModule, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { ToastController } from '@ionic/angular';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class LoginPage implements OnInit {
   ionicForm: FormGroup;
   isSubmitted = false;
 
-  constructor(public formBuilder: FormBuilder, private authSvc: AuthService, private router: Router) { }
+  constructor(public formBuilder: FormBuilder, private authSvc: AuthService, private router: Router, public toastController: ToastController) { }
 
   ngOnInit() {
     this.ionicForm = this.formBuilder.group({
@@ -41,6 +42,12 @@ export class LoginPage implements OnInit {
         if (user) {
           // const isVerified = this.authSvc.isEmailVerified(user);
           this.router.navigate(['admin-user-view']);
+        } else {
+          const toast = await this.toastController.create({
+            message: 'Email o contraseña incorrecta.',
+            duration: 2000
+          });
+          toast.present();
         }
       }
     } catch (error) {
@@ -53,8 +60,13 @@ export class LoginPage implements OnInit {
       const user = await this.authSvc.loginGoogle();
       if (user) {
         // const isVerified = this.authSvc.isEmailVerified(user);
-
         this.router.navigate(['admin-user-view']);
+      } else {
+        const toast = await this.toastController.create({
+          message: 'Email o contraseña incorrecta.',
+          duration: 2000
+        });
+        toast.present();
       }
     } catch (error) {
       console.log('Error->', error);
