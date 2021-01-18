@@ -135,7 +135,7 @@ export class UsuariosFirebaseService {
     var x = {} as Monitorea;
     x.monitoreIzena=name;
     x.erabiltzaileak=[];
-    return this.usuarioListRef.update( id,x);
+    return this.usuarioListRef.update(id,x);
    }
 
    public createUsuarioNormal(id: any,name: string, idAdmin: any) 
@@ -146,6 +146,7 @@ export class UsuariosFirebaseService {
     
     x.erabiltzaileIzena=name;
     x.kategoriak=[];
-    return this.db.list('users/'+idAdmin+'/erabiltzaileak/'+id).push({name});
+    //return this.db.list('users/'+idAdmin+'/erabiltzaileak/'+id).push(name);
+    return this.db.list('users/'+idAdmin+'/erabiltzaileak').update(id,x);
    }
 }
