@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\r\n  <ion-title>Admin user view</ion-title>\r\n</ion-header>\r\n\r\n<ion-content>\r\n  <ion-footer>\r\n    \r\n  </ion-footer>\r\n  <ion-fab vertical=\"bottom\" horizontal=\"center\" slot=\"fixed\">\r\n    <ion-fab-button (click)=\"presentModal()\">\r\n      <ion-icon name=\"add\"></ion-icon>\r\n    </ion-fab-button>\r\n  </ion-fab>\r\n</ion-content>\r\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-title>Admin user view</ion-title>\n</ion-header>\n\n<ion-content>\n  <ion-header>\n    <ion-toolbar>\n        <ion-title>kategoriak</ion-title>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content>\n    <!-- List of Text Items-->\n    <ion-list *ngFor=\"let item of erabiltzaileak\">\n        <ion-item>\n            <ion-label>{{item.uid}}</ion-label>\n            <ion-label>{{item.data.erabiltzaileIzena}}</ion-label>\n        </ion-item>\n        \n    </ion-list>\n    <ion-footer>\n      <ion-fab vertical=\"bottom\" horizontal=\"center\" slot=\"fixed\">\n        <ion-fab-button (click)=\"presentModal()\">\n          <ion-icon name=\"add\"></ion-icon>\n        </ion-fab-button>\n      </ion-fab>\n    </ion-footer>\n    \n    <!--\n    <ul *ngIf=\"usuarioList | async; let posts\">\n        <li *ngFor=\"let post of posts\">\n            <span>{{post}}</span>\n        </li>\n    </ul>-->\n</ion-content>\n");
 
 /***/ }),
 
@@ -29,6 +29,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
 /* harmony import */ var _admin_crear_usuario_admin_crear_usuario_page__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../admin-crear-usuario/admin-crear-usuario.page */ "QWQo");
+/* harmony import */ var _services_usuarios_firebase_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../services/usuarios-firebase.service */ "BRfS");
+
 
 
 
@@ -36,10 +38,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AdminUserViewPage = class AdminUserViewPage {
-    constructor(modalController) {
+    constructor(modalController, firebaseConnect) {
         this.modalController = modalController;
+        this.firebaseConnect = firebaseConnect;
+        this.erabiltzaileak = [];
     }
     ngOnInit() {
+        this.leer();
     }
     presentModal() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
@@ -50,9 +55,24 @@ let AdminUserViewPage = class AdminUserViewPage {
             return yield modal.present();
         });
     }
+    leer() {
+        this.firebaseConnect.erabiltzaileakKargatu().once("value", (snap) => {
+            snap.forEach((element) => {
+                var uid = element.key;
+                var data = element.val();
+                console.log(uid);
+                console.log(data.erabiltzaileIzena);
+                this.erabiltzaileak.push({
+                    uid: uid,
+                    data: data,
+                });
+            });
+        });
+    }
 };
 AdminUserViewPage.ctorParameters = () => [
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"] },
+    { type: _services_usuarios_firebase_service__WEBPACK_IMPORTED_MODULE_6__["UsuariosFirebaseService"] }
 ];
 AdminUserViewPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({

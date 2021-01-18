@@ -2689,16 +2689,32 @@
       var _angular_fire_database__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! @angular/fire/database */
       "sSZD");
+      /* harmony import */
+
+
+      var firebase__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! firebase */
+      "iqUP");
+      /* harmony import */
+
+
+      var firebase__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(firebase__WEBPACK_IMPORTED_MODULE_3__);
 
       var UsuariosFirebaseService = /*#__PURE__*/function () {
-        function UsuariosFirebaseService(db) {
+        function UsuariosFirebaseService(db, afAuth) {
           _classCallCheck(this, UsuariosFirebaseService);
 
           this.db = db;
+          this.afAuth = afAuth;
           this.usuarioListRef = this.db.list("/users");
         }
 
         _createClass(UsuariosFirebaseService, [{
+          key: "erabiltzaileakKargatu",
+          value: function erabiltzaileakKargatu() {
+            return firebase__WEBPACK_IMPORTED_MODULE_3___default.a.database().ref("/users/" + firebase__WEBPACK_IMPORTED_MODULE_3___default.a.auth().currentUser.uid + '/erabiltzaileak');
+          }
+        }, {
           key: "makeid",
           value: function makeid(length) {
             var result = "";
@@ -2815,10 +2831,9 @@
             console.log(id, name);
             var x = {};
             x.erabiltzaileIzena = name;
-            x.kategoriak = [];
-            return this.db.list('users/' + idAdmin + '/erabiltzaileak/' + id).push({
-              name: name
-            });
+            x.kategoriak = []; //return this.db.list('users/'+idAdmin+'/erabiltzaileak/'+id).push(name);
+
+            return this.db.list('users/' + idAdmin + '/erabiltzaileak').update(id, x);
           }
         }]);
 
@@ -2827,6 +2842,8 @@
 
       UsuariosFirebaseService.ctorParameters = function () {
         return [{
+          type: _angular_fire_database__WEBPACK_IMPORTED_MODULE_2__["AngularFireDatabase"]
+        }, {
           type: _angular_fire_database__WEBPACK_IMPORTED_MODULE_2__["AngularFireDatabase"]
         }];
       };
