@@ -22,7 +22,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\r\n  <ion-title>Admin user view</ion-title>\r\n</ion-header>\r\n\r\n<ion-content>\r\n  <ion-footer>\r\n    \r\n  </ion-footer>\r\n  <ion-fab vertical=\"bottom\" horizontal=\"center\" slot=\"fixed\">\r\n    <ion-fab-button (click)=\"presentModal()\">\r\n      <ion-icon name=\"add\"></ion-icon>\r\n    </ion-fab-button>\r\n  </ion-fab>\r\n</ion-content>\r\n";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-title>Admin user view</ion-title>\n</ion-header>\n\n<ion-content>\n  <ion-header>\n    <ion-toolbar>\n        <ion-title>kategoriak</ion-title>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content>\n    <!-- List of Text Items-->\n    <ion-list *ngFor=\"let item of erabiltzaileak\">\n        <ion-item>\n            <ion-label>{{item.uid}}</ion-label>\n            <ion-label>{{item.data.erabiltzaileIzena}}</ion-label>\n        </ion-item>\n        \n    </ion-list>\n    <ion-footer>\n      <ion-fab vertical=\"bottom\" horizontal=\"center\" slot=\"fixed\">\n        <ion-fab-button (click)=\"presentModal()\">\n          <ion-icon name=\"add\"></ion-icon>\n        </ion-fab-button>\n      </ion-fab>\n    </ion-footer>\n    \n    <!--\n    <ul *ngIf=\"usuarioList | async; let posts\">\n        <li *ngFor=\"let post of posts\">\n            <span>{{post}}</span>\n        </li>\n    </ul>-->\n</ion-content>\n";
       /***/
     },
 
@@ -81,17 +81,27 @@
       var _admin_crear_usuario_admin_crear_usuario_page__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! ../admin-crear-usuario/admin-crear-usuario.page */
       "QWQo");
+      /* harmony import */
+
+
+      var _services_usuarios_firebase_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! ../services/usuarios-firebase.service */
+      "BRfS");
 
       var AdminUserViewPage = /*#__PURE__*/function () {
-        function AdminUserViewPage(modalController) {
+        function AdminUserViewPage(modalController, firebaseConnect) {
           _classCallCheck(this, AdminUserViewPage);
 
           this.modalController = modalController;
+          this.firebaseConnect = firebaseConnect;
+          this.erabiltzaileak = [];
         }
 
         _createClass(AdminUserViewPage, [{
           key: "ngOnInit",
-          value: function ngOnInit() {}
+          value: function ngOnInit() {
+            this.leer();
+          }
         }, {
           key: "presentModal",
           value: function presentModal() {
@@ -123,6 +133,25 @@
               }, _callee, this);
             }));
           }
+        }, {
+          key: "leer",
+          value: function leer() {
+            var _this = this;
+
+            this.firebaseConnect.erabiltzaileakKargatu().once("value", function (snap) {
+              snap.forEach(function (element) {
+                var uid = element.key;
+                var data = element.val();
+                console.log(uid);
+                console.log(data.erabiltzaileIzena);
+
+                _this.erabiltzaileak.push({
+                  uid: uid,
+                  data: data
+                });
+              });
+            });
+          }
         }]);
 
         return AdminUserViewPage;
@@ -131,6 +160,8 @@
       AdminUserViewPage.ctorParameters = function () {
         return [{
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"]
+        }, {
+          type: _services_usuarios_firebase_service__WEBPACK_IMPORTED_MODULE_6__["UsuariosFirebaseService"]
         }];
       };
 

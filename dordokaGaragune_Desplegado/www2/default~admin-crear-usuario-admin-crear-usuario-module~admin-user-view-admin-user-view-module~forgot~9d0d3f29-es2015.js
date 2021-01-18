@@ -1933,13 +1933,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _angular_fire_database__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/fire/database */ "sSZD");
+/* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! firebase */ "iqUP");
+/* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(firebase__WEBPACK_IMPORTED_MODULE_3__);
+
 
 
 
 let UsuariosFirebaseService = class UsuariosFirebaseService {
-    constructor(db) {
+    constructor(db, afAuth) {
         this.db = db;
+        this.afAuth = afAuth;
         this.usuarioListRef = this.db.list("/users");
+    }
+    erabiltzaileakKargatu() {
+        return firebase__WEBPACK_IMPORTED_MODULE_3___default.a.database().ref("/users/" + firebase__WEBPACK_IMPORTED_MODULE_3___default.a.auth().currentUser.uid + '/erabiltzaileak');
     }
     makeid(length) {
         var result = "";
@@ -2039,10 +2046,12 @@ let UsuariosFirebaseService = class UsuariosFirebaseService {
         var x = {};
         x.erabiltzaileIzena = name;
         x.kategoriak = [];
-        return this.db.list('users/' + idAdmin + '/erabiltzaileak/' + id).push({ name });
+        //return this.db.list('users/'+idAdmin+'/erabiltzaileak/'+id).push(name);
+        return this.db.list('users/' + idAdmin + '/erabiltzaileak').update(id, x);
     }
 };
 UsuariosFirebaseService.ctorParameters = () => [
+    { type: _angular_fire_database__WEBPACK_IMPORTED_MODULE_2__["AngularFireDatabase"] },
     { type: _angular_fire_database__WEBPACK_IMPORTED_MODULE_2__["AngularFireDatabase"] }
 ];
 UsuariosFirebaseService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
