@@ -11,27 +11,21 @@
             <ion-card>
                 <ion-label>{{item.uid}}</ion-label>
                 <ion-label>{{item.data.piktogramaIzena}}</ion-label>
-                <!--  <ion-card-content>
+                <ion-card-content>
                     <img [src]="item.data.piktogramaHelbidea" />
                     <a [href]="item.data.piktogramaHelbidea" target="_blank" rel="noopener">Download</a>
-                </ion-card-content>-->
-            </ion-card>
-
-            <ion-card color="light" class="ion-text-center" *ngFor="let item of images | async">
-                <ion-card-header>
-                    <ion-card-title>
-                        {{ item.name }}
-                    </ion-card-title>
-                </ion-card-header>
-
-                <ion-card-content>
-                    <ion-label>{{item.filepath}}</ion-label>
-                    <img [src]="item.filepath" />
-                    <a [href]="item.filepath" target="_blank" rel="noopener">Download</a>
                 </ion-card-content>
             </ion-card>
+
 
         </ion-item>
 
     </ion-list>
+    
+    <!-- <ion-fab vertical="start" horizontal="start" edge slot="fixed">
+        <ion-fab-button (click)="expression">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+       
+    </ion-fab> -->
 </ion-content>
