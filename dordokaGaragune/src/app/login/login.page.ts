@@ -50,8 +50,7 @@ export class LoginPage implements OnInit {
                 snap.forEach((element2) => {
                   var monitorUid = element2.key;
                   if (user.uid == monitorUid) {
-                    console.log("Yo soy tu hijo");
-                    // this.router.navigate(['admin-user-view']);
+                    this.router.navigate(['user-kategoria']);
                   }
                 });
               });

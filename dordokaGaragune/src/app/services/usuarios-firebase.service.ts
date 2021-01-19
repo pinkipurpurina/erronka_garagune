@@ -21,7 +21,7 @@ export class UsuariosFirebaseService {
   usuarioListRef: AngularFireList<any>;
   usuarioRef: AngularFireObject<any>;
   erabiltzaileNormalaUID: string = "re2KbiU45PcouAHb4fThHSbs3dS2";
-  kategoriaUID:string="-MRKLVnXoBcLjP76TNsC";
+  kategoriaUID: string = "-MRKLVnXoBcLjP76TNsC";
 
   constructor(
     private db: AngularFireDatabase,
@@ -30,27 +30,26 @@ export class UsuariosFirebaseService {
     this.usuarioListRef = this.db.list("/users");
   }
 
-setKategoria(kategoriaUID:string){
-  this.kategoriaUID=kategoriaUID;
-}
-setUsuarioNormala(usuarioNormalaUID:string){
-  this.erabiltzaileNormalaUID=usuarioNormalaUID;
-}
+  setKategoria(kategoriaUID: string) {
+    this.kategoriaUID = kategoriaUID;
+  }
+  setUsuarioNormala(usuarioNormalaUID: string) {
+    this.erabiltzaileNormalaUID = usuarioNormalaUID;
+  }
 
-getKategoriaList(){
-  console.log(this.erabiltzaileNormalaUID);//whYVI3YAsyT8YlvtXUTZo4VftMy2
-  
-  return firebase
+  getKategoriaList() {
+    console.log(this.erabiltzaileNormalaUID);//whYVI3YAsyT8YlvtXUTZo4VftMy2
+
+    return firebase
       .database()
-      .ref("/users/" + firebase.auth().currentUser.uid + "/erabiltzaileak/"+this.erabiltzaileNormalaUID +"/kategoriak");
-}
-getPiktogramaList(){
-  return firebase
+      .ref("/users/" + firebase.auth().currentUser.uid + "/erabiltzaileak/" + this.erabiltzaileNormalaUID + "/kategoriak");
+  }
+
+  getPiktogramaList() {
+    return firebase
       .database()
-      .ref("/users/" + firebase.auth().currentUser.uid + "/erabiltzaileak/"+this.erabiltzaileNormalaUID +"/kategoriak/"+this.kategoriaUID+"/piktogramak");
-}
-
-
+      .ref("/users/" + firebase.auth().currentUser.uid + "/erabiltzaileak/" + this.erabiltzaileNormalaUID + "/kategoriak/" + this.kategoriaUID + "/piktogramak");
+  }
   erabiltzaileakKargatu(): any {
     return firebase
       .database()
@@ -128,10 +127,10 @@ getPiktogramaList(){
 
   //  kategoria sortu********************************************
   createKategoria() {
-   
+
     var x = {} as Kategoria;
-   
-   
+
+
     x.kategoriaIzena = "dddddd**";
     x.piktogramak = [
       {
@@ -140,11 +139,11 @@ getPiktogramaList(){
       },
     ];
     x.kategoriaIkono = "ddddddd";
-  return this.db.list(
+    return this.db.list(
       "/users/09SuFe2gNzL7lnq6Mv1CVBA8Z4u1/erabiltzaileak/re2KbiU45PcouAHb4fThHSbs3dS2/kategoriak" // metiendo kategorias de pueba
     ).push(x);
 
- 
+
   }
 
   //create datos de admin google

@@ -34,9 +34,10 @@ const routes: Routes = [
     path: 'piktogramak',
     loadChildren: () => import('./piktogramak-ikusi/piktogramak-ikusi.module').then( m => m.PiktogramakIkusiPageModule)
   },
-
-
-
+  {
+    path: 'user-kategoria',
+    loadChildren: () => import('./user-kategoria/user-kategoria.module').then( m => m.UserKategoriaPageModule)
+  },
 ];
 
 @NgModule({
