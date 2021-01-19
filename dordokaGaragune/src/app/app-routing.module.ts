@@ -22,7 +22,25 @@ const routes: Routes = [
     path: 'admin-user-view',
     loadChildren: () => import('./admin-user-view/admin-user-view.module').then( m => m.AdminUserViewPageModule)
   },
+<<<<<<< HEAD
   
+=======
+  {
+    path: 'admin-crear-usuario',
+    loadChildren: () => import('./admin-crear-usuario/admin-crear-usuario.module').then( m => m.AdminCrearUsuarioPageModule)
+  },
+  {
+    path: 'kategoriak',
+    loadChildren: () => import('./kategoriak-ikusi/kategoriak-ikusi.module').then( m => m.KategoriakIkusiPageModule)
+  },
+  {
+    path: 'piktogramak',
+    loadChildren: () => import('./piktogramak-ikusi/piktogramak-ikusi.module').then( m => m.PiktogramakIkusiPageModule)
+  },
+
+
+
+>>>>>>> d069724f4d57eb99be3da087c4527b251acdcde9
 ];
 
 @NgModule({

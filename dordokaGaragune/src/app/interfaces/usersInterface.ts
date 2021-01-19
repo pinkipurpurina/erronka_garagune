@@ -9,7 +9,7 @@ export interface Erabiltzailea {
 }
 
 export interface Kategoria {
-  KategoriaIkono: string;
+  kategoriaIkono: string;
   kategoriaIzena: string;
   piktogramak: Piktograma[];
 }

@@ -20,13 +20,41 @@ import firebase from "firebase";
 export class UsuariosFirebaseService {
   usuarioListRef: AngularFireList<any>;
   usuarioRef: AngularFireObject<any>;
+  erabiltzaileNormalaUID: string = "re2KbiU45PcouAHb4fThHSbs3dS2";
+  kategoriaUID:string="-MRKLVnXoBcLjP76TNsC";
 
-  constructor(private db: AngularFireDatabase,private afAuth: AngularFireDatabase) {
+  constructor(
+    private db: AngularFireDatabase,
+    private afAuth: AngularFireDatabase
+  ) {
     this.usuarioListRef = this.db.list("/users");
   }
 
+setKategoria(kategoriaUID:string){
+  this.kategoriaUID=kategoriaUID;
+}
+setUsuarioNormala(usuarioNormalaUID:string){
+  this.erabiltzaileNormalaUID=usuarioNormalaUID;
+}
+
+getKategoriaList(){
+  console.log(this.erabiltzaileNormalaUID);//whYVI3YAsyT8YlvtXUTZo4VftMy2
+  
+  return firebase
+      .database()
+      .ref("/users/" + firebase.auth().currentUser.uid + "/erabiltzaileak/"+this.erabiltzaileNormalaUID +"/kategoriak");
+}
+getPiktogramaList(){
+  return firebase
+      .database()
+      .ref("/users/" + firebase.auth().currentUser.uid + "/erabiltzaileak/"+this.erabiltzaileNormalaUID +"/kategoriak/"+this.kategoriaUID+"/piktogramak");
+}
+
+
   erabiltzaileakKargatu(): any {
-    return firebase.database().ref("/users/"+firebase.auth().currentUser.uid+'/erabiltzaileak');
+    return firebase
+      .database()
+      .ref("/users/" + firebase.auth().currentUser.uid + "/erabiltzaileak");
   }
 
   makeid(length) {
@@ -82,7 +110,7 @@ export class UsuariosFirebaseService {
     console.log(this);
     console.log(this.usuarioRef);
     console.log(this.usuarioListRef);
-    
+
     var idCreate = "12012021" + this.makeid(16);
     var idPic = "12012021" + this.makeid(16);
     var idKat = "12012021" + this.makeid(16);
@@ -98,60 +126,53 @@ export class UsuariosFirebaseService {
     });
   }
 
-  // editatu kategoria********************************************
-  createKategoria(apt: any) {
-    console.log(this);
-    console.log(this.usuarioRef);
-    console.log(this.usuarioListRef);
-
-    var idCreate = "12012021" + this.makeid(16);
-    var idPic = "12012021" + this.makeid(16);
-    var idKat = "12012021" + this.makeid(16);
-    var monitorearenUId = "";
-    this.usuarioListRef = this.db.list(
-      "/users/-MQq8A9xnvbSzOtyd9aG/erabiltzaileak/0/kategoriak/"// queriendo editar el 0
-    );
-
+  //  kategoria sortu********************************************
+  createKategoria() {
+   
     var x = {} as Kategoria;
-    //x.idKategoria = "ñlajsdhlaksjdh";
-    //usuarioRef=
+   
+   
     x.kategoriaIzena = "dddddd**";
-    x.piktogramak = [];
-    x.KategoriaIkono = "ddddddd";
-    return this.usuarioListRef.update( "Erik",x);//
+    x.piktogramak = [
+      {
+        piktogramaIzena: "Piktogramaren izena",
+        piktogramaHelbidea: "Pictogramaren izena",
+      },
+    ];
+    x.kategoriaIkono = "ddddddd";
+  return this.db.list(
+      "/users/09SuFe2gNzL7lnq6Mv1CVBA8Z4u1/erabiltzaileak/re2KbiU45PcouAHb4fThHSbs3dS2/kategoriak" // metiendo kategorias de pueba
+    ).push(x);
+
+ 
   }
 
   //create datos de admin google
-  createUsuarioAdmin(id: any,name: any) 
-  {
-    return this.usuarioListRef.push(
-      {
+  createUsuarioAdmin(id: any, name: any) {
+    return this.usuarioListRef.push({
       uIdMonitorea: id,
       monitoreIzena: name,
       erabiltzaileak: [],
-      }
-    );
+    });
   }
-   //create datos de admin google
-   public createUsuarioAdminconId(id: any,name: string) 
-   {
-     console.log(id, name);
-     
-    var x = {} as Monitorea;
-    x.monitoreIzena=name;
-    x.erabiltzaileak=[];
-    return this.usuarioListRef.update(id,x);
-   }
+  //create datos de admin google
+  public createUsuarioAdminconId(id: any, name: string) {
+    console.log(id, name);
 
-   public createUsuarioNormal(id: any,name: string, idAdmin: any) 
-   {
-     console.log(id, name);
-     
+    var x = {} as Monitorea;
+    x.monitoreIzena = name;
+    x.erabiltzaileak = [];
+    return this.usuarioListRef.update(id, x);
+  }
+
+  public createUsuarioNormal(id: any, name: string, idAdmin: any) {
+    console.log(id, name);
+
     var x = {} as Erabiltzailea;
-    
-    x.erabiltzaileIzena=name;
-    x.kategoriak=[];
+
+    x.erabiltzaileIzena = name;
+    x.kategoriak = [];
     //return this.db.list('users/'+idAdmin+'/erabiltzaileak/'+id).push(name);
-    return this.db.list('users/'+idAdmin+'/erabiltzaileak').update(id,x);
-   }
+    return this.db.list("users/" + idAdmin + "/erabiltzaileak").update(id, x);
+  }
 }

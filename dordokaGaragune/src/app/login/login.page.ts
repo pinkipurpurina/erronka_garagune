@@ -2,6 +2,7 @@ import { Component, NgModule, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { ToastController } from '@ionic/angular';
 
 
 @Component({
@@ -16,13 +17,14 @@ export class LoginPage implements OnInit {
   ionicForm: FormGroup;
   isSubmitted = false;
 
-  constructor(public formBuilder: FormBuilder, private authSvc: AuthService, private router: Router) { }
+  constructor(public formBuilder: FormBuilder, private authSvc: AuthService, private router: Router, public toastController: ToastController) { }
 
   ngOnInit() {
     this.ionicForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
-      // password: ['', [Validators.required, Validators.pattern('(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$')]]
-      password: ['', [Validators.required, Validators.pattern('')]]
+      // 8 letras, una minuscula, una mayuscula, un numero y un caracter especial
+      // password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}')]]
+      password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('')]]
     })
   }
 
@@ -40,6 +42,12 @@ export class LoginPage implements OnInit {
         if (user) {
           // const isVerified = this.authSvc.isEmailVerified(user);
           this.router.navigate(['admin-user-view']);
+        } else {
+          const toast = await this.toastController.create({
+            message: 'Email o contraseña incorrecta.',
+            duration: 2000
+          });
+          toast.present();
         }
       }
     } catch (error) {
@@ -52,8 +60,13 @@ export class LoginPage implements OnInit {
       const user = await this.authSvc.loginGoogle();
       if (user) {
         // const isVerified = this.authSvc.isEmailVerified(user);
-
         this.router.navigate(['admin-user-view']);
+      } else {
+        const toast = await this.toastController.create({
+          message: 'Email o contraseña incorrecta.',
+          duration: 2000
+        });
+        toast.present();
       }
     } catch (error) {
       console.log('Error->', error);
