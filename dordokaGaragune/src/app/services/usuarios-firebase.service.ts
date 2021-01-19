@@ -38,18 +38,31 @@ export class UsuariosFirebaseService {
   }
 
   getKategoriaList() {
-    console.log(this.erabiltzaileNormalaUID);//whYVI3YAsyT8YlvtXUTZo4VftMy2
+    console.log(this.erabiltzaileNormalaUID); //whYVI3YAsyT8YlvtXUTZo4VftMy2
 
     return firebase
       .database()
-      .ref("/users/" + firebase.auth().currentUser.uid + "/erabiltzaileak/" + this.erabiltzaileNormalaUID + "/kategoriak");
+      .ref(
+        "/users/" +
+          firebase.auth().currentUser.uid +
+          "/erabiltzaileak/" +
+          this.erabiltzaileNormalaUID +
+          "/kategoriak"
+      );
   }
   getPiktogramaList() {
     return firebase
       .database()
-      .ref("/users/" + firebase.auth().currentUser.uid + "/erabiltzaileak/" + this.erabiltzaileNormalaUID + "/kategoriak/" + this.kategoriaUID + "/piktogramak");
+      .ref(
+        "/users/" +
+          firebase.auth().currentUser.uid +
+          "/erabiltzaileak/" +
+          this.erabiltzaileNormalaUID +
+          "/kategoriak/" +
+          this.kategoriaUID +
+          "/piktogramak"
+      );
   }
-
 
   erabiltzaileakKargatu(): any {
     return firebase
@@ -107,7 +120,15 @@ export class UsuariosFirebaseService {
 
   // Create Piktograma
   createPiktograma(path: string, name: string) {
-    this.usuarioListRef = this.db.list("/users/" + firebase.auth().currentUser.uid + "/erabiltzaileak/" + this.erabiltzaileNormalaUID + "/kategoriak/" + this.kategoriaUID + "/piktogramak");
+    this.usuarioListRef = this.db.list(
+      "/users/" +
+        firebase.auth().currentUser.uid +
+        "/erabiltzaileak/" +
+        this.erabiltzaileNormalaUID +
+        "/kategoriak/" +
+        this.kategoriaUID +
+        "/piktogramak"
+    );
     return this.usuarioListRef.push({
       piktogramaIzena: name,
       piktogramaHelbidea: path,
@@ -118,7 +139,6 @@ export class UsuariosFirebaseService {
   // createKategoria() {
 
   //   var x = {} as Kategoria;
-
 
   //   x.kategoriaIzena = "dddddd**";
   //   x.piktogramak = [
@@ -132,22 +152,22 @@ export class UsuariosFirebaseService {
   //     "/users/09SuFe2gNzL7lnq6Mv1CVBA8Z4u1/erabiltzaileak/re2KbiU45PcouAHb4fThHSbs3dS2/kategoriak" // metiendo kategorias de pueba
   //   ).push(x);
 
-
   // }
 
   createKategoria(kategoriaIzena: string, monitorearenUID: string) {
-
     var x = {} as Kategoria;
     x.kategoriaIzena = kategoriaIzena;
 
-    return this.db.list(
-      "/users/" + monitorearenUID + "/erabiltzaileak/" + this.erabiltzaileNormalaUID + "/kategoriak" // kategorien listaren helbidea
-    ).push(x);//bat gehitu
-
-
+    return this.db
+      .list(
+        "/users/" +
+          monitorearenUID +
+          "/erabiltzaileak/" +
+          this.erabiltzaileNormalaUID +
+          "/kategoriak" // kategorien listaren helbidea
+      )
+      .push(x); //bat gehitu
   }
-
-
 
   //create datos de admin google
   createUsuarioAdmin(id: any, name: any) {

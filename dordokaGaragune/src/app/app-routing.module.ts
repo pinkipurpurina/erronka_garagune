@@ -33,14 +33,16 @@ const routes: Routes = [
   {
     path: 'piktogramak',
     loadChildren: () => import('./piktogramak-ikusi/piktogramak-ikusi.module').then( m => m.PiktogramakIkusiPageModule)
-  },  {
-    path: 'piktogramak-sortu',
-    loadChildren: () => import('./piktogramak-sortu/piktogramak-sortu.module').then( m => m.PiktogramakSortuPageModule)
   },
+
   {
     path: 'kategoriak-sortu',
     loadChildren: () => import('./kategoriak-sortu/kategoriak-sortu.module').then( m => m.KategoriakSortuPageModule)
+  },  {
+    path: 'color-picker',
+    loadChildren: () => import('./color-picker/color-picker.module').then( m => m.ColorPickerPageModule)
   },
+
 
 
 

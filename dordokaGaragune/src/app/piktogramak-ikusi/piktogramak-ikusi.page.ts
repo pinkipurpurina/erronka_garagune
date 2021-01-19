@@ -13,6 +13,7 @@ import { finalize, tap } from "rxjs/operators";
 
 import { MyData } from "../interfaces/usersInterface";
 import { UsuariosFirebaseService } from "../services/usuarios-firebase.service";
+import { PiktogramakSortuPage } from "../piktogramak-sortu/piktogramak-sortu.page";
 
 @Component({
   selector: "app-piktogramak-ikusi",
@@ -197,6 +198,17 @@ export class PiktogramakIkusiPage implements OnInit {
         console.log(res);
       })
       .catch((error) => console.log(error));
+  }
+
+
+  
+
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: PiktogramakSortuPage,
+      cssClass: "my-custom-class",
+    });
+    return await modal.present();
   }
 }
 
