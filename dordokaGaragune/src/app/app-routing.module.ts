@@ -22,11 +22,7 @@ const routes: Routes = [
     path: 'admin-user-view',
     loadChildren: () => import('./admin-user-view/admin-user-view.module').then( m => m.AdminUserViewPageModule)
   },
-  {
-    path: 'admin-crear-usuario',
-    loadChildren: () => import('./admin-crear-usuario/admin-crear-usuario.module').then( m => m.AdminCrearUsuarioPageModule)
-  },
-
+  
 ];
 
 @NgModule({

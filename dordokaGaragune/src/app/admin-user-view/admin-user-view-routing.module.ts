@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: AdminUserViewPage
-  }
+  },
+  {
+    path: 'admin-crear-usuario',
+    loadChildren: () => import('../admin-crear-usuario/admin-crear-usuario.module').then( m => m.AdminCrearUsuarioPageModule)
+  },
 ];
 
 @NgModule({

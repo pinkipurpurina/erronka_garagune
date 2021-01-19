@@ -124,16 +124,16 @@ export class AuthService {
     }
   }
 
-  private updateUserData(user: User) {
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
+  // private updateUserData(user: User) {
+  //   const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
 
-    const data: User = {
-      uid: user.uid,
-      email: user.email,
-      // emailVerified: user.emailVerified,
-      displayName: user.displayName,
-    };
+  //   const data: User = {
+  //     uid: user.uid,
+  //     email: user.email,
+  //     // emailVerified: user.emailVerified,
+  //     displayName: user.displayName,
+  //   };
 
-    return userRef.set(data, { merge: true });
-  }
+  //   return userRef.set(data, { merge: true });
+  // }
 }
