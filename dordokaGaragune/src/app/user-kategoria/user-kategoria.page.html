@@ -1,13 +1,65 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>userKategoria</ion-title>
+        <ion-title>Categorias</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="col-md-12">
+                <ion-card>
+                    <ion-item>
+                        <ion-img src="../../assets/icon/favicon.png"></ion-img>
+                    </ion-item>
+                    <ion-item>
+                        <ion-img src="../../assets/icon/favicon.png"></ion-img>
+                    </ion-item>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="col-md-2">
+                <!-- <ion-card>
+                    <ion-item>
+                        <ion-icon name="pin" slot="start"></ion-icon>
+                        <ion-label>ion-item in a card, icon left, button right</ion-label>
+                        <ion-button fill="outline" slot="end">View</ion-button>
+                    </ion-item>
+
+                    <ion-card-content>
+                        This is content, without any paragraph or header tags, within an ion-card-content element.
+                    </ion-card-content>
+                </ion-card> -->
+                <ion-card>
+                    <ion-item>
+                        <ion-img src="../../assets/icon/favicon.png"></ion-img>
+                    </ion-item>
+
+                    <ion-card-content>
+                        This is content, without any paragraph or header tags, within an ion-card-content element.
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="col-md-2">
+
+            </ion-col>
+            <ion-col size="col-md-2">
+
+            </ion-col>
+            <ion-col size="col-md-2">
+
+            </ion-col>
+            <ion-col size="col-md-2">
+
+            </ion-col>
+            <ion-col size="col-md-2">
+
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 
 </ion-content>
-<!-- fab placed to the bottom and start and on the bottom edge of the content overlapping footer with a list to the right -->
 <ion-fab vertical="bottom" horizontal="center" slot="fixed">
     <ion-fab-button>
         <ion-icon name="settings"></ion-icon>
@@ -21,7 +73,6 @@
             <ion-icon name="thumbs-up-outline"></ion-icon>
         </ion-fab-button>
     </ion-fab-list>
-
     <ion-fab-list side="end">
         <ion-fab-button color="light" (click)="hablar('Yo')">
             <ion-icon name="happy-outline"></ion-icon>
