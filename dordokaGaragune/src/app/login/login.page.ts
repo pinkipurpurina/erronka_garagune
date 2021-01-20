@@ -39,10 +39,10 @@ export class LoginPage implements OnInit {
         return false;
       } else {
         const user = await this.authSvc.login(email.value, password.value);
-        if (user) {
+        try{
           // const isVerified = this.authSvc.isEmailVerified(user);
           this.router.navigate(['admin-user-view']);
-        } else {
+        } catch {
           const toast = await this.toastController.create({
             message: 'Email o contraseña incorrecta.',
             duration: 2000

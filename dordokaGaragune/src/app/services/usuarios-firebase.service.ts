@@ -52,11 +52,17 @@ getPiktogramaList(){
 
 
   erabiltzaileakKargatu(): any {
+    console.log(localStorage.getItem('user'));
     return firebase
       .database()
-      .ref("/users/" + firebase.auth().currentUser.uid + "/erabiltzaileak");
+      .ref("/users/" + JSON.parse(localStorage.getItem('user')).uid + "/erabiltzaileak");
+      
   }
-
+  getAdminErabiltzaile(): any {
+    return firebase
+      .database()
+      .ref("/users/" + firebase.auth().currentUser.uid);
+  }
   makeid(length) {
     var result = "";
     var characters =
@@ -175,4 +181,5 @@ getPiktogramaList(){
     //return this.db.list('users/'+idAdmin+'/erabiltzaileak/'+id).push(name);
     return this.db.list("users/" + idAdmin + "/erabiltzaileak").update(id, x);
   }
+
 }
