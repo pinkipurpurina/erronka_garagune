@@ -1,7 +1,9 @@
+
 import { Component, OnInit } from "@angular/core";
 import { Router, RouterLink } from "@angular/router";
-
+import { AuthService } from '../services/auth.service'
 import { ModalController } from "@ionic/angular";
+import { database } from "firebase";
 import { AdminCrearUsuarioPage } from "../admin-crear-usuario/admin-crear-usuario.page";
 import { UsuariosFirebaseService } from "../services/usuarios-firebase.service";
 
@@ -13,11 +15,12 @@ import { UsuariosFirebaseService } from "../services/usuarios-firebase.service";
 export class AdminUserViewPage implements OnInit {
   erabiltzaileak: any[] = [];
   uid: any;
-
+  admin: any[] = [];
   constructor(
     public modalController: ModalController,
     public firebaseConnect: UsuariosFirebaseService, 
-    private router: Router
+    private router: Router,
+    public auth: AuthService
   ) {}
 
   ngOnInit() {
@@ -33,7 +36,10 @@ export class AdminUserViewPage implements OnInit {
     return await modal.present();
   }
 
+  
+
   erabiltzaileakIrakurri() {
+    
     this.firebaseConnect.erabiltzaileakKargatu().once("value", (snap) => {
       snap.forEach((element) => {
         var uid = element.key;
@@ -52,4 +58,14 @@ export class AdminUserViewPage implements OnInit {
     this.firebaseConnect.setUsuarioNormala(uid);
     this.router.navigate(['kategoriak']);
   }
+  doRefresh(event) {
+    console.log('Begin async operation');
+    location.reload();
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
+
+  
 }

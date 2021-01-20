@@ -1,6 +1,7 @@
 <ion-header>
     <ion-toolbar>
         <ion-title>kategoriakIkusi</ion-title>
+        <ion-icon name="log-out-outline"></ion-icon>
     </ion-toolbar>
 </ion-header>
 
@@ -16,13 +17,14 @@
             <ion-label></ion-label>
 
 
-            <ion-icon name="color-palette" class={{item.data.kolorea}} (click)="presentModal2()"></ion-icon>
+            <ion-icon name="color-palette" class={{item.data.kolorea}} (click)="presentModal2(item.uid)"></ion-icon>
 
+            <ion-icon style="color: {{item.data.kolorea}};" name="color-palette" class={{item.data.kolorea}} (click)="presentModal2(item.uid,item)"></ion-icon>
 
         </ion-item>
 
     </ion-list>
-    <ion-fab vertical="bottom" horizontal="center" edge slot="fixed">
+    <ion-fab vertical="start" horizontal="start" edge slot="fixed">
         <ion-fab-button (click)="presentModal()">
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>

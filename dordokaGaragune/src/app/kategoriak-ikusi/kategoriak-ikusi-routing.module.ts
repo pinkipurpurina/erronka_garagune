@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: KategoriakIkusiPage
-  }
+  },
+  {
+    path: 'piktogramak',
+    loadChildren: () => import('../piktogramak-ikusi/piktogramak-ikusi.module').then( m => m.PiktogramakIkusiPageModule)
+  },
 ];
 
 @NgModule({

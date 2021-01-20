@@ -79,7 +79,7 @@ export class AuthService {
   async userRegister(email: string, password: string, nickname: string): Promise<User> {
     try {
       // Esto crea una nueva sesion internamente para poder crear el usuario desde la cuenta de administrador sin afectar la sesion de este
-      var idAdminActual = (await this.afAuth.currentUser).uid
+      var idAdminActual = (await JSON.parse(localStorage.getItem('user')).uid)
       const { user } = await this.secondaryAuth.createUserWithEmailAndPassword(email, password);
       // await this.sendVerificationEmail();
 
@@ -96,21 +96,33 @@ export class AuthService {
     }
   }
 
-  async login(email: string, password: string): Promise<User> {
-    try {
-      //     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-      // .then(function() { 
-
-      //   }).catch(function(error){
-      //   console.log("failed to set persistence: " + error.message)
-      // });
-      const { user } = await this.afAuth.signInWithEmailAndPassword(email, password);
-      // this.updateUserData(user);
-      return user;
-    } catch (error) {
-      console.log('Error->', error);
-    }
+  async login(email: string, password: string): Promise<firebase.auth.UserCredential>{
+    return this.afAuth.setPersistence('session').then(() => {
+        console.log(sessionStorage);
+        localStorage.setItem('user',sessionStorage.getItem(sessionStorage.key(0)));
+        return this.afAuth.signInWithEmailAndPassword(email,password);
+    })
   }
+
+  getCurrentUser(){
+    return firebase.auth().currentUser;
+  }
+
+  // async login(email: string, password: string): Promise<User> {
+  //   //     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+  // // .then(function() { 
+  //   // return firebase.auth().signInWithEmailAndPassword(email, password);
+  // //   }).catch(function(error){
+  // //   console.log("failed to set persistence: " + error.message)
+  // // });
+  //   try {
+  //     const { user } = await this.afAuth.signInWithEmailAndPassword(email, password);
+  //     // this.updateUserData(user);
+  //     return user;
+  //   } catch (error) {
+  //     console.log('Error->', error);
+  //   }
+  // }
 
   // async sendVerificationEmail(): Promise<void> {
   //   try {
@@ -132,16 +144,16 @@ export class AuthService {
     }
   }
 
-  private updateUserData(user: User) {
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
+  // private updateUserData(user: User) {
+  //   const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
 
-    const data: User = {
-      uid: user.uid,
-      email: user.email,
-      // emailVerified: user.emailVerified,
-      displayName: user.displayName,
-    };
+  //   const data: User = {
+  //     uid: user.uid,
+  //     email: user.email,
+  //     // emailVerified: user.emailVerified,
+  //     displayName: user.displayName,
+  //   };
 
-    return userRef.set(data, { merge: true });
-  }
+  //   return userRef.set(data, { merge: true });
+  // }
 }
