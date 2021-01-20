@@ -23,13 +23,13 @@ export class UsuariosFirebaseService {
   erabiltzaileNormalaUID: string = "re2KbiU45PcouAHb4fThHSbs3dS2";
   kategoriaUID: string = "-MRKLVnXoBcLjP76TNsC";
   private _kategoiaObj = {} as Kategoria;
- 
+
   constructor(
     private db: AngularFireDatabase,
-   
+
   ) {
     this.usuarioListRef = this.db.list("/users");
-  
+
   }
   public get kategoiaObj() {
     return this._kategoiaObj;
@@ -47,25 +47,22 @@ export class UsuariosFirebaseService {
   getKategoriaList() {
     console.log(this.erabiltzaileNormalaUID); //whYVI3YAsyT8YlvtXUTZo4VftMy2
 
-getKategoriaList(){
-  console.log(this.erabiltzaileNormalaUID);//whYVI3YAsyT8YlvtXUTZo4VftMy2
-  
-  return firebase
+    return firebase
       .database()
-      .ref("/users/" + firebase.auth().currentUser.uid + "/erabiltzaileak/"+this.erabiltzaileNormalaUID +"/kategoriak");
-}
-getPiktogramaList(){
-  return firebase
+      .ref("/users/" + firebase.auth().currentUser.uid + "/erabiltzaileak/" + this.erabiltzaileNormalaUID + "/kategoriak");
+  }
+  getPiktogramaList() {
+    return firebase
       .database()
-      .ref("/users/" + firebase.auth().currentUser.uid + "/erabiltzaileak/"+this.erabiltzaileNormalaUID +"/kategoriak/"+this.kategoriaUID+"/piktogramak");
-}
+      .ref("/users/" + firebase.auth().currentUser.uid + "/erabiltzaileak/" + this.erabiltzaileNormalaUID + "/kategoriak/" + this.kategoriaUID + "/piktogramak");
+  }
 
 
   erabiltzaileakKargatu(): any {
     return firebase
       .database()
       .ref("/users/" + JSON.parse(localStorage.getItem('user')).uid + "/erabiltzaileak");
-      
+
   }
   getAdminErabiltzaile(): any {
     return firebase
@@ -142,38 +139,36 @@ getPiktogramaList(){
   }
 
   //  kategoria sortu********************************************
-  createKategoria() {
-   
+  createKategoria(kategoriaIzena: string, monitorearenUID:string) {
     var x = {} as Kategoria;
     x.kategoriaIzena = kategoriaIzena;
-
     return this.db
       .list(
         "/users/" +
-          monitorearenUID +// firebase.auth().currentUser.uid +
-          "/erabiltzaileak/" +
-          this.erabiltzaileNormalaUID +
-          "/kategoriak" // kategorien listaren helbidea
+        monitorearenUID +// firebase.auth().currentUser.uid +
+        "/erabiltzaileak/" +
+        this.erabiltzaileNormalaUID +
+        "/kategoriak" // kategorien listaren helbidea
       )
       .push(x); //bat gehitu
-  }
-  updateKategoriaKolorea(kategoriaKolorea ) {
+    }
+  updateKategoriaKolorea(kategoriaKolorea) {
     // console.log("/users/" +
     // firebase.auth().currentUser.uid +
     //   "/erabiltzaileak/" +
     //   this.erabiltzaileNormalaUID +
     //   "/kategoriak/");
-      var x = {} as Kategoria;
+    var x = {} as Kategoria;
     x.kolorea = kategoriaKolorea;
     return this.db
       .list(
         "/users/" +
         firebase.auth().currentUser.uid +
-          "/erabiltzaileak/" +
-          this.erabiltzaileNormalaUID +
-          "/kategoriak/" // kategorien listaren helbidea
+        "/erabiltzaileak/" +
+        this.erabiltzaileNormalaUID +
+        "/kategoriak/" // kategorien listaren helbidea
       )
-      .update(this.kategoriaUID,x); //bat gehitu
+      .update(this.kategoriaUID, x); //bat gehitu
   }
   //create datos de admin google
   createUsuarioAdmin(id: any, name: any) {
