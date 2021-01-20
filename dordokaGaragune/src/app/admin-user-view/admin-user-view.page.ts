@@ -25,7 +25,6 @@ export class AdminUserViewPage implements OnInit {
 
   ngOnInit() {
     // this.firebaseConnect.createKategoria();
-    
     this.erabiltzaileakIrakurri();
   }
 

@@ -28,6 +28,7 @@
     "@mobiscroll/angular": "https://npm.mobiscroll.com/@mobiscroll/angular-trial/-/angular-trial-4.10.7.tgz",
     "cordova-android": "9.0.0",
     "firebase": "^7.24.0",
+    "ngx-color-picker": "^11.0.0",
     "ionic-color-picker": "^1.0.3",
     "rxjs": "~6.6.3",
     "tslib": "^2.0.0",
