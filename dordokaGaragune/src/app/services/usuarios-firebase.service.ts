@@ -22,14 +22,21 @@ export class UsuariosFirebaseService {
   usuarioRef: AngularFireObject<any>;
   erabiltzaileNormalaUID: string = "re2KbiU45PcouAHb4fThHSbs3dS2";
   kategoriaUID: string = "-MRKLVnXoBcLjP76TNsC";
-
+  private _kategoiaObj = {} as Kategoria;
+ 
   constructor(
     private db: AngularFireDatabase,
-    private afAuth: AngularFireDatabase
+   
   ) {
     this.usuarioListRef = this.db.list("/users");
+  
   }
-
+  public get kategoiaObj() {
+    return this._kategoiaObj;
+  }
+  public set kategoiaObj(value) {
+    this._kategoiaObj = value;
+  }
   setKategoria(kategoriaUID: string) {
     this.kategoriaUID = kategoriaUID;
   }
@@ -161,14 +168,31 @@ export class UsuariosFirebaseService {
     return this.db
       .list(
         "/users/" +
-          monitorearenUID +
+          monitorearenUID +// firebase.auth().currentUser.uid +
           "/erabiltzaileak/" +
           this.erabiltzaileNormalaUID +
           "/kategoriak" // kategorien listaren helbidea
       )
       .push(x); //bat gehitu
   }
-
+  updateKategoriaKolorea(kategoriaKolorea ) {
+    // console.log("/users/" +
+    // firebase.auth().currentUser.uid +
+    //   "/erabiltzaileak/" +
+    //   this.erabiltzaileNormalaUID +
+    //   "/kategoriak/");
+      var x = {} as Kategoria;
+    x.kolorea = kategoriaKolorea;
+    return this.db
+      .list(
+        "/users/" +
+        firebase.auth().currentUser.uid +
+          "/erabiltzaileak/" +
+          this.erabiltzaileNormalaUID +
+          "/kategoriak/" // kategorien listaren helbidea
+      )
+      .update(this.kategoriaUID,x); //bat gehitu
+  }
   //create datos de admin google
   createUsuarioAdmin(id: any, name: any) {
     return this.usuarioListRef.push({
