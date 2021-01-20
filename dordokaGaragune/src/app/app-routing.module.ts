@@ -38,12 +38,17 @@ const routes: Routes = [
   {
     path: 'kategoriak-sortu',
     loadChildren: () => import('./kategoriak-sortu/kategoriak-sortu.module').then( m => m.KategoriakSortuPageModule)
-  },  {
+  },
+  {
     path: 'color-picker',
     loadChildren: () => import('./color-picker/color-picker.module').then( m => m.ColorPickerPageModule)
   },
 
 
+  {
+    path: 'user-kategoria',
+    loadChildren: () => import('./user-kategoria/user-kategoria.module').then( m => m.UserKategoriaPageModule)
+  },
 
 
 

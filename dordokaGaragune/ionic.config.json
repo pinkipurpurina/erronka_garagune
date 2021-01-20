@@ -1,5 +1,7 @@
 {
   "name": "dordokaGaragune",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

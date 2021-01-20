@@ -17,10 +17,13 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 
 import { environment } from '../environments/environment';
 
+import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [ 
+  imports: [BrowserModule, 
+
     FormsModule,  
     MbscModule, BrowserModule, 
     IonicModule.forRoot(), 
@@ -33,6 +36,7 @@ import { environment } from '../environments/environment';
   providers: [
     StatusBar,
     SplashScreen,
+    TextToSpeech,
    
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

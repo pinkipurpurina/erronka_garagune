@@ -31,7 +31,6 @@ koloreak:string[]=[];
 
   ngOnInit() {
     this.irakurriKategoriak();
-    
   }
 
   async presentModal() {

@@ -24,7 +24,7 @@ export class LoginPage implements OnInit {
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
       // 8 letras, una minuscula, una mayuscula, un numero y un caracter especial
       // password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}')]]
-      password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('')]]
+      password: ['', [Validators.required]]
     })
   }
 
@@ -40,8 +40,22 @@ export class LoginPage implements OnInit {
       } else {
         const user = await this.authSvc.login(email.value, password.value);
         if (user) {
-          // const isVerified = this.authSvc.isEmailVerified(user);
-          this.router.navigate(['admin-user-view']);
+          this.authSvc.getUsers().once("value", (snap) => {
+            snap.forEach((element) => {
+              var uid = element.key;
+              if (user.uid == uid) {
+                this.router.navigate(['admin-user-view']);
+              }
+              this.authSvc.getMonitorUsers(uid).once("value", (snap) => {
+                snap.forEach((element2) => {
+                  var monitorUid = element2.key;
+                  if (user.uid == monitorUid) {
+                    this.router.navigate(['user-kategoria']);
+                  }
+                });
+              });
+            });
+          });
         } else {
           const toast = await this.toastController.create({
             message: 'Email o contraseña incorrecta.',
@@ -59,7 +73,6 @@ export class LoginPage implements OnInit {
     try {
       const user = await this.authSvc.loginGoogle();
       if (user) {
-        // const isVerified = this.authSvc.isEmailVerified(user);
         this.router.navigate(['admin-user-view']);
       } else {
         const toast = await this.toastController.create({
