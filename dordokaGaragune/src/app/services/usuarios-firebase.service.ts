@@ -21,21 +21,31 @@ export class UsuariosFirebaseService {
   usuarioListRef: AngularFireList<any>;
   usuarioRef: AngularFireObject<any>;
   erabiltzaileNormalaUID: string = "re2KbiU45PcouAHb4fThHSbs3dS2";
-  kategoriaUID:string="-MRKLVnXoBcLjP76TNsC";
-
+  kategoriaUID: string = "-MRKLVnXoBcLjP76TNsC";
+  private _kategoiaObj = {} as Kategoria;
+ 
   constructor(
     private db: AngularFireDatabase,
-    private afAuth: AngularFireDatabase
+   
   ) {
     this.usuarioListRef = this.db.list("/users");
+  
+  }
+  public get kategoiaObj() {
+    return this._kategoiaObj;
+  }
+  public set kategoiaObj(value) {
+    this._kategoiaObj = value;
+  }
+  setKategoria(kategoriaUID: string) {
+    this.kategoriaUID = kategoriaUID;
+  }
+  setUsuarioNormala(usuarioNormalaUID: string) {
+    this.erabiltzaileNormalaUID = usuarioNormalaUID;
   }
 
-setKategoria(kategoriaUID:string){
-  this.kategoriaUID=kategoriaUID;
-}
-setUsuarioNormala(usuarioNormalaUID:string){
-  this.erabiltzaileNormalaUID=usuarioNormalaUID;
-}
+  getKategoriaList() {
+    console.log(this.erabiltzaileNormalaUID); //whYVI3YAsyT8YlvtXUTZo4VftMy2
 
 getKategoriaList(){
   console.log(this.erabiltzaileNormalaUID);//whYVI3YAsyT8YlvtXUTZo4VftMy2
@@ -135,23 +145,36 @@ getPiktogramaList(){
   createKategoria() {
    
     var x = {} as Kategoria;
-   
-   
-    x.kategoriaIzena = "dddddd**";
-    x.piktogramak = [
-      {
-        piktogramaIzena: "Piktogramaren izena",
-        piktogramaHelbidea: "Pictogramaren izena",
-      },
-    ];
-    x.kategoriaIkono = "ddddddd";
-  return this.db.list(
-      "/users/09SuFe2gNzL7lnq6Mv1CVBA8Z4u1/erabiltzaileak/re2KbiU45PcouAHb4fThHSbs3dS2/kategoriak" // metiendo kategorias de pueba
-    ).push(x);
+    x.kategoriaIzena = kategoriaIzena;
 
- 
+    return this.db
+      .list(
+        "/users/" +
+          monitorearenUID +// firebase.auth().currentUser.uid +
+          "/erabiltzaileak/" +
+          this.erabiltzaileNormalaUID +
+          "/kategoriak" // kategorien listaren helbidea
+      )
+      .push(x); //bat gehitu
   }
-
+  updateKategoriaKolorea(kategoriaKolorea ) {
+    // console.log("/users/" +
+    // firebase.auth().currentUser.uid +
+    //   "/erabiltzaileak/" +
+    //   this.erabiltzaileNormalaUID +
+    //   "/kategoriak/");
+      var x = {} as Kategoria;
+    x.kolorea = kategoriaKolorea;
+    return this.db
+      .list(
+        "/users/" +
+        firebase.auth().currentUser.uid +
+          "/erabiltzaileak/" +
+          this.erabiltzaileNormalaUID +
+          "/kategoriak/" // kategorien listaren helbidea
+      )
+      .update(this.kategoriaUID,x); //bat gehitu
+  }
   //create datos de admin google
   createUsuarioAdmin(id: any, name: any) {
     return this.usuarioListRef.push({
