@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>colorPicker</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <mbsc-form>
+        <div class="mbsc-grid">
+            <div class="mbsc-row mbsc-justify-content-center">
+                <div class="mbsc-col-sm-9 mbsc-col-md-7 mbsc-col-xl-5">
+                    <mbsc-form-group inset>
+
+                        <mbsc-color [(ngModel)]="multi" [options]="multiSettings" placeholder="Select favorite colors">Aukeratu bat</mbsc-color>
+                        <ion-button type="submit" (click)="print(prueba1)" expand="block">Gorde aldaketak</ion-button>
+                    </mbsc-form-group>
+                </div>
+            </div>
+
+        </div>
+    </mbsc-form>
+
+</ion-content>

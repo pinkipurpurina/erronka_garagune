@@ -21,7 +21,7 @@ export class UsuariosFirebaseService {
   usuarioListRef: AngularFireList<any>;
   usuarioRef: AngularFireObject<any>;
   erabiltzaileNormalaUID: string = "re2KbiU45PcouAHb4fThHSbs3dS2";
-  kategoriaUID:string="-MRKLVnXoBcLjP76TNsC";
+  kategoriaUID: string = "-MRKLVnXoBcLjP76TNsC";
 
   constructor(
     private db: AngularFireDatabase,
@@ -30,26 +30,39 @@ export class UsuariosFirebaseService {
     this.usuarioListRef = this.db.list("/users");
   }
 
-setKategoria(kategoriaUID:string){
-  this.kategoriaUID=kategoriaUID;
-}
-setUsuarioNormala(usuarioNormalaUID:string){
-  this.erabiltzaileNormalaUID=usuarioNormalaUID;
-}
+  setKategoria(kategoriaUID: string) {
+    this.kategoriaUID = kategoriaUID;
+  }
+  setUsuarioNormala(usuarioNormalaUID: string) {
+    this.erabiltzaileNormalaUID = usuarioNormalaUID;
+  }
 
-getKategoriaList(){
-  console.log(this.erabiltzaileNormalaUID);//whYVI3YAsyT8YlvtXUTZo4VftMy2
-  
-  return firebase
-      .database()
-      .ref("/users/" + firebase.auth().currentUser.uid + "/erabiltzaileak/"+this.erabiltzaileNormalaUID +"/kategoriak");
-}
-getPiktogramaList(){
-  return firebase
-      .database()
-      .ref("/users/" + firebase.auth().currentUser.uid + "/erabiltzaileak/"+this.erabiltzaileNormalaUID +"/kategoriak/"+this.kategoriaUID+"/piktogramak");
-}
+  getKategoriaList() {
+    console.log(this.erabiltzaileNormalaUID); //whYVI3YAsyT8YlvtXUTZo4VftMy2
 
+    return firebase
+      .database()
+      .ref(
+        "/users/" +
+          firebase.auth().currentUser.uid +
+          "/erabiltzaileak/" +
+          this.erabiltzaileNormalaUID +
+          "/kategoriak"
+      );
+  }
+  getPiktogramaList() {
+    return firebase
+      .database()
+      .ref(
+        "/users/" +
+          firebase.auth().currentUser.uid +
+          "/erabiltzaileak/" +
+          this.erabiltzaileNormalaUID +
+          "/kategoriak/" +
+          this.kategoriaUID +
+          "/piktogramak"
+      );
+  }
 
   erabiltzaileakKargatu(): any {
     console.log(localStorage.getItem('user'));
@@ -112,45 +125,54 @@ getPiktogramaList(){
   }
 
   // Create Piktograma
-  createPiktograma(apt: any) {
-    console.log(this);
-    console.log(this.usuarioRef);
-    console.log(this.usuarioListRef);
-
-    var idCreate = "12012021" + this.makeid(16);
-    var idPic = "12012021" + this.makeid(16);
-    var idKat = "12012021" + this.makeid(16);
-    var monitorearenUId = "";
+  createPiktograma(path: string, name: string) {
     this.usuarioListRef = this.db.list(
-      "/users/-MQptEJuTP67l8RQES6K/" +
-        /*monitorearenUId+*/ "erabiltzaileak/0/kategoriak/0/piktogramak"
+      "/users/" +
+        firebase.auth().currentUser.uid +
+        "/erabiltzaileak/" +
+        this.erabiltzaileNormalaUID +
+        "/kategoriak/" +
+        this.kategoriaUID +
+        "/piktogramak"
     );
     return this.usuarioListRef.push({
-      idPic: idPic,
-      piktogramaIzena: "Piktogramaren izena",
-      piktogramaHelbidea: "Pictogramaren izena****",
+      piktogramaIzena: name,
+      piktogramaHelbidea: path,
     });
   }
 
   //  kategoria sortu********************************************
-  createKategoria() {
-   
-    var x = {} as Kategoria;
-   
-   
-    x.kategoriaIzena = "dddddd**";
-    x.piktogramak = [
-      {
-        piktogramaIzena: "Piktogramaren izena",
-        piktogramaHelbidea: "Pictogramaren izena",
-      },
-    ];
-    x.kategoriaIkono = "ddddddd";
-  return this.db.list(
-      "/users/09SuFe2gNzL7lnq6Mv1CVBA8Z4u1/erabiltzaileak/re2KbiU45PcouAHb4fThHSbs3dS2/kategoriak" // metiendo kategorias de pueba
-    ).push(x);
+  // createKategoria() {
 
- 
+  //   var x = {} as Kategoria;
+
+  //   x.kategoriaIzena = "dddddd**";
+  //   x.piktogramak = [
+  //     {
+  //       piktogramaIzena: "Piktogramaren izena",
+  //       piktogramaHelbidea: "Pictogramaren izena",
+  //     },
+  //   ];
+  //   x.kategoriaIkono = "ddddddd";
+  // return this.db.list(
+  //     "/users/09SuFe2gNzL7lnq6Mv1CVBA8Z4u1/erabiltzaileak/re2KbiU45PcouAHb4fThHSbs3dS2/kategoriak" // metiendo kategorias de pueba
+  //   ).push(x);
+
+  // }
+
+  createKategoria(kategoriaIzena: string, monitorearenUID: string) {
+    var x = {} as Kategoria;
+    x.kategoriaIzena = kategoriaIzena;
+
+    return this.db
+      .list(
+        "/users/" +
+          monitorearenUID +
+          "/erabiltzaileak/" +
+          this.erabiltzaileNormalaUID +
+          "/kategoriak" // kategorien listaren helbidea
+      )
+      .push(x); //bat gehitu
   }
 
   //create datos de admin google

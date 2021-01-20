@@ -12,8 +12,20 @@
             <ion-label>{{item.data.kategoriaIzena}}</ion-label>
             <ion-button (click)="setPiktograma(item.uid)">piktogramak</ion-button>
 
+            <div class={{item.data.kolorea}} (click)="presentModal2()">Kolorea: {{item.data.kolorea}} </div>
+            <ion-label></ion-label>
+
+
+            <ion-icon name="color-palette" class={{item.data.kolorea}} (click)="presentModal2()"></ion-icon>
+
+
         </ion-item>
 
     </ion-list>
+    <ion-fab vertical="bottom" horizontal="center" edge slot="fixed">
+        <ion-fab-button (click)="presentModal()">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 
 </ion-content>

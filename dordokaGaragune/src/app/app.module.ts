@@ -1,3 +1,5 @@
+import { FormsModule } from '@angular/forms';
+import { MbscModule } from '@mobiscroll/angular';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -15,12 +17,18 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 
 import { environment } from '../environments/environment';
 
+import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, 
+
+    FormsModule,  
+    MbscModule, BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule,
+   
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireStorageModule
@@ -28,6 +36,8 @@ import { environment } from '../environments/environment';
   providers: [
     StatusBar,
     SplashScreen,
+    TextToSpeech,
+   
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
