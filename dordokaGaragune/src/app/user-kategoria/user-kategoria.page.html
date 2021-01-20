@@ -6,20 +6,29 @@
 
 <ion-content>
     <ion-grid>
-        <ion-row>
+        <ion-row style="background-color: aqua;">
             <ion-col size="col-md-12">
-                <ion-card>
+                <ion-card expand="block">
                     <ion-item>
                         <ion-img src="../../assets/icon/favicon.png"></ion-img>
-                    </ion-item>
-                    <ion-item>
                         <ion-img src="../../assets/icon/favicon.png"></ion-img>
                     </ion-item>
                 </ion-card>
             </ion-col>
         </ion-row>
-        <ion-row>
-            <ion-col size="col-md-2">
+        <ion-row class="center" style="background-color: aqua;">
+            <ion-item class="button">
+                <ion-icon class="icon" name="play-outline"></ion-icon>
+            </ion-item>
+            <ion-item class="button">
+                <ion-icon name="close-circle-outline"></ion-icon>
+            </ion-item>
+            <ion-item class="button">
+                <ion-icon name="trash-bin-outline"></ion-icon>
+            </ion-item>
+        </ion-row>
+        <ion-row class="center">
+            <ion-col size="col-md-2 col-xs-12" *ngFor="let item of kategoriak">
                 <!-- <ion-card>
                     <ion-item>
                         <ion-icon name="pin" slot="start"></ion-icon>
@@ -35,26 +44,10 @@
                     <ion-item>
                         <ion-img src="../../assets/icon/favicon.png"></ion-img>
                     </ion-item>
-
                     <ion-card-content>
-                        This is content, without any paragraph or header tags, within an ion-card-content element.
+                        {{item.data.kategoriaIzena}}
                     </ion-card-content>
                 </ion-card>
-            </ion-col>
-            <ion-col size="col-md-2">
-
-            </ion-col>
-            <ion-col size="col-md-2">
-
-            </ion-col>
-            <ion-col size="col-md-2">
-
-            </ion-col>
-            <ion-col size="col-md-2">
-
-            </ion-col>
-            <ion-col size="col-md-2">
-
             </ion-col>
         </ion-row>
     </ion-grid>

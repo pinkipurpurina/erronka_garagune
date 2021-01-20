@@ -48,7 +48,6 @@ koloreak:string[]=[];
     return await modal.present();
   }
   irakurriKategoriak() {
-    console.log("sartu");
     this.firebaseConnect.getKategoriaList().once("value", (snap) => {
       snap.forEach((element) => {
         //console.log("2---", element.val());
