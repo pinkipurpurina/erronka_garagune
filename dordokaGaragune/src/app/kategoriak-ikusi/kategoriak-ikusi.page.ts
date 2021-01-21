@@ -42,11 +42,7 @@ koloreak:string[]=[];
 
   ngOnInit() {
     this.irakurriKategoriak();
-  }
- 
- 
-  
-
+  }  
   async presentModal() {
     const modal = await this.modalController.create({
       component: KategoriakSortuPage,
@@ -57,14 +53,12 @@ koloreak:string[]=[];
   async presentModal2(katUID:string,katObj) {
     this.firebaseConnect.setKategoria(katUID);
     this.firebaseConnect.kategoiaObj =katObj;
-    console.log(this.firebaseConnect.kategoiaObj);
-    
+   // console.log(this.firebaseConnect.kategoiaObj);
     const modal = await this.modalController.create({
       component: ColorPickerPage,
       cssClass: "my-custom-class",
     });
     modal.present();
-    
    // return await modal.present();
   }
  async irakurriKategoriak() {

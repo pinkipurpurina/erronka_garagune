@@ -142,29 +142,11 @@ export class UsuariosFirebaseService {
     });
   }
 
-  //  kategoria sortu********************************************
-  // createKategoria() {
 
-  //   var x = {} as Kategoria;
-
-  //   x.kategoriaIzena = "dddddd**";
-  //   x.piktogramak = [
-  //     {
-  //       piktogramaIzena: "Piktogramaren izena",
-  //       piktogramaHelbidea: "Pictogramaren izena",
-  //     },
-  //   ];
-  //   x.kategoriaIkono = "ddddddd";
-  // return this.db.list(
-  //     "/users/09SuFe2gNzL7lnq6Mv1CVBA8Z4u1/erabiltzaileak/re2KbiU45PcouAHb4fThHSbs3dS2/kategoriak" // metiendo kategorias de pueba
-  //   ).push(x);
-
-  // }
 
   createKategoria(kategoriaIzena: string, monitorearenUID: string) {
     var x = {} as Kategoria;
     x.kategoriaIzena = kategoriaIzena;
-
     return this.db
       .list(
         "/users/" +
@@ -176,11 +158,6 @@ export class UsuariosFirebaseService {
       .push(x); //bat gehitu
   }
   updateKategoriaKolorea(kategoriaKolorea ) {
-    // console.log("/users/" +
-    // firebase.auth().currentUser.uid +
-    //   "/erabiltzaileak/" +
-    //   this.erabiltzaileNormalaUID +
-    //   "/kategoriak/");
       var x = {} as Kategoria;
     x.kolorea = kategoriaKolorea;
     return this.db

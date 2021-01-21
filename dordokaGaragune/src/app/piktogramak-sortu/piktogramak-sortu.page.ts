@@ -66,12 +66,13 @@ export class PiktogramakSortuPage  {
   
    }
     
-    uploadFile() {//try catch
-      // The File object
-     // this.img = e.item(0);
+    uploadFile() {
+
+
+
       const file = this.img
       console.log(this.img.name);
-      
+  //*********** */
   
       // Validation for Images Only
       if (file.type.split("/")[0] !== "image") {

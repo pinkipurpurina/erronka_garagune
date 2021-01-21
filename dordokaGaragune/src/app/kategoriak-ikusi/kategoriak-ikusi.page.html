@@ -11,15 +11,15 @@
         <ion-item>
             <ion-label>{{item.uid}}</ion-label>
             <ion-label>{{item.data.kategoriaIzena}}</ion-label>
+            <ion-icon style="color: {{item.data.kolorea}};" name="color-palette" (click)="presentModal2(item.uid,item)">
+            </ion-icon>
             <ion-button (click)="setPiktograma(item.uid)">piktogramak</ion-button>
 
-            <div class={{item.data.kolorea}} (click)="presentModal2()">Kolorea: {{item.data.kolorea}} </div>
-            <ion-label></ion-label>
 
 
-            <ion-icon name="color-palette" class={{item.data.kolorea}} (click)="presentModal2(item.uid)"></ion-icon>
 
-            <ion-icon style="color: {{item.data.kolorea}};" name="color-palette" class={{item.data.kolorea}} (click)="presentModal2(item.uid,item)"></ion-icon>
+
+
 
         </ion-item>
 
