@@ -9,17 +9,17 @@
         <ion-card-header>
             <ion-card-title>Choose Images to Upload</ion-card-title>
         </ion-card-header>
-        <ion-card-content>
+        <ion-card-content color="medium">
 
             <ion-img *ngIf="argazkia" [src]="argazkia"></ion-img>
-            <ion-button color="success" shape="round" size="large" (click)="argazkiaJaso()">
-                <span>Select Image</span>
+            <ion-button shape="round" size="large" (click)="argazkiaJaso()">
+                <span>Seleccionar imagen</span>
             </ion-button>
 
-            <ion-input [(ngModel)]="picNombre" required id="izenaInput"> </ion-input>
+            <ion-input [(ngModel)]="picNombre" required id="izenaInput" style="background-color: darkgrey;" placeholder="Introduzca el nombre de la imagen"> </ion-input>
 
-            <ion-button *ngIf="picNombre && argazkia" color="success" shape="round" size="large" (click)="formSubmit()">
-                <span>Select Image</span>
+            <ion-button *ngIf="picNombre && argazkia" shape="round" size="large" (click)="formSubmit()">
+                <span>Guardar imagen</span>
             </ion-button>
 
         </ion-card-content>
