@@ -13,6 +13,8 @@ import { MyData } from "../interfaces/usersInterface";
 import firebase from 'firebase/app';
 import { UsuariosFirebaseService } from "./../services/usuarios-firebase.service";
 import { ModalController } from '@ionic/angular';
+import { ImageResizer, ImageResizerOptions } from '@ionic-native/image-resizer/ngx';//desistalar
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 @Component({
   selector: 'app-piktogramak-sortu',
   templateUrl: './piktogramak-sortu.page.html',
@@ -22,7 +24,8 @@ export class PiktogramakSortuPage  {
  
   picNombre:string;
   izena:string;
-  img:File;
+  img:any;
+  argazkia:string;
   
     // Upload Task
     task: AngularFireUploadTask;
@@ -52,7 +55,8 @@ export class PiktogramakSortuPage  {
       private modalCtrl: ModalController, 
       private storage: AngularFireStorage,
       private database: AngularFirestore,
-      private FirebaseService: UsuariosFirebaseService
+      private FirebaseService: UsuariosFirebaseService,
+      private camera:Camera,
     ) {
       this.isUploading = false;
       this.isUploaded = false;
@@ -62,18 +66,26 @@ export class PiktogramakSortuPage  {
     }
   
    update(e: FileList){
+     
     this.img = e.item(0);
-  
+    
+    
    }
     
-    uploadFile() {
-
-
-
+    uploadFile() {//try catch
+      // The File object
+     // this.img = e.item(0);
       const file = this.img
       console.log(this.img.name);
-  //*********** */
-  
+      
+      let options = {
+        uri: "file//storage/",
+        folderName: 'Protonet',
+        quality: 90,
+        width: 1280,
+        height: 1280
+       } as ImageResizerOptions;
+
       // Validation for Images Only
       if (file.type.split("/")[0] !== "image") {
         console.error("unsupported file type :( ");
@@ -115,7 +127,7 @@ export class PiktogramakSortuPage  {
               this.isUploading = false;
               this.isUploaded = true;
               //Guardar en realtime database la url del archivo para su carga
-              this.formSubmit(resp,this.picNombre); 
+             // this.formSubmit(resp,this.picNombre); 
               console.log(this.picNombre);
               
             },
@@ -146,17 +158,44 @@ export class PiktogramakSortuPage  {
         });
     }
   
-      formSubmit(path: any,name:string) {
+      formSubmit() {
       this.FirebaseService
-        .createPiktograma(path, name)
+        .createPiktograma(this.argazkia, this.picNombre)
         .then(async (res) => {//asinc funtzioa hemen declaratu dugu
           console.log(res);
           await this.modalCtrl.dismiss();//await-ek itxaron egiten du bukatu arte eta horria ixten du
+          this.argazkia=null;
         })
         .catch((error) => console.log('Error irudiak gordetzean Realtime Databasean->', error));// exceptionic ba daude hemen sartuko da.
     }
 
 
+    argazkiaJaso(){
+
+      const options: CameraOptions = {
+        quality: 100,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        encodingType: this.camera.EncodingType.JPEG,
+        mediaType: this.camera.MediaType.PICTURE
+      }
+      
+      this.camera.getPicture(options).then((imageData) => {
+       // imageData is either a base64 encoded string or a file URI
+       // If it's base64 (DATA_URL):
+    
+       let base64Image = 'data:image/jpeg;base64,' + imageData;
+       this.argazkia=base64Image;
+      
+
+      }, (err) => {
+       // Handle error
+       console.error("recogida de foto desde la galeria: ",err);//printeara el error en la consola
+       
+      });
+      
+      
+  
+    }
 
 
   }

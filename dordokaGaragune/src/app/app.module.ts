@@ -18,6 +18,9 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { environment } from '../environments/environment';
 
 import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+// import { ImageResizer } from '@ionic-native/image-resizer/ngx';
+// import { File } from '@ionic-native/file/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,7 +40,9 @@ import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
     StatusBar,
     SplashScreen,
     TextToSpeech,
-   
+    // ImageResizer,
+    // File,
+    Camera,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

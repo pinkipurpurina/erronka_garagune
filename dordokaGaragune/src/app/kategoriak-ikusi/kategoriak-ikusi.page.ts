@@ -85,7 +85,7 @@ koloreak:string[]=[];
     this.router.navigate(['piktogramak']);
   }
 
-  
+  /*****************************pruebas para el rezise */
 
 
 
