@@ -174,9 +174,15 @@ export class PiktogramakSortuPage  {
 
       const options: CameraOptions = {
         quality: 100,
+        sourceType: 0,//Set the source of the picture. Defined in Camera.PictureSourceType. Default is CAMERA. PHOTOLIBRARY : 0, CAMERA : 1, SAVEDPHOTOALBUM : 2
         destinationType: this.camera.DestinationType.DATA_URL,
         encodingType: this.camera.EncodingType.JPEG,
-        mediaType: this.camera.MediaType.PICTURE
+        mediaType: this.camera.MediaType.PICTURE,
+        targetHeight:400,
+        targetWidth:400,
+        allowEdit:true,
+        //popoverOptions// para ios igual hace falta...comprobar
+        saveToPhotoAlbum:false
       }
       
       this.camera.getPicture(options).then((imageData) => {
