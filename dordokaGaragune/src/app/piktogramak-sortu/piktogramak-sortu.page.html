@@ -11,16 +11,17 @@
         </ion-card-header>
         <ion-card-content color="medium">
 
-            <ion-img *ngIf="argazkia" [src]="argazkia"></ion-img>
-            <ion-button shape="round" size="large" (click)="argazkiaJaso()">
-                <span>Seleccionar imagen</span>
-            </ion-button>
-
             <ion-input [(ngModel)]="picNombre" required id="izenaInput" style="background-color: darkgrey;" placeholder="Introduzca el nombre de la imagen"> </ion-input>
 
-            <ion-button *ngIf="picNombre && argazkia" shape="round" size="large" (click)="formSubmit()">
+            <ion-img *ngIf="argazkia" [src]="argazkia"></ion-img>
+            <ion-button shape="round" size="large" (click)="argazkiaJaso()" color="tertiary">
+                <span>Seleccionar imagen de la galeria</span>
+            </ion-button>
+
+            <ion-button *ngIf="picNombre && argazkia" shape="round" size="large" (click)="formSubmit()" color="terciary">
                 <span>Guardar imagen</span>
             </ion-button>
+
 
         </ion-card-content>
     </ion-card>
@@ -37,9 +38,11 @@
             <div *ngIf="snapshot | async as snap">
 
                 <div *ngIf="snapshot && snap.bytesTransferred != snap.totalBytes">
-                    <ion-button color="warning" size="small" (click)="task.pause()" class="button is-warning">Pause</ion-button>
+                    <ion-button color="warning" size="small" (click)="task.pause()" class="button is-warning">Pause
+                    </ion-button>
                     <ion-button size="small" (click)="task.resume()" class="button is-info">Resume</ion-button>
-                    <ion-button color="danger" size="small" (click)="task.cancel()" class="button is-danger">Cancel</ion-button>
+                    <ion-button color="danger" size="small" (click)="task.cancel()" class="button is-danger">Cancel
+                    </ion-button>
                 </div>
             </div>
         </ion-card-content>

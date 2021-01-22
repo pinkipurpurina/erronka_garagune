@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
+
 // import {
 //   AngularFireStorage,
 //   AngularFireUploadTask,
@@ -15,6 +16,7 @@ import { ModalController } from "@ionic/angular";
 import { UsuariosFirebaseService } from "../services/usuarios-firebase.service";
 import { PiktogramakSortuPage } from "../piktogramak-sortu/piktogramak-sortu.page";
 import firebase from "firebase";
+import { CrudPiktogramakPage } from "../crud-piktogramak/crud-piktogramak.page";
 
 @Component({
   selector: "app-piktogramak-ikusi",
@@ -22,7 +24,7 @@ import firebase from "firebase";
   styleUrls: ["./piktogramak-ikusi.page.scss"],
 })
 export class PiktogramakIkusiPage implements OnInit {
-  ref = firebase.database().ref("/users"); //mirar la ruta bien
+  ref = firebase.database().ref("/users"); //mirar la ruta bien y ajustarla
   piktogramak: any[] = [];
   constructor(
     public modalController: ModalController,
@@ -39,7 +41,6 @@ export class PiktogramakIkusiPage implements OnInit {
   }
 
   irakurriPiktogramak() {
-    console.log("sartu");
     this.firebaseConnect.getPiktogramaList().once("value", (snap) => {
       snap.forEach((element) => {
         console.log("bakoitza---", element.val());
@@ -51,7 +52,6 @@ export class PiktogramakIkusiPage implements OnInit {
         this.piktogramak.push({
           uid: uid,
           data: data,
-          //irudia:""//kargatu datu basetik irudia
         });
       });
     });
@@ -59,6 +59,13 @@ export class PiktogramakIkusiPage implements OnInit {
   async presentModal() {
     const modal = await this.modalController.create({
       component: PiktogramakSortuPage,
+      cssClass: "my-custom-class",
+    });
+    modal.present();
+  }
+  async presentModalEdit() {
+    const modal = await this.modalController.create({
+      component: CrudPiktogramakPage,
       cssClass: "my-custom-class",
     });
     modal.present();

@@ -68,8 +68,8 @@ export class LoginPage implements OnInit {
       console.log('Error->', error);
     }
   }
-
-  async onLoginGoogle() {
+/*
+  async onLoginGoogle() {//para android esto no va
     try {
       const user = await this.authSvc.loginGoogle();
       if (user) {
@@ -85,7 +85,7 @@ export class LoginPage implements OnInit {
       console.log('Error->', error);
     }
   }
-
+*/
   // private redirectUser(isVerified: boolean): void {
   //   if (isVerified) {
   //     this.router.navigate(['admin']);//Redirigir a admin

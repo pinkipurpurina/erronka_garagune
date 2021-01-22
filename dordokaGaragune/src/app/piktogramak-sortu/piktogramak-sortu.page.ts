@@ -94,8 +94,8 @@ export class PiktogramakSortuPage {
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
-      targetHeight: 400,
-      targetWidth: 400,
+      targetHeight: 100,
+      targetWidth: 100,
       allowEdit: true,
       //popoverOptions// para ios igual hace falta...comprobar
       saveToPhotoAlbum: false,

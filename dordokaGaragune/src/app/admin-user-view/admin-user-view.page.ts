@@ -4,7 +4,7 @@ import { Router, RouterLink } from "@angular/router";
 import { ModalController } from "@ionic/angular";
 import { AdminCrearUsuarioPage } from "../admin-crear-usuario/admin-crear-usuario.page";
 import { UsuariosFirebaseService } from "../services/usuarios-firebase.service";
-
+import firebase from "firebase";
 @Component({
   selector: "app-admin-user-view",
   templateUrl: "./admin-user-view.page.html",
@@ -13,15 +13,19 @@ import { UsuariosFirebaseService } from "../services/usuarios-firebase.service";
 export class AdminUserViewPage implements OnInit {
   erabiltzaileak: any[] = [];
   uid: any;
+  ref = firebase.database().ref("/users");
 
   constructor(
     public modalController: ModalController,
     public firebaseConnect: UsuariosFirebaseService, 
     private router: Router
-  ) {}
-
+  ){
+    this.ref.on("child_changed", (snapshot) => {
+      console.log("child_changed ::" + snapshot.val());
+      this.erabiltzaileakIrakurri();
+    });
+  }
   ngOnInit() {
-    // this.firebaseConnect.createKategoria();
     this.erabiltzaileakIrakurri();
   }
 
@@ -33,7 +37,8 @@ export class AdminUserViewPage implements OnInit {
     return await modal.present();
   }
 
-  erabiltzaileakIrakurri() {
+  async erabiltzaileakIrakurri() {
+    this.erabiltzaileak=[]
     this.firebaseConnect.erabiltzaileakKargatu().once("value", (snap) => {
       snap.forEach((element) => {
         var uid = element.key;
@@ -51,5 +56,15 @@ export class AdminUserViewPage implements OnInit {
   setErabiltzailea(uid:string) {
     this.firebaseConnect.setUsuarioNormala(uid);
     this.router.navigate(['kategoriak']);
+  }
+
+ 
+  doRefresh(event) {
+    console.log('Begin async operation');
+   // this.erabiltzaileakIrakurri();
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
   }
 }

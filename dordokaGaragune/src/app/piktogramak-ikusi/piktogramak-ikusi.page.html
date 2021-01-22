@@ -18,12 +18,15 @@
         </ion-row>
         <ion-row class="center">
             <ion-col size-xs="12" size-sm="6" size-md="3" size-lg="2" *ngFor="let item of piktogramak">
-                <ion-card (click)="kategoria('Eneko')">
+                <ion-card onclick="presentModalEdit()">
                     <ion-item>
-                        <ion-img style="max-width: 200px;" [src]="item.data.piktogramaHelbidea"></ion-img>
+                        <ion-img [src]="item.data.piktogramaHelbidea"></ion-img>
                     </ion-item>
                     <ion-card-content>
-                        <ion-label>{{item.data.piktogramaIzena}}</ion-label>
+                        <ion-label>{{item.data.piktogramaIzena}}</ion-label><br>
+                        <!-- <ion-button>
+                            <ion-icon name="trash-bin-outline"></ion-icon>
+                        </ion-button> -->
                     </ion-card-content>
                 </ion-card>
             </ion-col>
@@ -32,8 +35,8 @@
 
 </ion-content>
 
-<ion-fab vertical="start" horizontal="start" edge slot="fixed" color="terciary">
-    <ion-fab-button (click)="presentModal()">
+<ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button (click)="presentModal()" color="tertiary">
         <ion-icon name="add"></ion-icon>
     </ion-fab-button>
 
