@@ -45,7 +45,8 @@ export class UsuariosFirebaseService {
   }
 
   getKategoriaList() {
-    console.log(this.erabiltzaileNormalaUID); //whYVI3YAsyT8YlvtXUTZo4VftMy2
+    console.log('erabiltzailea->',this.erabiltzaileNormalaUID); 
+    console.log('firebase->',firebase.auth().currentUser.uid);
 
     return firebase
       .database()
@@ -62,9 +63,9 @@ export class UsuariosFirebaseService {
     return firebase
       .database()
       .ref("/users/" + JSON.parse(localStorage.getItem('user')).uid + "/erabiltzaileak");
-
   }
   getAdminErabiltzaile(): any {
+    
     return firebase
       .database()
       .ref("/users/" + JSON.parse(localStorage.getItem('user')).uid);
