@@ -20,7 +20,7 @@ export class KategoriakIkusiPage implements OnInit {
   constructor(
     public modalController: ModalController,
     public firebaseConnect: UsuariosFirebaseService,
-    private router: Router
+    private router: Router,
   ) {
     this.ref.on("child_changed", (snapshot) => {
       console.log("child_changed ::" + snapshot.val());
@@ -64,5 +64,19 @@ export class KategoriakIkusiPage implements OnInit {
   setPiktograma(uid: string) {
     this.firebaseConnect.setKategoria(uid);
     this.router.navigate(["piktogramak"]);
+  }
+  
+  logDrag(item) {
+    let percent = item.getSlidingPercent();
+    if (percent > 0) {
+      // positive
+      console.log('right side');
+    } else {
+      // negative
+      console.log('left side');
+    }
+    if (Math.abs(percent) > 1) {
+      console.log('overscroll');
+    }
   }
 }

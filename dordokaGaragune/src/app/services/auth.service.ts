@@ -86,7 +86,7 @@ export class AuthService {
 
       var userUID = this.secondaryAuth.authState.subscribe(res => {
         if (res && res.uid) {
-          this.firebase2.createUsuarioNormal(res.uid, nickname, idAdminActual)
+          this.firebase2.createUsuarioNormal( nickname, idAdminActual)
           this.secondaryAuth.signOut();
         }
       });

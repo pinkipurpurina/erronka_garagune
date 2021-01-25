@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { ModalController } from '@ionic/angular';
-import { database } from 'firebase';
 import { AdminCrearUsuarioPage } from '../admin-crear-usuario/admin-crear-usuario.page';
 import { UsuariosFirebaseService } from '../services/usuarios-firebase.service';
 import firebase from 'firebase';
@@ -23,13 +22,14 @@ export class AdminUserViewPage implements OnInit {
     public firebaseConnect: UsuariosFirebaseService,
     private router: Router,
     public auth: AuthService
-  ){
-    this.ref.on('child_changed', (snapshot) => {
-      console.log('child_changed ::' + snapshot.val());
-      this.erabiltzaileakIrakurri();
-    });
+  ) {
+    // this.ref.on('child_changed', (snapshot) => {               //No borrar
+    //   console.log('child_changed ::' + snapshot.val());
+    //   this.erabiltzaileakIrakurri();
+    // });
   }
   ngOnInit() {
+    this.firebaseConnect.monitoreUID = firebase.auth().currentUser.uid;
     this.erabiltzaileakIrakurri();
   }
 
@@ -41,37 +41,35 @@ export class AdminUserViewPage implements OnInit {
     return await modal.present();
   }
 
-  async erabiltzaileakIrakurri() {
+  erabiltzaileakIrakurri() {
     this.erabiltzaileak = [];
-    this.firebaseConnect.erabiltzaileakKargatu().once('value', (snap) => {
-      snap.forEach((element) => {
-        const uid = element.key;
-        // tslint:disable-next-line: prefer-const
-        let data = element.val();
-        // console.log(uid);
-        // console.log(data.erabiltzaileIzena);
-        // console.log(element.val());
-        this.erabiltzaileak.push({
-          uid,
-          data,
-        });
-        console.log(this.erabiltzaileak);
+    let bookingRes = this.firebaseConnect.erabiltzaileakKargatu();
+    bookingRes.snapshotChanges().subscribe(res => {
+      this.erabiltzaileak = [];
+      res.forEach(item => {
+        let a = item.payload.toJSON();
+        a['$key'] = item.key;
+        this.erabiltzaileak.push(a);
+        console.log(a);
 
-      });
-    });
+
+      })
+    })
   }
   setErabiltzailea(uid: string) {
     this.firebaseConnect.setUsuarioNormala(uid);
     this.router.navigate(['kategoriak']);
   }
 
-
   doRefresh(event) {
     console.log('Begin async operation');
-   // this.erabiltzaileakIrakurri();
+    this.erabiltzaileakIrakurri();
+    console.log(this.erabiltzaileak);
+
     setTimeout(() => {
       console.log('Async operation has ended');
       event.target.complete();
     }, 2000);
   }
+
 }

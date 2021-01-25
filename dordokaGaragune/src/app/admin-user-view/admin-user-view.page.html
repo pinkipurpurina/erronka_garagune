@@ -15,16 +15,13 @@
         </ion-refresher>
 
         <!-- List of Text Items-->
-        <ion-list *ngFor="let item of erabiltzaileak">
+        <ion-list *ngFor="let item of erabiltzaileak ">
             <ion-item>
-                <ion-label>{{item.uid}}</ion-label>
-                <ion-label>{{item.data.erabiltzaileIzena}}</ion-label>
-               
-                <ion-button (click)="setErabiltzailea(item.uid)" color="tertiary">Categorías</ion-button>
+                <ion-label>{{item.$key}}</ion-label>
+                <ion-label>{{item.erabiltzaileIzena}}</ion-label>
+                <ion-button (click)="setErabiltzailea(item.$key)" color="tertiary">CategorÃ­as</ion-button>
             </ion-item>
-
         </ion-list>
-
     </ion-content>
     <ion-fab vertical="bottom" horizontal="center" slot="fixed">
         <ion-fab-button (click)="presentModal()" color="tertiary">

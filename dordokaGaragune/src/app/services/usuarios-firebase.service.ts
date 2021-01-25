@@ -20,6 +20,7 @@ import firebase from 'firebase';
 export class UsuariosFirebaseService {
   usuarioListRef: AngularFireList<any>;
   usuarioRef: AngularFireObject<any>;
+  monitoreUID = 're2KbiU45PcouAHb4fThHSbs3dS2';
   erabiltzaileNormalaUID = 're2KbiU45PcouAHb4fThHSbs3dS2';
   kategoriaUID = '-MRKLVnXoBcLjP76TNsC';
   // tslint:disable-next-line: variable-name
@@ -53,7 +54,8 @@ export class UsuariosFirebaseService {
       .database()
       .ref(
         '/users/' +
-        firebase.auth().currentUser.uid +
+        // firebase.auth().currentUser.uid +
+        this.monitoreUID +
         '/erabiltzaileak/' +
         this.erabiltzaileNormalaUID +
         '/kategoriak'
@@ -77,14 +79,11 @@ export class UsuariosFirebaseService {
 
   erabiltzaileakKargatu(): any {
     console.log('hau da zure ID-a:', firebase.auth().currentUser.uid);
-
-    return firebase
-      .database()
-      .ref('/users/' + firebase.auth().currentUser.uid + '/erabiltzaileak'); // firebasetik
-    // .ref("/users/" + JSON.parse(localStorage.getItem('user')).uid + "/erabiltzaileak");//lokaletik
+    this.usuarioListRef = this.db.list('/users/' + /*firebase.auth().currentUser.uid*/this.monitoreUID + '/erabiltzaileak');
+    return this.usuarioListRef
   }
-  getAdminErabiltzaile(): any {
 
+  getAdminErabiltzaile(): any {
     return firebase
       .database()
       .ref('/users/' + firebase.auth().currentUser.uid);
@@ -200,15 +199,12 @@ export class UsuariosFirebaseService {
     return this.usuarioListRef.update(id, x);
   }
 
-  public createUsuarioNormal(id: any, name: string, idAdmin: any) {
-    console.log(id, name);
-
+  public createUsuarioNormal( name: string, idAdmin: any) {
     const x = {} as Erabiltzailea;
-
     x.erabiltzaileIzena = name;
     x.kategoriak = [];
     // return this.db.list('users/'+idAdmin+'/erabiltzaileak/'+id).push(name);
-    return this.db.list('users/' + idAdmin + '/erabiltzaileak').update(id, x);
+    return this.db.list('users/' + idAdmin + '/erabiltzaileak').push( x);
   }
 
 }

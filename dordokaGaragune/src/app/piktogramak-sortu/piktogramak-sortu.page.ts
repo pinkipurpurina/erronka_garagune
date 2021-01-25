@@ -17,6 +17,7 @@ import {
   ImageResizer,
   ImageResizerOptions,
 } from "@ionic-native/image-resizer/ngx"; //desinstalar
+import { ToastController } from '@ionic/angular';
 import { Camera, CameraOptions } from "@ionic-native/camera/ngx";
 
 @Component({
@@ -59,7 +60,7 @@ export class PiktogramakSortuPage {
     private storage: AngularFireStorage,
     private database: AngularFirestore,
     private FirebaseService: UsuariosFirebaseService,
-    private camera: Camera,
+    private camera: Camera, public toastController: ToastController
     
   ) {
     this.isUploading = false;
@@ -78,7 +79,7 @@ export class PiktogramakSortuPage {
       .then(async (res) => {
         //asinc funtzioa hemen declaratu dugu
         console.log(res);
-
+        this.toastSortu("Imagen cargada");
         await this.modalCtrl.dismiss(); //await-ek itxaron egiten du bukatu arte eta horria ixten du
         this.argazkia = null;
       })
@@ -110,8 +111,21 @@ export class PiktogramakSortuPage {
       },
       (err) => {
         // Handle error
-        console.error("recogida de foto desde la galeria: ", err); //printeara el error en la consola
+        this.toastSortu("Error en la recogida de la foto");
+        console.error("Recogida de foto desde la galeria: ", err); //printeara el error en la consola
       }
     );
   }
+  async close(){
+    await this.modalCtrl.dismiss();
+  }
+  async toastSortu(mns) {
+    const toast = await this.toastController.create({
+      color: 'dark',
+      duration: 2000,
+      message: mns
+    });
+    toast.present();
+  }
+
 }

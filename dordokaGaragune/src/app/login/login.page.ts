@@ -61,47 +61,22 @@ export class LoginPage implements OnInit {
             });
           });
         } else {
-          const toast = await this.toastController.create({
-            message: 'Email o contraseña incorrecta.',
-            duration: 2000
-          });
-          toast.present();
+          this.toastSortu("Email o contraseña incorrecta.*2");
         }
       }
     } catch (error) {
       console.log('Error->', error);
-      const toast = await this.toastController.create({
-        message: 'Email o contraseña incorrecta. '+ error,
-        duration: 2000
-      });
-      toast.present();
+     
+      this.toastSortu("Email o contraseña incorrecta.");
+       
     }
   }
-  /*
-    async onLoginGoogle() {//para android esto no va
-      try {
-        const user = await this.authSvc.loginGoogle();
-        if (user) {
-          this.router.navigate(['admin-user-view']);
-        } else {
-          const toast = await this.toastController.create({
-            message: 'Email o contraseña incorrecta.',
-            duration: 2000
-          });
-          toast.present();
-        }
-      } catch (error) {
-        console.log('Error->', error);
-      }
-    }
-  */
-  // private redirectUser(isVerified: boolean): void {
-  //   if (isVerified) {
-  //     this.router.navigate(['admin']);//Redirigir a admin
-  //   } else {
-  //     this.router.navigate(['verify-email']);//Redirigir a verification page
-  //   }
-  // }
-
-
+  async toastSortu(mns) {
+    const toast = await this.toastController.create({
+      color: 'dark',
+      duration: 2000,
+      message: mns
+    });
+    toast.present();
+  }
 }

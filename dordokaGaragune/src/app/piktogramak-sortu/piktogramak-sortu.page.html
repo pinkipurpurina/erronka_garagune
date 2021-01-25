@@ -1,28 +1,36 @@
 <ion-header>
     <ion-toolbar>
         <ion-title>Crear pictogramas</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)='close()'>
+              <ion-icon slot="icon-only" name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <ion-card class="ion-text-center" *ngIf="!isUploading && !isUploaded">
         <ion-card-header>
-            <ion-card-title>Escoge una imagen</ion-card-title>
+            <ion-card-title>Nuevo pictograma</ion-card-title>
         </ion-card-header>
-        <ion-card-content color="medium">
+        <ion-card-content >
+            <form>
+                <ion-item lines="full">
+                    <ion-label position="floating">Nombre del pictograma</ion-label>
+                    <ion-input type="text" [(ngModel)]="picNombre" required id="izenaInput" name="pikIzena" placeholder="Introduzca el nombre de la imagen" required> </ion-input>
+                </ion-item>
+                <ion-img *ngIf="argazkia" [src]="argazkia"></ion-img>
+                <ion-button  expand="block" (click)="argazkiaJaso()" color="tertiary">
+                    <span>Seleccionar imagen de la galeria</span>
+                </ion-button>
 
-            <ion-input [(ngModel)]="picNombre" required id="izenaInput" style="background-color:lightgrey; color: black;" placeholder="Introduzca el nombre de la imagen"> </ion-input>
+                <ion-button *ngIf="picNombre && argazkia" shape="round" expand="block" (click)="formSubmit()"
+                    color="tertiary">
+                    <span>Guardar imagen</span>
+                </ion-button>
 
-            <ion-img *ngIf="argazkia" [src]="argazkia"></ion-img>
-            <ion-button shape="round" expand="block" (click)="argazkiaJaso()" color="tertiary">
-                <span>Seleccionar imagen de la galeria</span>
-            </ion-button>
-
-            <ion-button *ngIf="picNombre && argazkia" shape="round" expand="block" (click)="formSubmit()" color="tertiary">
-                <span>Guardar imagen</span>
-            </ion-button>
-
-
+            </form>
         </ion-card-content>
     </ion-card>
     <ion-card class="ion-text-center" *ngIf="isUploading && !isUploaded">
