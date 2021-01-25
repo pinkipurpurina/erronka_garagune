@@ -1,3 +1,4 @@
+import { File } from '@ionic-native/file/ngx';
 import { User } from './../shared/user.interface';
 
 import { Injectable } from '@angular/core';
@@ -21,7 +22,7 @@ export class AuthService {
   public user$: Observable<User>;
   authState: any = null;
 
-  constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore, private firebase2: UsuariosFirebaseService, public secondaryAuth: AngularFireAuth) {
+  constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore, private firebase2: UsuariosFirebaseService, public secondaryAuth: AngularFireAuth,public fileManager: File) {
     this.user$ = this.afAuth.authState.pipe(
       switchMap((user) => {
         if (user) {
@@ -97,11 +98,7 @@ export class AuthService {
   }
 
   async login(email: string, password: string): Promise<firebase.auth.UserCredential>{
-    return this.afAuth.setPersistence('session').then(() => {
-        console.log(sessionStorage);
-        localStorage.setItem('user',sessionStorage.getItem(sessionStorage.key(0)));
-        return this.afAuth.signInWithEmailAndPassword(email,password);
-    })
+    return this.afAuth.signInWithEmailAndPassword(email,password);
   }
 
   getCurrentUser(){

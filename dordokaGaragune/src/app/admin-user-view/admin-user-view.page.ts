@@ -25,7 +25,7 @@ export class AdminUserViewPage implements OnInit {
 
   ngOnInit() {
     // this.firebaseConnect.createKategoria();
-    this.erabiltzaileakIrakurri();
+    this.erabiltzaileakIrakurri()
   }
 
   async presentModal() {
@@ -38,19 +38,21 @@ export class AdminUserViewPage implements OnInit {
 
   
 
-  erabiltzaileakIrakurri() {
-    
+  async erabiltzaileakIrakurri() {
+    this.erabiltzaileak = [];
     this.firebaseConnect.erabiltzaileakKargatu().once("value", (snap) => {
       snap.forEach((element) => {
         var uid = element.key;
         var data = element.val();
-        console.log(uid);
-        console.log(data.erabiltzaileIzena);
-        console.log(element.val());
+        // console.log(uid);
+        // console.log(data.erabiltzaileIzena);
+        // console.log(element.val());
         this.erabiltzaileak.push({
           uid: uid,
           data: data,
         });
+        console.log(this.erabiltzaileak);
+        
       });
     });
   }
