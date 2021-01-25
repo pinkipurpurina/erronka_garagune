@@ -1,24 +1,24 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>piktogramakSortu</ion-title>
+        <ion-title>Crear pictogramas</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <ion-card class="ion-text-center" *ngIf="!isUploading && !isUploaded">
         <ion-card-header>
-            <ion-card-title>Choose Images to Upload</ion-card-title>
+            <ion-card-title>Escoge una imagen</ion-card-title>
         </ion-card-header>
         <ion-card-content color="medium">
 
-            <ion-input [(ngModel)]="picNombre" required id="izenaInput" style="background-color: darkgrey;" placeholder="Introduzca el nombre de la imagen"> </ion-input>
+            <ion-input [(ngModel)]="picNombre" required id="izenaInput" style="background-color:lightgrey; color: black;" placeholder="Introduzca el nombre de la imagen"> </ion-input>
 
             <ion-img *ngIf="argazkia" [src]="argazkia"></ion-img>
-            <ion-button shape="round" size="large" (click)="argazkiaJaso()" color="tertiary">
+            <ion-button shape="round" expand="block" (click)="argazkiaJaso()" color="tertiary">
                 <span>Seleccionar imagen de la galeria</span>
             </ion-button>
 
-            <ion-button *ngIf="picNombre && argazkia" shape="round" size="large" (click)="formSubmit()" color="terciary">
+            <ion-button *ngIf="picNombre && argazkia" shape="round" expand="block" (click)="formSubmit()" color="tertiary">
                 <span>Guardar imagen</span>
             </ion-button>
 

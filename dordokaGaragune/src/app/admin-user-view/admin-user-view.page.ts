@@ -1,70 +1,71 @@
 
-import { Component, OnInit } from "@angular/core";
-import { Router, RouterLink } from "@angular/router";
-import { AuthService } from '../services/auth.service'
-import { ModalController } from "@ionic/angular";
-import { database } from "firebase";
-import { AdminCrearUsuarioPage } from "../admin-crear-usuario/admin-crear-usuario.page";
-import { UsuariosFirebaseService } from "../services/usuarios-firebase.service";
-import firebase from "firebase";
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { ModalController } from '@ionic/angular';
+import { database } from 'firebase';
+import { AdminCrearUsuarioPage } from '../admin-crear-usuario/admin-crear-usuario.page';
+import { UsuariosFirebaseService } from '../services/usuarios-firebase.service';
+import firebase from 'firebase';
 @Component({
-  selector: "app-admin-user-view",
-  templateUrl: "./admin-user-view.page.html",
-  styleUrls: ["./admin-user-view.page.scss"],
+  selector: 'app-admin-user-view',
+  templateUrl: './admin-user-view.page.html',
+  styleUrls: ['./admin-user-view.page.scss'],
 })
 export class AdminUserViewPage implements OnInit {
   erabiltzaileak: any[] = [];
   uid: any;
-  ref = firebase.database().ref("/users");
+  ref = firebase.database().ref('/users');
 
   admin: any[] = [];
   constructor(
     public modalController: ModalController,
-    public firebaseConnect: UsuariosFirebaseService, 
+    public firebaseConnect: UsuariosFirebaseService,
     private router: Router,
     public auth: AuthService
   ){
-    this.ref.on("child_changed", (snapshot) => {
-      console.log("child_changed ::" + snapshot.val());
+    this.ref.on('child_changed', (snapshot) => {
+      console.log('child_changed ::' + snapshot.val());
       this.erabiltzaileakIrakurri();
     });
   }
   ngOnInit() {
-    this.erabiltzaileakIrakurri()
+    this.erabiltzaileakIrakurri();
   }
 
   async presentModal() {
     const modal = await this.modalController.create({
       component: AdminCrearUsuarioPage,
-      cssClass: "my-custom-class",
+      cssClass: 'my-custom-class',
     });
     return await modal.present();
   }
 
   async erabiltzaileakIrakurri() {
-    this.erabiltzaileak=[]
-    this.firebaseConnect.erabiltzaileakKargatu().once("value", (snap) => {
+    this.erabiltzaileak = [];
+    this.firebaseConnect.erabiltzaileakKargatu().once('value', (snap) => {
       snap.forEach((element) => {
-        var uid = element.key;
-        var data = element.val();
+        const uid = element.key;
+        // tslint:disable-next-line: prefer-const
+        let data = element.val();
         // console.log(uid);
         // console.log(data.erabiltzaileIzena);
         // console.log(element.val());
         this.erabiltzaileak.push({
-          uid: uid,
-          data: data,
+          uid,
+          data,
         });
         console.log(this.erabiltzaileak);
-        
+
       });
     });
   }
-  setErabiltzailea(uid:string) {
+  setErabiltzailea(uid: string) {
     this.firebaseConnect.setUsuarioNormala(uid);
     this.router.navigate(['kategoriak']);
   }
 
- 
+
   doRefresh(event) {
     console.log('Begin async operation');
    // this.erabiltzaileakIrakurri();

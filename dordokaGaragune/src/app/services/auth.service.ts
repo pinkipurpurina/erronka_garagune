@@ -80,7 +80,7 @@ export class AuthService {
   async userRegister(email: string, password: string, nickname: string): Promise<User> {
     try {
       // Esto crea una nueva sesion internamente para poder crear el usuario desde la cuenta de administrador sin afectar la sesion de este
-      var idAdminActual = (await JSON.parse(localStorage.getItem('user')).uid)
+      var idAdminActual = (await firebase.auth().currentUser.uid);
       const { user } = await this.secondaryAuth.createUserWithEmailAndPassword(email, password);
       // await this.sendVerificationEmail();
 
