@@ -28,3 +28,17 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+.center {
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    padding: 0.5em;
+}
+
+.button {
+    border-radius: 1em;
+}
+
+.icon {
+    margin-left: 0em;
+}
