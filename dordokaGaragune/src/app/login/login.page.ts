@@ -1,9 +1,9 @@
-import { Component, NgModule, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ToastController } from '@ionic/angular';
-
+import { FileManagementService } from '../services/file-management.service'
 
 @Component({
   selector: 'app-login',
@@ -17,7 +17,7 @@ export class LoginPage implements OnInit {
   ionicForm: FormGroup;
   isSubmitted = false;
 
-  constructor(public formBuilder: FormBuilder, private authSvc: AuthService, private router: Router, public toastController: ToastController) { }
+  constructor(public formBuilder: FormBuilder, private authSvc: AuthService, private router: Router, public toastController: ToastController,private fileManager:FileManagementService) { }
 
   ngOnInit() {
     this.ionicForm = this.formBuilder.group({
@@ -42,14 +42,15 @@ export class LoginPage implements OnInit {
         if (user) {
           this.authSvc.getUsers().once("value", (snap) => {
             snap.forEach((element) => {
-              var uid = element.key;
-              if (user.uid == uid) {
+              var monitorUid = element.key;
+              if (user.user.uid == monitorUid) {               
                 this.router.navigate(['admin-user-view']);
               }
-              this.authSvc.getMonitorUsers(uid).once("value", (snap) => {
+              this.authSvc.getMonitorUsers(monitorUid).once("value", (snap) => {
                 snap.forEach((element2) => {
-                  var monitorUid = element2.key;
-                  if (user.uid == monitorUid) {
+                  var usuarioUid = element2.key;
+                  if (user.user.uid == usuarioUid) {
+                    this.fileManager.userFileCreator(monitorUid,usuarioUid)
                     this.router.navigate(['user-kategoria']);
                   }
                 });
@@ -93,4 +94,6 @@ export class LoginPage implements OnInit {
   //     this.router.navigate(['verify-email']);//Redirigir a verification page
   //   }
   // }
+
+
 }

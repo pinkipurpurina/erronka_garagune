@@ -1,7 +1,9 @@
+
 import { Component, OnInit } from "@angular/core";
 import { Router, RouterLink } from "@angular/router";
-
+import { AuthService } from '../services/auth.service'
 import { ModalController } from "@ionic/angular";
+import { database } from "firebase";
 import { AdminCrearUsuarioPage } from "../admin-crear-usuario/admin-crear-usuario.page";
 import { UsuariosFirebaseService } from "../services/usuarios-firebase.service";
 import firebase from "firebase";
@@ -15,10 +17,12 @@ export class AdminUserViewPage implements OnInit {
   uid: any;
   ref = firebase.database().ref("/users");
 
+  admin: any[] = [];
   constructor(
     public modalController: ModalController,
     public firebaseConnect: UsuariosFirebaseService, 
-    private router: Router
+    private router: Router,
+    public auth: AuthService
   ){
     this.ref.on("child_changed", (snapshot) => {
       console.log("child_changed ::" + snapshot.val());
@@ -26,7 +30,7 @@ export class AdminUserViewPage implements OnInit {
     });
   }
   ngOnInit() {
-    this.erabiltzaileakIrakurri();
+    this.erabiltzaileakIrakurri()
   }
 
   async presentModal() {
@@ -43,13 +47,15 @@ export class AdminUserViewPage implements OnInit {
       snap.forEach((element) => {
         var uid = element.key;
         var data = element.val();
-        console.log(uid);
-        console.log(data.erabiltzaileIzena);
-        console.log(element.val());
+        // console.log(uid);
+        // console.log(data.erabiltzaileIzena);
+        // console.log(element.val());
         this.erabiltzaileak.push({
           uid: uid,
           data: data,
         });
+        console.log(this.erabiltzaileak);
+        
       });
     });
   }

@@ -23,13 +23,13 @@ export class UsuariosFirebaseService {
   erabiltzaileNormalaUID: string = "re2KbiU45PcouAHb4fThHSbs3dS2";
   kategoriaUID: string = "-MRKLVnXoBcLjP76TNsC";
   private _kategoiaObj = {} as Kategoria;
- 
+
   constructor(
     private db: AngularFireDatabase,
-   
+
   ) {
     this.usuarioListRef = this.db.list("/users");
-  
+
   }
   public get kategoiaObj() {
     return this._kategoiaObj;
@@ -45,7 +45,8 @@ export class UsuariosFirebaseService {
   }
 
   getKategoriaList() {
-    console.log(this.erabiltzaileNormalaUID); //whYVI3YAsyT8YlvtXUTZo4VftMy2
+    console.log('erabiltzailea->',this.erabiltzaileNormalaUID); 
+    console.log('firebase->',firebase.auth().currentUser.uid);
 
     return firebase
       .database()
@@ -56,6 +57,7 @@ export class UsuariosFirebaseService {
           this.erabiltzaileNormalaUID +
           "/kategoriak"
       );
+      .ref("/users/" + firebase.auth().currentUser.uid + "/erabiltzaileak/" + this.erabiltzaileNormalaUID + "/kategoriak");
   }
   getPiktogramaList() {
     return firebase
@@ -71,12 +73,19 @@ export class UsuariosFirebaseService {
       );
   }
 
+
   erabiltzaileakKargatu(): any {
     return firebase
       .database()
-      .ref("/users/" + firebase.auth().currentUser.uid + "/erabiltzaileak");
+      .ref("/users/" + firebase.auth().currentUser.uid + "/erabiltzaileak");//firebasetik
+     // .ref("/users/" + JSON.parse(localStorage.getItem('user')).uid + "/erabiltzaileak");//lokaletik
   }
-
+  getAdminErabiltzaile(): any {
+    
+    return firebase
+      .database()
+      .ref("/users/" + JSON.parse(localStorage.getItem('user')).uid);
+  }
   makeid(length) {
     var result = "";
     var characters =
@@ -126,7 +135,15 @@ export class UsuariosFirebaseService {
   }
 
   // Create Piktograma
-  createPiktograma(path: string, name: string) {
+  createPiktograma(apt: any, name: any) {
+    console.log(this);
+    console.log(this.usuarioRef);
+    console.log(this.usuarioListRef);
+
+    var idCreate = "12012021" + this.makeid(16);
+    var idPic = "12012021" + this.makeid(16);
+    var idKat = "12012021" + this.makeid(16);
+    var monitorearenUId = "";
     this.usuarioListRef = this.db.list(
       "/users/" +
         firebase.auth().currentUser.uid +
@@ -198,4 +215,5 @@ export class UsuariosFirebaseService {
     //return this.db.list('users/'+idAdmin+'/erabiltzaileak/'+id).push(name);
     return this.db.list("users/" + idAdmin + "/erabiltzaileak").update(id, x);
   }
+
 }

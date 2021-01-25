@@ -1,3 +1,4 @@
+import { File } from '@ionic-native/file/ngx';
 import { FormsModule } from '@angular/forms';
 import { MbscModule } from '@mobiscroll/angular';
 import { NgModule } from '@angular/core';
@@ -31,7 +32,6 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
     MbscModule, BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule,
-   
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireStorageModule
@@ -40,6 +40,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
     StatusBar,
     SplashScreen,
     TextToSpeech,
+    File,
     // ImageResizer,
     // File,
     Camera,

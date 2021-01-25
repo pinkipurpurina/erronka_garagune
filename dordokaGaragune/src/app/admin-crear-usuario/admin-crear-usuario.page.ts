@@ -27,8 +27,6 @@ export class AdminCrearUsuarioPage implements OnInit {
     try {
       const user = await this.authSvc.userRegister(email.value, password.value,nick.value);
       await this.modalCtrl.dismiss();
-    console.log("UID: ", firebase.auth().currentUser.uid);
-    console.log("EMAIL: ", firebase.auth().currentUser.email);
     } catch (error) {
       console.log('Error->', error);
     }
