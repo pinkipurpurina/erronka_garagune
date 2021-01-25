@@ -57,7 +57,7 @@ export class UsuariosFirebaseService {
           this.erabiltzaileNormalaUID +
           "/kategoriak"
       );
-      .ref("/users/" + firebase.auth().currentUser.uid + "/erabiltzaileak/" + this.erabiltzaileNormalaUID + "/kategoriak");
+     // .ref("/users/" + firebase.auth().currentUser.uid + "/erabiltzaileak/" + this.erabiltzaileNormalaUID + "/kategoriak");
   }
   getPiktogramaList() {
     return firebase
@@ -135,15 +135,7 @@ export class UsuariosFirebaseService {
   }
 
   // Create Piktograma
-  createPiktograma(apt: any, name: any) {
-    console.log(this);
-    console.log(this.usuarioRef);
-    console.log(this.usuarioListRef);
-
-    var idCreate = "12012021" + this.makeid(16);
-    var idPic = "12012021" + this.makeid(16);
-    var idKat = "12012021" + this.makeid(16);
-    var monitorearenUId = "";
+  createPiktograma(path: string, name: string) {
     this.usuarioListRef = this.db.list(
       "/users/" +
         firebase.auth().currentUser.uid +
@@ -158,9 +150,6 @@ export class UsuariosFirebaseService {
       piktogramaHelbidea: path,
     });
   }
-
-
-
   createKategoria(kategoriaIzena: string, monitorearenUID: string) {
     var x = {} as Kategoria;
     x.kategoriaIzena = kategoriaIzena;
