@@ -8,16 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-kategoria.page.scss'],
 })
 export class UserKategoriaPage implements OnInit{
-  userAllData = ''
-  usuarioUID:any ="";
-  constructor(private _stts: TtsService,private fileManager:File) { 
+  nombre:string ;
+  constructor(private _stts: TtsService,private fileManager:File) { }
+
+  ngOnInit(){
+    this.getUserName()
   }
+
   hablar(esp: string) {
     this._stts.discurso(esp);
   }
-ngOnInit(){
-  this.usuarioUID =  this.fileManager.readAsText(this.fileManager.dataDirectory,'UserData.txt').then((text:string) =>{
-    this.userAllData = text;
-    console.log(JSON.parse(this.userAllData)); });
-}
+
+  getUserName(){
+    this.fileManager.readAsText(this.fileManager.dataDirectory,'UserData.txt').then((datos) =>{
+      this.nombre = JSON.parse(datos)[0]['data']
+    }); 
+  }
 }

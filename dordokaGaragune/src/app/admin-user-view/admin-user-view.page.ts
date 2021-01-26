@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { ModalController } from '@ionic/angular';
 import { AdminCrearUsuarioPage } from '../admin-crear-usuario/admin-crear-usuario.page';
