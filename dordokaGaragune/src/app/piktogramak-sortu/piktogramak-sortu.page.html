@@ -1,23 +1,36 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>piktogramakSortu</ion-title>
+        <ion-title>Crear pictogramas</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)='close()'>
+              <ion-icon slot="icon-only" name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <ion-card class="ion-text-center" *ngIf="!isUploading && !isUploaded">
         <ion-card-header>
-            <ion-card-title>Choose Images to Upload</ion-card-title>
+            <ion-card-title>Nuevo pictograma</ion-card-title>
         </ion-card-header>
-        <ion-card-content>
-            <ion-button color="success" shape="round" size="large">
-                <span>Select Image</span>
-                <input id="uploadBtn" type="file" class="upload" (change)="update($event.target.files)" />
-            </ion-button>
-            <ion-input [(ngModel)]="picNombre" required id="izenaInput"> </ion-input>
-            <ion-button *ngIf="picNombre && this.img " color="success" shape="round" size="large" (click)="uploadFile()">
-                <span>Select Image</span>
-            </ion-button>
+        <ion-card-content >
+            <form>
+                <ion-item lines="full">
+                    <ion-label position="floating">Nombre del pictograma</ion-label>
+                    <ion-input type="text" [(ngModel)]="picNombre" required id="izenaInput" name="pikIzena" placeholder="Introduzca el nombre de la imagen" required> </ion-input>
+                </ion-item>
+                <ion-img *ngIf="argazkia" [src]="argazkia"></ion-img>
+                <ion-button  expand="block" (click)="argazkiaJaso()" color="tertiary">
+                    <span>Seleccionar imagen de la galeria</span>
+                </ion-button>
+
+                <ion-button *ngIf="picNombre && argazkia" shape="round" expand="block" (click)="formSubmit()"
+                    color="tertiary">
+                    <span>Guardar imagen</span>
+                </ion-button>
+
+            </form>
         </ion-card-content>
     </ion-card>
     <ion-card class="ion-text-center" *ngIf="isUploading && !isUploaded">
@@ -33,9 +46,11 @@
             <div *ngIf="snapshot | async as snap">
 
                 <div *ngIf="snapshot && snap.bytesTransferred != snap.totalBytes">
-                    <ion-button color="warning" size="small" (click)="task.pause()" class="button is-warning">Pause</ion-button>
+                    <ion-button color="warning" size="small" (click)="task.pause()" class="button is-warning">Pause
+                    </ion-button>
                     <ion-button size="small" (click)="task.resume()" class="button is-info">Resume</ion-button>
-                    <ion-button color="danger" size="small" (click)="task.cancel()" class="button is-danger">Cancel</ion-button>
+                    <ion-button color="danger" size="small" (click)="task.cancel()" class="button is-danger">Cancel
+                    </ion-button>
                 </div>
             </div>
         </ion-card-content>

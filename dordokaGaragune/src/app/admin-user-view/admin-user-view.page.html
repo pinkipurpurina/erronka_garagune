@@ -1,38 +1,30 @@
 <ion-header>
-    <ion-title>Admin user view</ion-title>
+    <ion-title>Vista del monitor</ion-title>
 </ion-header>
 
 <ion-content>
     <ion-header>
         <ion-toolbar>
-            <ion-title>kategoriak</ion-title>
+
+            <ion-title>Usuarios disponibles</ion-title>
         </ion-toolbar>
     </ion-header>
-    
     <ion-content>
-        <!-- <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
             <ion-refresher-content></ion-refresher-content>
-        </ion-refresher> -->
+        </ion-refresher>
+
         <!-- List of Text Items-->
-        <ion-list *ngFor="let item of erabiltzaileak">
+        <ion-list *ngFor="let item of erabiltzaileak ">
             <ion-item>
-                <ion-label>{{item.uid}}</ion-label>
-                <ion-label>{{item.data.erabiltzaileIzena}}</ion-label>
-                <ion-button (click)="setErabiltzailea(item.uid)">Kategoriak</ion-button>
+                <ion-label>{{item.$key}}</ion-label>
+                <ion-label>{{item.erabiltzaileIzena}}</ion-label>
+                <ion-button (click)="setErabiltzailea(item.$key)" color="tertiary">Categorías</ion-button>
             </ion-item>
-
         </ion-list>
-        <!--
-        </ion-list>
-    <ul *ngIf="usuarioList | async; let posts">
-        <li *ngFor="let post of posts">
-            <span>{{post}}</span>
-        </li>
-    </ul>-->
-
     </ion-content>
     <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-        <ion-fab-button (click)="presentModal()">
+        <ion-fab-button (click)="presentModal()" color="tertiary">
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>
     </ion-fab>

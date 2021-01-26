@@ -30,10 +30,8 @@ export class ColorPickerPage {
     this.FirebaseService.updateKategoriaKolorea(this.multi).then(() => {
       
     }).catch((err) => {
-      
-    });;
-    // console.log("fuera--", algo);
-     console.log("dentro de try--", this.multi);
+       console.log("Error colorpicker -->", err);
+    });
     this.modalCtrl.dismiss();
      
    } catch (error) {
@@ -43,32 +41,12 @@ export class ColorPickerPage {
 
   multiSettings: MbscColorOptions = {
     select: "single",
-    headerText: "Pick your favorite colors",
+    headerText: "Selecciona el color para la categor'ia",
     display: "top",
     touchUi: false,
   };
 
-  fixedSettings: MbscColorOptions = {
-    select: 6,
-    display: "top",
-    touchUi: false,
-  };
-
-  luminositySettings: MbscColorOptions = {
-    mode: "refine",
-    display: "top",
-    touchUi: false,
-  };
-
-  setBtnSettings: MbscColorOptions = {
-    display: "center",
-    touchUi: false,
-    buttons: ["set"],
-  };
-
-  setCancelSettings: MbscColorOptions = {
-    display: "center",
-    touchUi: false,
-    buttons: ["set", "cancel"],
-  };
+  async close() {
+    await this.modalCtrl.dismiss();
+  }
 }

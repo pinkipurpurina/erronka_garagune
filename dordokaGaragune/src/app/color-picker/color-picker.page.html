@@ -1,6 +1,11 @@
 <ion-header>
     <ion-toolbar>
         <ion-title>colorPicker</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)='close()'>
+              <ion-icon slot="icon-only" name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
@@ -12,8 +17,8 @@
                 <div class="mbsc-col-sm-9 mbsc-col-md-7 mbsc-col-xl-5">
                     <mbsc-form-group inset>
 
-                        <mbsc-color [(ngModel)]="multi" [options]="multiSettings" placeholder="Select favorite colors">Aukeratu bat</mbsc-color>
-                        <ion-button type="submit" (click)="print()" expand="block">Gorde aldaketak</ion-button>
+                        <mbsc-color [(ngModel)]="multi" [options]="multiSettings" >Selecciona color</mbsc-color>
+                        <ion-button type="submit" (click)="print()" expand="block" color="tertiary">Guardar cambios</ion-button>
                     </mbsc-form-group>
                 </div>
             </div>

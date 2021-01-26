@@ -26,6 +26,10 @@ const routes: Routes = [
     path: 'user-kategoria',
     loadChildren: () => import('./user-kategoria/user-kategoria.module').then( m => m.UserKategoriaPageModule)
   },
+  {
+    path: 'crud-piktogramak',
+    loadChildren: () => import('./crud-piktogramak/crud-piktogramak.module').then( m => m.CrudPiktogramakPageModule)
+  },
 
 
 

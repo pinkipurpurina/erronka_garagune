@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -8,14 +8,13 @@ import { AdminCrearUsuarioPageRoutingModule } from './admin-crear-usuario-routin
 
 import { AdminCrearUsuarioPage } from './admin-crear-usuario.page';
 
-
-
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AdminCrearUsuarioPageRoutingModule
+    AdminCrearUsuarioPageRoutingModule,
+    ReactiveFormsModule
   ],
   declarations: [AdminCrearUsuarioPage]
 })

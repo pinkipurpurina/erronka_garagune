@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { KategoriakSortuPage } from './kategoriak-sortu.page';
@@ -10,7 +11,9 @@ describe('KategoriakSortuPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ KategoriakSortuPage ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule.forRoot(),
+        ReactiveFormsModule,
+        FormsModule ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(KategoriakSortuPage);
