@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './user-kategoria.page.html',
   styleUrls: ['./user-kategoria.page.scss'],
 })
-export class UserKategoriaPage {
-
+export class UserKategoriaPage implements OnInit{
+  nombre:string ;
   constructor(private _stts: TtsService,private fileManager:File) { }
+
+  ngOnInit(){
+    this.getUserName()
+  }
 
   hablar(esp: string) {
     this._stts.discurso(esp);
@@ -17,8 +21,14 @@ export class UserKategoriaPage {
   userAllData = ''
   usuarioUID =  this.fileManager.readAsText(this.fileManager.dataDirectory,'UserData.txt').then((text:string) =>{
     this.userAllData = text;
-    console.log(JSON.parse(this.userAllData));
+    this.fileManager.readAsText(this.fileManager.dataDirectory,'UserData.txt').then((datos)=>{
+      console.log(JSON.parse(datos)[0]['data'])
+    })
   });
 
-
+  getUserName(){
+    this.fileManager.readAsText(this.fileManager.dataDirectory,'UserData.txt').then((datos) =>{
+      this.nombre = JSON.parse(datos)[0]['data']
+    }); 
+  }
 }
