@@ -3,26 +3,25 @@
         <ion-title>Crear categorías nuevas</ion-title>
         <ion-buttons slot="end">
             <ion-button (click)='close()'>
-              <ion-icon slot="icon-only" name="close"></ion-icon>
+                <ion-icon slot="icon-only" name="close"></ion-icon>
             </ion-button>
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
-
-    <form>
+    <form [formGroup]="ionicForm" (ngSubmit)="onKategoriaSortu(izenaKategoria)" novalidate>
         <ion-item lines="full">
-            <ion-label position="floating">Nombre de la categoria</ion-label>
-            <ion-input type="text" #izenaKategoria required></ion-input>
+            <ion-label position="floating">Nombre de la categoría</ion-label>
+            <ion-input type="text" formControlName="izenaKategoria" #izenaKategoria required></ion-input>
         </ion-item>
-
+        <span class="red error ion-padding" *ngIf="isSubmitted && errorControl.izenaKategoria.errors?.required">
+            Introduzca un nombre.
+        </span>
         <ion-row>
             <ion-col>
-                <ion-button type="submit" (click)="onKategoriaSortu(izenaKategoria)" expand="block" color="tertiary">Register</ion-button>
+                <ion-button type="submit" expand="block" color="tertiary">Crear</ion-button>
             </ion-col>
         </ion-row>
     </form>
-
 </ion-content>

@@ -41,6 +41,7 @@ export class LoginPage implements OnInit {
         return false;
       } else {
         const user = await this.authSvc.login(email.value, password.value);
+        console.log();
         
         if (user) {
           this.authSvc.getUsers().once("value", (snap) => {

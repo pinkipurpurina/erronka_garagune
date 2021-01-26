@@ -1,5 +1,5 @@
 import { File } from '@ionic-native/file/ngx';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MbscModule } from '@mobiscroll/angular';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -28,7 +28,8 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
   entryComponents: [],
   imports: [BrowserModule, 
 
-    FormsModule,  
+    FormsModule, 
+    ReactiveFormsModule, 
     MbscModule, BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule,

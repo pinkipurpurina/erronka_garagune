@@ -8,6 +8,9 @@ import { ToastController } from '@ionic/angular';
 
 import { UsuariosFirebaseService } from '../services/usuarios-firebase.service';
 
+
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+
 @Component({
   selector: 'app-kategoriak-sortu',
   templateUrl: './kategoriak-sortu.page.html',
@@ -15,9 +18,19 @@ import { UsuariosFirebaseService } from '../services/usuarios-firebase.service';
 })
 export class KategoriakSortuPage implements OnInit {
 
-  constructor(private modalCtrl: ModalController, private authSvc: AuthService, private router: Router, private FirebaseService: UsuariosFirebaseService, public toastController: ToastController) { }
+  ionicForm: FormGroup;
+  isSubmitted = false;
+
+  constructor(public formBuilder: FormBuilder, private modalCtrl: ModalController, private authSvc: AuthService, private router: Router, private FirebaseService: UsuariosFirebaseService, public toastController: ToastController) { }
 
   ngOnInit() {
+    this.ionicForm = this.formBuilder.group({
+      izenaKategoria: ['', [Validators.required]]
+    })
+  }
+
+  get errorControl() {
+    return this.ionicForm.controls;
   }
 
   async close() {
@@ -26,11 +39,16 @@ export class KategoriakSortuPage implements OnInit {
 
   async onKategoriaSortu(izenaKategoria) {
     try {
-      console.log("UID: ", firebase.auth().currentUser.uid);
-      console.log("izenaKategoria: ", izenaKategoria.value);
-      this.FirebaseService.createKategoria(izenaKategoria.value, firebase.auth().currentUser.uid);
-      this.toastSortu("Categoría creada");
-      await this.modalCtrl.dismiss();
+      this.isSubmitted = true;
+      if (!this.ionicForm.valid) {
+        return false;
+      } else {
+        console.log("UID: ", firebase.auth().currentUser.uid);
+        console.log("izenaKategoria: ", izenaKategoria.value);
+        this.FirebaseService.createKategoria(izenaKategoria.value, firebase.auth().currentUser.uid);
+        this.toastSortu("Categoría creada");
+        await this.modalCtrl.dismiss();
+      }
     } catch (error) {
       console.log('Error->', error);
       this.toastSortu("Error")
