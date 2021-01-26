@@ -18,13 +18,6 @@ export class UserKategoriaPage implements OnInit{
   hablar(esp: string) {
     this._stts.discurso(esp);
   }
-ngOnInit(){
-  this.usuarioUID =  this.fileManager.readAsText(this.fileManager.dataDirectory,'UserData.txt').then((text:string) =>{
-    this.userAllData = text;
-    this.fileManager.readAsText(this.fileManager.dataDirectory,'UserData.txt').then((datos)=>{
-      console.log(JSON.parse(datos)[0]['data'])
-    })
-  });
 
   getUserName(){
     this.fileManager.readAsText(this.fileManager.dataDirectory,'UserData.txt').then((datos) =>{

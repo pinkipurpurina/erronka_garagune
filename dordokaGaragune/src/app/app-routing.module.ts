@@ -30,9 +30,19 @@ const routes: Routes = [
     path: 'crud-piktogramak',
     loadChildren: () => import('./crud-piktogramak/crud-piktogramak.module').then( m => m.CrudPiktogramakPageModule)
   },
-
-
-
+  {
+    path: 'kategoriak',
+    loadChildren: () => import('./kategoriak-ikusi/kategoriak-ikusi.module').then( m => m.KategoriakIkusiPageModule)
+  },
+  {
+    path: 'piktogramak',
+    loadChildren: () => import('./piktogramak-ikusi/piktogramak-ikusi.module').then( m => m.PiktogramakIkusiPageModule)
+  },
+  {
+    path: "piktogramak-sortu",
+    loadChildren: () =>
+      import("./piktogramak-sortu/piktogramak-sortu.module").then((m) => m.PiktogramakSortuPageModule),
+  },
 ];
 
 @NgModule({

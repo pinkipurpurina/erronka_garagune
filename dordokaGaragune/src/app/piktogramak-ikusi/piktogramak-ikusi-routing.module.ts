@@ -11,9 +11,7 @@ const routes: Routes = [
   {
     path: "piktogramak-sortu",
     loadChildren: () =>
-      import("../piktogramak-sortu/piktogramak-sortu.module").then(
-        (m) => m.PiktogramakSortuPageModule
-      ),
+      import("../piktogramak-sortu/piktogramak-sortu.module").then((m) => m.PiktogramakSortuPageModule),
   },
 ];
 
