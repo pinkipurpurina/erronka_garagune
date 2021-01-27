@@ -86,6 +86,15 @@ export class UsuariosFirebaseService {
     //   .database()
     //   .ref('/users/' + JSON.parse(localStorage.getItem('user')).uid);
   }
+  erabiltzaileakKargatuPrueba(monitoreUID:string): any {
+    console.log("hau da zure ID-a:", firebase.auth().currentUser.uid);
+    this.usuarioListRef = this.db.list(
+      "/users/" +
+       monitoreUID +
+        "/erabiltzaileak"
+    );
+    return this.usuarioListRef;
+  }
   makeid(length) {
     let result = "";
     const characters =

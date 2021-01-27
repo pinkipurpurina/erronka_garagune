@@ -6,27 +6,30 @@ import { File } from '@ionic-native/file/ngx'
 @Injectable({
   providedIn: 'root'
 })
-export class FileManagementService {
+export class FitxeroKudeaketaService {
 
-  usuario: any[] = [];
-
+  monitor: any[] = [];
+  uId:string
   constructor(private fileManager: File) { }
 
   async userFileCreator(uidAdmin: string, uidUser: string) {
-    this.usuario = [];
-    firebase.database().ref('users/' + uidAdmin + '/erabiltzaileak/' + uidUser).once('value', (snap) => {
+
+    
+    this.monitor = [];
+    firebase.database().ref('users/' + uidAdmin ).once('value', (snap) => {
       snap.forEach((element) => {
         var uid = element.key;
+        this.uId= element.key;
         var data = element.val();
-        this.usuario.push({
+        this.monitor.push({
           uid: uid,
           data: data,
         });
       });
-      this.fileManager.createFile(this.fileManager.dataDirectory,'UserData.txt',true).then(() =>{     
+      this.fileManager.createFile(this.fileManager.dataDirectory,this.uId+'.txt',true).then(() =>{     
         // this.fileManager.removeFile(this.fileManager.dataDirectory,'UserData.txt');
-        this.fileManager.writeFile(this.fileManager.dataDirectory, 'UserData.txt', JSON.stringify(this.usuario)).catch((err) => {
-          this.fileManager.writeExistingFile(this.fileManager.dataDirectory, 'UserData.txt', JSON.stringify(this.usuario)).catch((err) => {
+        this.fileManager.writeFile(this.fileManager.dataDirectory, 'UserData.txt', JSON.stringify(this.monitor)).catch((err) => {
+          this.fileManager.writeExistingFile(this.fileManager.dataDirectory, 'UserData.txt', JSON.stringify(this.monitor)).catch((err) => {
             console.log('Ha sucedido un error al escribir en el json', err)
           });
         });
