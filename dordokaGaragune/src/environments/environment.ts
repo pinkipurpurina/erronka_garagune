@@ -42,19 +42,19 @@ export const environment = {
 //     appId: "1:113309518985:web:96811b8b02071265700a58"
 //   },
 // };
-export const environment = {
-  production: false,
-  firebase: {
-    apiKey: "AIzaSyC-BEcphfe-7pNpAyjnlmMMtQLUO-JhifI",
-    authDomain: "garagune2.firebaseapp.com",
-    databaseURL: "https://garagune2-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "garagune2",
-    storageBucket: "garagune2.appspot.com",
-    messagingSenderId: "717841716777",
-    appId: "1:717841716777:web:e40992abce323e10fe2e38",
-    measurementId: "G-V5KTJYH4NR"
-  },
-};
+// export const environment = {
+//   production: false,
+//   firebase: {
+//     apiKey: "AIzaSyC-BEcphfe-7pNpAyjnlmMMtQLUO-JhifI",
+//     authDomain: "garagune2.firebaseapp.com",
+//     databaseURL: "https://garagune2-default-rtdb.europe-west1.firebasedatabase.app",
+//     projectId: "garagune2",
+//     storageBucket: "garagune2.appspot.com",
+//     messagingSenderId: "717841716777",
+//     appId: "1:717841716777:web:e40992abce323e10fe2e38",
+//     measurementId: "G-V5KTJYH4NR"
+//   },
+// };
 // export const environment = {
 //   production: false,
 //   firebase : {

@@ -10,12 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserKategoriaPage implements OnInit {
   nombre;
-  kategorias;
+  kategoriaName;
   constructor(private _stts: TtsService, private fileManager: File, public filer: FileManagementService) { }
 
   ngOnInit() {
     this.getNombre();
-    this.getKategoria()
+    this.getKategoriaName()
   }
 
   getNombre(){
@@ -24,10 +24,12 @@ export class UserKategoriaPage implements OnInit {
     })
   }
 
-  getKategoria(){
+  getKategoriaName(){
     this.filer.getUser().then((datos) => {
-      this.kategorias = JSON.parse(datos)[1]['data'];
-      console.log(this.kategorias)
+      console.log("DATA=> ", JSON.parse(datos)[1]['data']);
+      console.log(JSON.parse(datos)[1]['data'](0));
+      
+      this.kategoriaName.push(JSON.parse(datos)[1]['data'])    
     })
   }
 

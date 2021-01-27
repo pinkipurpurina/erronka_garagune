@@ -27,27 +27,36 @@
                 <ion-icon name="trash-bin-outline"></ion-icon>
             </ion-item>
         </ion-row>
-        <ion-row class="center">
-            <ion-col size="col-md-2 col-xs-12" *ngFor="let item of kategorias">
-                <ion-card>
-                    <ion-item>
-                        <ion-icon name="pin" slot="start"></ion-icon>
-                        <ion-label>ion-item in a card, icon left, button right</ion-label>
-                        <ion-button fill="outline" slot="end">View</ion-button>
-                    </ion-item>
 
-                    <ion-card-content>
-                        This is content, without any paragraph or header tags, within an ion-card-content element.
-                    </ion-card-content>
-                </ion-card>
+        <ion-row class="center">
+            <ion-col size-xs="12" size-sm="6" size-md="3" size-lg="2">
                 <ion-card>
-                    <ion-item>
-                        <ion-img src="../../assets/icon/favicon.png"></ion-img>
-                    </ion-item>
-                    <ion-card-content>
-                            {{item}}
+                    <ion-card-content class="center">
+                        <ion-label class="center">{{kategoriaName.data}}</ion-label><br>
                     </ion-card-content>
                 </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row class="center">
+            <ion-col size-xs="12" size-sm="6" size-md="3" size-lg="2">
+                <ion-card>
+                    <ion-card-content class="center">
+                        <ion-label class="center">{{kategoriaName}}</ion-label><br>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row class="center">
+            <ion-col size-xs="12" size-sm="6" size-md="3" size-lg="2" *ngFor="let item of kategoriaName">
+                <ion-card>
+                    <ion-item class="center">
+                            <!-- <ion-img [src]="item" class="center"></ion-img> -->
+                        </ion-item>
+                        <ion-card-content class="center">
+                            <ion-label class="center">{{item}}</ion-label><br>
+                        </ion-card-content>
+                </ion-card>
+
             </ion-col>
         </ion-row>
     </ion-grid>

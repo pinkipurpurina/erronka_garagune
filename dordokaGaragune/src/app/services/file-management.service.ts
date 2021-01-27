@@ -41,6 +41,7 @@ export class FileManagementService {
 
   }
   getUser(){
+    console.log(this.fileManager.readAsText(this.fileManager.dataDirectory,'UserData.txt'))
     return this.fileManager.readAsText(this.fileManager.dataDirectory,'UserData.txt');
   }
 }
