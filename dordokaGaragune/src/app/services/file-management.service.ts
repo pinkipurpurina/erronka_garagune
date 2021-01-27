@@ -1,6 +1,7 @@
 import firebase from 'firebase';
 import { Injectable } from '@angular/core';
 import { File } from '@ionic-native/file/ngx'
+import { CompileShallowModuleMetadata } from '@angular/compiler';
 
 
 @Injectable({
@@ -9,7 +10,7 @@ import { File } from '@ionic-native/file/ngx'
 export class FileManagementService {
 
   usuario: any[] = [];
-
+  usuarioNombre;
   constructor(private fileManager: File) { }
 
   async userFileCreator(uidAdmin: string, uidUser: string) {
@@ -17,9 +18,11 @@ export class FileManagementService {
     firebase.database().ref('users/' + uidAdmin + '/erabiltzaileak/' + uidUser).once('value', (snap) => {
       snap.forEach((element) => {
         var uid = element.key;
+        var admin = uidAdmin;
         var data = element.val();
         this.usuario.push({
           uid: uid,
+          adminUID:admin,
           data: data,
         });
       });
@@ -36,5 +39,8 @@ export class FileManagementService {
       console.log('Ha sucedido un error al crear el json', err);
     });
 
+  }
+  getUser(){
+    return this.fileManager.readAsText(this.fileManager.dataDirectory,'UserData.txt');
   }
 }

@@ -1,8 +1,6 @@
 import { Component, OnChanges, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
-import { from } from "rxjs";
 import { UsuariosFirebaseService } from "../services/usuarios-firebase.service";
-import { Kategoria } from "../interfaces/usersInterface";
 import { Router } from "@angular/router";
 import { KategoriakSortuPage } from "../kategoriak-sortu/kategoriak-sortu.page";
 import { ColorPickerPage } from "../color-picker/color-picker.page";

@@ -2,7 +2,6 @@ import {
   Monitorea,
   Erabiltzailea,
   Kategoria,
-  Piktograma,
 } from './../interfaces/usersInterface';
 import { Injectable } from '@angular/core';
 
