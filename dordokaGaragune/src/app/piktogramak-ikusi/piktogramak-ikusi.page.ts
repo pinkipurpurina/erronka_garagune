@@ -41,6 +41,7 @@ export class PiktogramakIkusiPage implements OnInit {
   }
 
   irakurriPiktogramak() {
+    this.piktogramak=[]
     this.firebaseConnect.getPiktogramaList().once("value", (snap) => {
       snap.forEach((element) => {
         console.log("bakoitza---", element.val());
@@ -70,4 +71,13 @@ export class PiktogramakIkusiPage implements OnInit {
     });
     modal.present();
   }
+  //delete piktograma
+  delete(id: string) {
+    console.log("que id llega:  ",id);
+    if (window.confirm("Do you really want to delete?")) {
+      this.firebaseConnect.deletePiktograma(id);
+     // this.irakurriPiktogramak();
+    }
+  }
+  
 }

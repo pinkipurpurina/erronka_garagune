@@ -77,7 +77,7 @@ export class PiktogramakSortuPage {
   formSubmit() {
     this.FirebaseService.createPiktograma(this.argazkia, this.picNombre)
       .then(async (res) => {
-        //asinc funtzioa hemen declaratu dugu
+        //asinc funtzioa hemen deklaratu dugu
         console.log(res);
         this.toastSortu("Imagen cargada");
         await this.modalCtrl.dismiss(); //await-ek itxaron egiten du bukatu arte eta horria ixten du
@@ -85,7 +85,7 @@ export class PiktogramakSortuPage {
       })
       .catch((error) =>
         console.log("Error irudiak gordetzean Realtime Databasean->", error)
-      ); // exceptionic ba daude hemen sartuko da.
+      ); // except ba daude hemen sartuko da.
   }
 
   argazkiaJaso() {
@@ -95,8 +95,8 @@ export class PiktogramakSortuPage {
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
-      targetHeight: 100,
-      targetWidth: 100,
+      targetHeight: 200,
+      targetWidth: 200,
       allowEdit: true,
       //popoverOptions// para ios igual hace falta...comprobar
       saveToPhotoAlbum: false,

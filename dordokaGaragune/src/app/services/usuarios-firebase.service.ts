@@ -3,35 +3,31 @@ import {
   Erabiltzailea,
   Kategoria,
   Piktograma,
-} from './../interfaces/usersInterface';
-import { Injectable } from '@angular/core';
+} from "./../interfaces/usersInterface";
+import { Injectable } from "@angular/core";
 
 import {
   AngularFireDatabase,
   AngularFireList,
   AngularFireObject,
-} from '@angular/fire/database';
-import { stringify } from '@angular/compiler/src/util';
-import firebase from 'firebase';
+} from "@angular/fire/database";
+import { stringify } from "@angular/compiler/src/util";
+import firebase from "firebase";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class UsuariosFirebaseService {
   usuarioListRef: AngularFireList<any>;
   usuarioRef: AngularFireObject<any>;
-  monitoreUID = 're2KbiU45PcouAHb4fThHSbs3dS2';
-  erabiltzaileNormalaUID = 're2KbiU45PcouAHb4fThHSbs3dS2';
-  kategoriaUID = '-MRKLVnXoBcLjP76TNsC';
+  monitoreUID = "re2KbiU45PcouAHb4fThHSbs3dS2";
+  erabiltzaileNormalaUID = "re2KbiU45PcouAHb4fThHSbs3dS2";
+  kategoriaUID = "-MRKLVnXoBcLjP76TNsC";
   // tslint:disable-next-line: variable-name
   private _kategoiaObj = {} as Kategoria;
 
-  constructor(
-    private db: AngularFireDatabase,
-
-  ) {
-    this.usuarioListRef = this.db.list('/users');
-
+  constructor(private db: AngularFireDatabase) {
+    this.usuarioListRef = this.db.list("/users");
   }
   public get kategoiaObj() {
     return this._kategoiaObj;
@@ -47,54 +43,53 @@ export class UsuariosFirebaseService {
   }
 
   getKategoriaList() {
-    console.log('erabiltzailea->', this.erabiltzaileNormalaUID);
-    console.log('firebase->', firebase.auth().currentUser.uid);
+    console.log("erabiltzailea->", this.erabiltzaileNormalaUID);
+    console.log("firebase->", firebase.auth().currentUser.uid);
 
-    return firebase
-      .database()
-      .ref(
-        '/users/' +
+    return firebase.database().ref(
+      "/users/" +
         // firebase.auth().currentUser.uid +
         this.monitoreUID +
-        '/erabiltzaileak/' +
+        "/erabiltzaileak/" +
         this.erabiltzaileNormalaUID +
-        '/kategoriak'
-      );
+        "/kategoriak"
+    );
     // .ref("/users/" + firebase.auth().currentUser.uid + "/erabiltzaileak/" + this.erabiltzaileNormalaUID + "/kategoriak");
   }
   getPiktogramaList() {
     return firebase
       .database()
       .ref(
-        '/users/' +
-        firebase.auth().currentUser.uid +
-        '/erabiltzaileak/' +
-        this.erabiltzaileNormalaUID +
-        '/kategoriak/' +
-        this.kategoriaUID +
-        '/piktogramak'
+        "/users/" +
+          firebase.auth().currentUser.uid +
+          "/erabiltzaileak/" +
+          this.erabiltzaileNormalaUID +
+          "/kategoriak/" +
+          this.kategoriaUID +
+          "/piktogramak"
       );
   }
 
-
   erabiltzaileakKargatu(): any {
-    console.log('hau da zure ID-a:', firebase.auth().currentUser.uid);
-    this.usuarioListRef = this.db.list('/users/' + /*firebase.auth().currentUser.uid*/this.monitoreUID + '/erabiltzaileak');
-    return this.usuarioListRef
+    console.log("hau da zure ID-a:", firebase.auth().currentUser.uid);
+    this.usuarioListRef = this.db.list(
+      "/users/" +
+        /*firebase.auth().currentUser.uid*/ this.monitoreUID +
+        "/erabiltzaileak"
+    );
+    return this.usuarioListRef;
   }
 
   getAdminErabiltzaile(): any {
-    return firebase
-      .database()
-      .ref('/users/' + firebase.auth().currentUser.uid);
+    return firebase.database().ref("/users/" + firebase.auth().currentUser.uid);
     // return firebase
     //   .database()
     //   .ref('/users/' + JSON.parse(localStorage.getItem('user')).uid);
   }
   makeid(length) {
-    let result = '';
+    let result = "";
     const characters =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     const charactersLength = characters.length;
     for (let i = 0; i < length; i++) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -110,17 +105,17 @@ export class UsuariosFirebaseService {
     console.log(this.usuarioRef);
     console.log(this.usuarioListRef);
 
-    const idCreate = '12012021' + this.makeid(16);
-    const idPic = '12012021' + this.makeid(16);
-    const idKat = '12012021' + this.makeid(16);
-    const monitorearenUId = '';
+    const idCreate = "12012021" + this.makeid(16);
+    const idPic = "12012021" + this.makeid(16);
+    const idKat = "12012021" + this.makeid(16);
+    const monitorearenUId = "";
     this.usuarioListRef = this.db.list(
-      '/users/-MQptEJuTP67l8RQES6K/' + /*monitorearenUId+*/ 'erabiltzaileak/'
+      "/users/-MQptEJuTP67l8RQES6K/" + /*monitorearenUId+*/ "erabiltzaileak/"
     );
     return this.usuarioListRef.push({
       // usuarios con discapacidad
       id: idCreate,
-      erabiltzaileIzena: 'Erabiltzailearen izena****',
+      erabiltzaileIzena: "Erabiltzailearen izena****",
       kategoriak: [] /* [
             {
               idKategoria: idKat,
@@ -142,13 +137,13 @@ export class UsuariosFirebaseService {
   // Create Piktograma
   createPiktograma(path: string, name: string) {
     this.usuarioListRef = this.db.list(
-      '/users/' +
-      firebase.auth().currentUser.uid +
-      '/erabiltzaileak/' +
-      this.erabiltzaileNormalaUID +
-      '/kategoriak/' +
-      this.kategoriaUID +
-      '/piktogramak'
+      "/users/" +
+        firebase.auth().currentUser.uid +
+        "/erabiltzaileak/" +
+        this.erabiltzaileNormalaUID +
+        "/kategoriak/" +
+        this.kategoriaUID +
+        "/piktogramak"
     );
     return this.usuarioListRef.push({
       piktogramaIzena: name,
@@ -160,11 +155,11 @@ export class UsuariosFirebaseService {
     x.kategoriaIzena = kategoriaIzena;
     return this.db
       .list(
-        '/users/' +
-        monitorearenUID + // firebase.auth().currentUser.uid +
-        '/erabiltzaileak/' +
-        this.erabiltzaileNormalaUID +
-        '/kategoriak' // kategorien listaren helbidea
+        "/users/" +
+          monitorearenUID + // firebase.auth().currentUser.uid +
+          "/erabiltzaileak/" +
+          this.erabiltzaileNormalaUID +
+          "/kategoriak" // kategorien listaren helbidea
       )
       .push(x); // bat gehitu
   }
@@ -173,11 +168,11 @@ export class UsuariosFirebaseService {
     x.kolorea = kategoriaKolorea;
     return this.db
       .list(
-        '/users/' +
-        firebase.auth().currentUser.uid +
-        '/erabiltzaileak/' +
-        this.erabiltzaileNormalaUID +
-        '/kategoriak/' // kategorien listaren helbidea
+        "/users/" +
+          firebase.auth().currentUser.uid +
+          "/erabiltzaileak/" +
+          this.erabiltzaileNormalaUID +
+          "/kategoriak/" // kategorien listaren helbidea
       )
       .update(this.kategoriaUID, x); // bat gehitu
   }
@@ -199,12 +194,50 @@ export class UsuariosFirebaseService {
     return this.usuarioListRef.update(id, x);
   }
 
-  public createUsuarioNormal( name: string, idAdmin: any) {
+  public createUsuarioNormal(name: string, idAdmin: any) {
     const x = {} as Erabiltzailea;
     x.erabiltzaileIzena = name;
     x.kategoriak = [];
     // return this.db.list('users/'+idAdmin+'/erabiltzaileak/'+id).push(name);
-    return this.db.list('users/' + idAdmin + '/erabiltzaileak').push( x);
+    return this.db.list("users/" + idAdmin + "/erabiltzaileak").push(x);
   }
-
+  // Delete kategoria
+  deleteKategoria(id: string) {
+    this.usuarioRef = this.db.object(
+      "/users/" +
+        firebase.auth().currentUser.uid +
+        "/erabiltzaileak/" +
+        this.erabiltzaileNormalaUID +
+        "/kategoriak/" + // kategorien listaren helbidea
+        id
+    );
+    this.usuarioRef.remove();
+    console.log(id + "removed!");
+  }
+    // Delete piktograma
+    deletePiktograma(id: string) {
+      this.usuarioRef = this.db.object(
+        "/users/" +
+          firebase.auth().currentUser.uid +
+          "/erabiltzaileak/" +
+          this.erabiltzaileNormalaUID +
+          "/kategoriak/" + // kategorien listaren helbidea
+          this.kategoriaUID +
+          "/piktogramak/"+
+          id
+      );
+      this.usuarioRef.remove();
+  
+      console.log(
+        "/users/" +
+          firebase.auth().currentUser.uid +
+          "/erabiltzaileak/" +
+          this.erabiltzaileNormalaUID +
+          "/kategoriak/" + // kategorien listaren helbidea
+          this.kategoriaUID +
+          "/piktogramak/"+
+          id)
+          console.log(id + " --removed!");
+      
+    }
 }

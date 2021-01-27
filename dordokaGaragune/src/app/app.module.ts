@@ -17,7 +17,6 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 
 import { environment } from '../environments/environment';
-
 import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 // import { ImageResizer } from '@ionic-native/image-resizer/ngx';
@@ -42,8 +41,6 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
     SplashScreen,
     TextToSpeech,
     File,
-    // ImageResizer,
-    // File,
     Camera,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
