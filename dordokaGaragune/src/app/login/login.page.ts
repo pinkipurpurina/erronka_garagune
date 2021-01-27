@@ -62,14 +62,16 @@ export class LoginPage implements OnInit {
             });
           });
         } else {
-          this.toastSortu("Email o contraseña incorrecta.*2");
+          // this.toastSortu("Email o contraseña incorrecta.");
         }
       }
     } catch (error) {
-      console.log('Error->', error);
-     
-      this.toastSortu("Email o contraseña incorrecta.");
-       
+      console.log('Error->', error["code"]);  
+      if(error["code"] == "auth/network-request-failed"){
+        this.toastSortu("No hay conexión a internet.");
+      } else {
+        this.toastSortu("Email o contraseña incorrecta.");
+      }
     }
   }
   async toastSortu(mns) {
