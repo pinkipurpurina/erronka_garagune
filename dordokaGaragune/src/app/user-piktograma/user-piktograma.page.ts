@@ -9,19 +9,33 @@ import { UsuariosFirebaseService } from '../services/usuarios-firebase.service';
   styleUrls: ['./user-piktograma.page.scss'],
 })
 export class UserPiktogramaPage implements OnInit {
-  nombre;
+  nombre: string;
   piktoName: any[] = [];
 
   constructor(private _stts: TtsService, public firebaseConnect: UsuariosFirebaseService, public filer: FileManagementService) { }
 
   ngOnInit() {
     this.getNombre();
+    this.getPiktogramak();
   }
 
   getNombre(){
+    this.nombre = this.firebaseConnect.kategoriaName;
+  }
+
+  getPiktogramak(){
+    this.piktoName = [];
     this.filer.getUser().then((datos) => {
-      this.nombre = JSON.parse(datos)[0]['data'];
-    })
+      let array= JSON.parse(datos)[1]['data'][this.firebaseConnect.kategoriaUserUID]['piktogramak'];
+      console.log("Array=> ",array);
+      for(var i in array){
+        console.log("Array[]=> ",array[i]);
+        this.piktoName.push({
+          uid:i,
+          data:array[i],
+        }); 
+      }
+    });
   }
 
   hablar(esp: string) {

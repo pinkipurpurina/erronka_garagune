@@ -24,6 +24,7 @@ export class UsuariosFirebaseService {
   erabiltzaileNormalaUID = "re2KbiU45PcouAHb4fThHSbs3dS2";
   kategoriaUID = "-MRKLVnXoBcLjP76TNsC";
   kategoriaUserUID ="";
+  kategoriaName: string ="";
   // tslint:disable-next-line: variable-name
   private _kategoiaObj = {} as Kategoria;
 
@@ -39,8 +40,9 @@ export class UsuariosFirebaseService {
   setKategoria(kategoriaUID: string) {
     this.kategoriaUID = kategoriaUID;
   }
-
-
+  setKategoriaName(name: string) {
+    this.kategoriaName = name;
+  }
   setKategoriaUsuario(kategoriaUID: string) {
     this.kategoriaUserUID = kategoriaUID;
   }

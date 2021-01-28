@@ -31,6 +31,7 @@ export class UserKategoriaPage implements OnInit {
     this.kategoriaName = [];
     this.filer.getUser().then((datos) => {
       let array= JSON.parse(datos)[1]['data'];
+      console.log("Array=> ",array);
       for(var i in array){
         this.kategoriaName.push({
           uid:i,
@@ -53,6 +54,7 @@ export class UserKategoriaPage implements OnInit {
   piktograma(piktoUid: string, texto: string){
     this.hablar(texto);
     this.firebaseConnect.setKategoriaUsuario(piktoUid);
+    this.firebaseConnect.setKategoriaName(texto);
     this.router.navigate(["user-piktograma"]);
   }
 }

@@ -1,6 +1,6 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>userPiktograma</ion-title>
+        <ion-title>{{nombre}}</ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -27,6 +27,18 @@
                 <ion-icon name="trash-bin-outline"></ion-icon>
             </ion-item>
         </ion-row>
+        <ion-row class="center" >
+            <ion-col size-xs="12" size-sm="6" size-md="3" size-lg="2" *ngFor="let item of piktoName">
+                <ion-card (click)="hablar(item.data['piktogramaIzena'])">
+                    <ion-item class="center">
+                            <ion-img [src]="item.data['piktogramaHelbidea']" class="center"></ion-img>
+                        </ion-item>
+                    <ion-card-content class="center">
+                        <ion-label class="center">{{item.data["piktogramaIzena"]}}</ion-label><br>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row> 
     </ion-grid>
 
 </ion-content>
