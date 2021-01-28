@@ -2,6 +2,8 @@ import { FileManagementService } from './../services/file-management.service';
 import { File } from '@ionic-native/file/ngx';
 import { TtsService } from './../services/tts.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UsuariosFirebaseService } from '../services/usuarios-firebase.service';
 
 
 @Component({
@@ -12,12 +14,11 @@ import { Component, OnInit } from '@angular/core';
 export class UserKategoriaPage implements OnInit {
   nombre;
   kategoriaName: any[] = [];
-  constructor(private _stts: TtsService, private fileManager: File, public filer: FileManagementService) { }
+  constructor(private _stts: TtsService, public firebaseConnect: UsuariosFirebaseService, private fileManager: File, public filer: FileManagementService, private router: Router) { }
 
   ngOnInit() {
     this.getNombre();
-    this.getKategoriaName()
-    console.log(this.kategoriaName) 
+    this.getKategoriaName();
   }
 
   getNombre(){
@@ -36,48 +37,16 @@ export class UserKategoriaPage implements OnInit {
           data:array[i],
         }); 
       }
-
-
-
-
-      // Object.keys(array).forEach(function(key) {
-      //   console.log("Pasar", key)
-      //   this.kategoriaName.push({
-      //     uid:key,
-      //     data:array[key]["kategoriaIzena"],
-      //   }); 
-      // });
     });
-
-
- 
-
-
-
-
-    // this.kategoriak = [];
-    // this.firebaseConnect.getKategoriaList().once("value", (snap) => {
-    //   snap.forEach((element) => {
-    //     var uid = element.key;
-    //     var data = element.val();
-    //     this.kategoriak.push({
-    //       uid: uid,
-    //       data: data,
-    //     });
-    //   });
-    // });
-
-
-
-
-
-
-
-
-
   }
 
   hablar(esp: string) {
     this._stts.discurso(esp);
+  }
+
+  piktograma(piktoUid: string, texto: string){
+    this.hablar(texto);
+    this.firebaseConnect.setKategoriaUsuario(piktoUid);
+    this.router.navigate(["user-piktograma"]);
   }
 }

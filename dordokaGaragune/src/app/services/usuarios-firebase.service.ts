@@ -23,6 +23,7 @@ export class UsuariosFirebaseService {
   monitoreUID = "re2KbiU45PcouAHb4fThHSbs3dS2";
   erabiltzaileNormalaUID = "re2KbiU45PcouAHb4fThHSbs3dS2";
   kategoriaUID = "-MRKLVnXoBcLjP76TNsC";
+  kategoriaUserUID ="";
   // tslint:disable-next-line: variable-name
   private _kategoiaObj = {} as Kategoria;
 
@@ -38,6 +39,11 @@ export class UsuariosFirebaseService {
   setKategoria(kategoriaUID: string) {
     this.kategoriaUID = kategoriaUID;
   }
+
+
+  setKategoriaUsuario(kategoriaUID: string) {
+    this.kategoriaUserUID = kategoriaUID;
+  }
   setUsuarioNormala(usuarioNormalaUID: string) {
     this.erabiltzaileNormalaUID = usuarioNormalaUID;
   }
@@ -48,11 +54,11 @@ export class UsuariosFirebaseService {
 
     return firebase.database().ref(
       "/users/" +
-        // firebase.auth().currentUser.uid +
-        this.monitoreUID +
-        "/erabiltzaileak/" +
-        this.erabiltzaileNormalaUID +
-        "/kategoriak"
+      // firebase.auth().currentUser.uid +
+      this.monitoreUID +
+      "/erabiltzaileak/" +
+      this.erabiltzaileNormalaUID +
+      "/kategoriak"
     );
     // .ref("/users/" + firebase.auth().currentUser.uid + "/erabiltzaileak/" + this.erabiltzaileNormalaUID + "/kategoriak");
   }
@@ -61,12 +67,12 @@ export class UsuariosFirebaseService {
       .database()
       .ref(
         "/users/" +
-          firebase.auth().currentUser.uid +
-          "/erabiltzaileak/" +
-          this.erabiltzaileNormalaUID +
-          "/kategoriak/" +
-          this.kategoriaUID +
-          "/piktogramak"
+        firebase.auth().currentUser.uid +
+        "/erabiltzaileak/" +
+        this.erabiltzaileNormalaUID +
+        "/kategoriak/" +
+        this.kategoriaUID +
+        "/piktogramak"
       );
   }
 
@@ -75,7 +81,7 @@ export class UsuariosFirebaseService {
     this.usuarioListRef = this.db.list(
       "/users/" +
         /*firebase.auth().currentUser.uid*/ this.monitoreUID +
-        "/erabiltzaileak"
+      "/erabiltzaileak"
     );
     return this.usuarioListRef;
   }
@@ -138,12 +144,12 @@ export class UsuariosFirebaseService {
   createPiktograma(path: string, name: string) {
     this.usuarioListRef = this.db.list(
       "/users/" +
-        firebase.auth().currentUser.uid +
-        "/erabiltzaileak/" +
-        this.erabiltzaileNormalaUID +
-        "/kategoriak/" +
-        this.kategoriaUID +
-        "/piktogramak"
+      firebase.auth().currentUser.uid +
+      "/erabiltzaileak/" +
+      this.erabiltzaileNormalaUID +
+      "/kategoriak/" +
+      this.kategoriaUID +
+      "/piktogramak"
     );
     return this.usuarioListRef.push({
       piktogramaIzena: name,
@@ -156,10 +162,10 @@ export class UsuariosFirebaseService {
     return this.db
       .list(
         "/users/" +
-          monitorearenUID + // firebase.auth().currentUser.uid +
-          "/erabiltzaileak/" +
-          this.erabiltzaileNormalaUID +
-          "/kategoriak" // kategorien listaren helbidea
+        monitorearenUID + // firebase.auth().currentUser.uid +
+        "/erabiltzaileak/" +
+        this.erabiltzaileNormalaUID +
+        "/kategoriak" // kategorien listaren helbidea
       )
       .push(x); // bat gehitu
   }
@@ -169,10 +175,10 @@ export class UsuariosFirebaseService {
     return this.db
       .list(
         "/users/" +
-          firebase.auth().currentUser.uid +
-          "/erabiltzaileak/" +
-          this.erabiltzaileNormalaUID +
-          "/kategoriak/" // kategorien listaren helbidea
+        firebase.auth().currentUser.uid +
+        "/erabiltzaileak/" +
+        this.erabiltzaileNormalaUID +
+        "/kategoriak/" // kategorien listaren helbidea
       )
       .update(this.kategoriaUID, x); // bat gehitu
   }
@@ -205,39 +211,39 @@ export class UsuariosFirebaseService {
   deleteKategoria(id: string) {
     this.usuarioRef = this.db.object(
       "/users/" +
-        firebase.auth().currentUser.uid +
-        "/erabiltzaileak/" +
-        this.erabiltzaileNormalaUID +
-        "/kategoriak/" + // kategorien listaren helbidea
-        id
+      firebase.auth().currentUser.uid +
+      "/erabiltzaileak/" +
+      this.erabiltzaileNormalaUID +
+      "/kategoriak/" + // kategorien listaren helbidea
+      id
     );
     this.usuarioRef.remove();
     console.log(id + "removed!");
   }
-    // Delete piktograma
-    deletePiktograma(id: string) {
-      this.usuarioRef = this.db.object(
-        "/users/" +
-          firebase.auth().currentUser.uid +
-          "/erabiltzaileak/" +
-          this.erabiltzaileNormalaUID +
-          "/kategoriak/" + // kategorien listaren helbidea
-          this.kategoriaUID +
-          "/piktogramak/"+
-          id
-      );
-      this.usuarioRef.remove();
-  
-      console.log(
-        "/users/" +
-          firebase.auth().currentUser.uid +
-          "/erabiltzaileak/" +
-          this.erabiltzaileNormalaUID +
-          "/kategoriak/" + // kategorien listaren helbidea
-          this.kategoriaUID +
-          "/piktogramak/"+
-          id)
-          console.log(id + " --removed!");
-      
-    }
+  // Delete piktograma
+  deletePiktograma(id: string) {
+    this.usuarioRef = this.db.object(
+      "/users/" +
+      firebase.auth().currentUser.uid +
+      "/erabiltzaileak/" +
+      this.erabiltzaileNormalaUID +
+      "/kategoriak/" + // kategorien listaren helbidea
+      this.kategoriaUID +
+      "/piktogramak/" +
+      id
+    );
+    this.usuarioRef.remove();
+
+    console.log(
+      "/users/" +
+      firebase.auth().currentUser.uid +
+      "/erabiltzaileak/" +
+      this.erabiltzaileNormalaUID +
+      "/kategoriak/" + // kategorien listaren helbidea
+      this.kategoriaUID +
+      "/piktogramak/" +
+      id)
+    console.log(id + " --removed!");
+
+  }
 }

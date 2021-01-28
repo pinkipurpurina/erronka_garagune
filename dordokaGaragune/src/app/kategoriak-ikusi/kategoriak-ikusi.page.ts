@@ -60,7 +60,7 @@ export class KategoriakIkusiPage implements OnInit {
   }
 
   setPiktograma(uid: string) {
-    this.firebaseConnect.setKategoria(uid);
+    this.firebaseConnect.setKategoriaUsuario(uid);
     this.router.navigate(["piktogramak"]);
   }
 
