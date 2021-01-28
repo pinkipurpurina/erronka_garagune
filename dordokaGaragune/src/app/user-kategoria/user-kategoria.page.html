@@ -47,14 +47,14 @@
             </ion-col>
         </ion-row>
         <ion-row class="center" *ngFor="let item of kategoriaName">
-            <ion-col size-xs="12" size-sm="6" size-md="3" size-lg="2" >
-                <ion-card>
+            <ion-col size-xs="12" size-sm="6" size-md="3" size-lg="2">
+                <ion-card (click)="hablar(item.data['kategoriaIzena'])">
                     <!-- <ion-item class="center">
                             <ion-img [src]="item" class="center"></ion-img>
                         </ion-item> -->
-                        <ion-card-content class="center">
-                            <ion-label class="center">{{item}}</ion-label><br>
-                        </ion-card-content>
+                    <ion-card-content class="center">
+                        <ion-label class="center">{{item.data["kategoriaIzena"]}}</ion-label><br>
+                    </ion-card-content>
                 </ion-card>
             </ion-col>
         </ion-row>
