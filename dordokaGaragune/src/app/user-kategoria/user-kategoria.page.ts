@@ -66,6 +66,12 @@ export class UserKategoriaPage implements OnInit {
 
   }
 
+  hablarPalabras(){
+    this._stts.hablarGrupoDePalabras()
+  }
+  anadirPalabra(palabra){
+    this._stts.agruparMensajes(palabra)
+  }
   hablar(esp: string) {
     this._stts.discurso(esp);
   }

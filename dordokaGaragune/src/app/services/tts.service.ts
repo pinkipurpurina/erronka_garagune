@@ -8,7 +8,7 @@ import { ToastController } from '@ionic/angular';
 export class TtsService {
 
   constructor(private _tts: TextToSpeech, private _toast: ToastController) { }
-
+  arrayDePalabras: any[] = [];
   discurso(texto: string) {
     this._tts.speak({
       text: texto,
@@ -23,6 +23,14 @@ export class TtsService {
       duration: 2000
     });
     toast.present();
+  }
+
+  async agruparMensajes(palabra){
+    this.arrayDePalabras += palabra;
+  }
+
+  async hablarGrupoDePalabras(){
+    this.discurso(this.arrayDePalabras.toString())
   }
 
 }
