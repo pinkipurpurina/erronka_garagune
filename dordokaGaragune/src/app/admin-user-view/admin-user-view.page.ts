@@ -1,9 +1,11 @@
+import { CrudPiktogramakPage } from './../crud-piktogramak/crud-piktogramak.page';
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { ModalController } from '@ionic/angular';
 import { AdminCrearUsuarioPage } from '../admin-crear-usuario/admin-crear-usuario.page';
+
 import { UsuariosFirebaseService } from '../services/usuarios-firebase.service';
 import firebase from 'firebase';
 @Component({
@@ -35,14 +37,14 @@ export class AdminUserViewPage implements OnInit {
 
   async presentModal() {
     const modal = await this.modalController.create({
-      component: AdminCrearUsuarioPage,
+      component: CrudPiktogramakPage,
       cssClass: 'my-custom-class',
     });
     return await modal.present();
   }
 
   erabiltzaileakIrakurri() {
-    this.erabiltzaileak = [];
+   // this.erabiltzaileak = [];
     let bookingRes = this.firebaseConnect.erabiltzaileakKargatu();
     bookingRes.snapshotChanges().subscribe(res => {
       this.erabiltzaileak = [];
@@ -51,8 +53,6 @@ export class AdminUserViewPage implements OnInit {
         a['$key'] = item.key;
         this.erabiltzaileak.push(a);
         console.log(a);
-
-
       })
     })
   }

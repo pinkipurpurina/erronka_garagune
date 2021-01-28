@@ -87,11 +87,11 @@ export class UsuariosFirebaseService {
     //   .ref('/users/' + JSON.parse(localStorage.getItem('user')).uid);
   }
   erabiltzaileakKargatuPrueba(monitoreUID:string): any {
-    console.log("hau da zure ID-a:", firebase.auth().currentUser.uid);
+    console.log("hau da zure ID-a:", monitoreUID);
     this.usuarioListRef = this.db.list(
       "/users/" +
        monitoreUID +
-        "/erabiltzaileak"
+       "/erabiltzaileak"
     );
     return this.usuarioListRef;
   }
