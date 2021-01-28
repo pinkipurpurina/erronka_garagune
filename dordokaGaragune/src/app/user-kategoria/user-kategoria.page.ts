@@ -47,6 +47,13 @@ export class UserKategoriaPage implements OnInit {
   anadirPalabra(palabra){
     this._stts.agruparMensajes(palabra)
   }
+
+  borrarPalabras(){
+    this._stts.vaciarGrupoDePalabras()
+  }
+
+  
+
   hablar(esp: string) {
     this._stts.discurso(esp);
   }

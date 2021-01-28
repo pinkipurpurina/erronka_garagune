@@ -27,9 +27,7 @@ export class UserPiktogramaPage implements OnInit {
     this.piktoName = [];
     this.filer.getUser().then((datos) => {
       let array= JSON.parse(datos)[1]['data'][this.firebaseConnect.kategoriaUserUID]['piktogramak'];
-      console.log("Array=> ",array);
       for(var i in array){
-        console.log("Array[]=> ",array[i]);
         this.piktoName.push({
           uid:i,
           data:array[i],
@@ -38,8 +36,20 @@ export class UserPiktogramaPage implements OnInit {
     });
   }
 
+  hablarPalabras(){
+    this._stts.hablarGrupoDePalabras()
+  }
+  anadirPalabra(palabra){
+    this._stts.agruparMensajes(palabra)
+  }
+
+  borrarPalabras(){
+    this._stts.vaciarGrupoDePalabras()
+  }
+
   hablar(esp: string) {
     this._stts.discurso(esp);
+
   }
 
 }
