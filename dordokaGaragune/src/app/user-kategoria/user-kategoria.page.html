@@ -32,7 +32,7 @@
             <ion-col size-xs="12" size-sm="6" size-md="3" size-lg="2">
                 <ion-card>
                     <ion-card-content class="center">
-                        <ion-label class="center">{{kategoriaName.data}}</ion-label><br>
+                        <ion-label class="center"></ion-label><br>
                     </ion-card-content>
                 </ion-card>
             </ion-col>
@@ -41,22 +41,21 @@
             <ion-col size-xs="12" size-sm="6" size-md="3" size-lg="2">
                 <ion-card>
                     <ion-card-content class="center">
-                        <ion-label class="center">{{kategoriaName}}</ion-label><br>
+                        <ion-label class="center"></ion-label><br>
                     </ion-card-content>
                 </ion-card>
             </ion-col>
         </ion-row>
-        <ion-row class="center">
-            <ion-col size-xs="12" size-sm="6" size-md="3" size-lg="2" *ngFor="let item of kategoriaName">
+        <ion-row class="center" *ngFor="let item of kategoriaName">
+            <ion-col size-xs="12" size-sm="6" size-md="3" size-lg="2" >
                 <ion-card>
-                    <ion-item class="center">
-                            <!-- <ion-img [src]="item" class="center"></ion-img> -->
-                        </ion-item>
+                    <!-- <ion-item class="center">
+                            <ion-img [src]="item" class="center"></ion-img>
+                        </ion-item> -->
                         <ion-card-content class="center">
                             <ion-label class="center">{{item}}</ion-label><br>
                         </ion-card-content>
                 </ion-card>
-
             </ion-col>
         </ion-row>
     </ion-grid>

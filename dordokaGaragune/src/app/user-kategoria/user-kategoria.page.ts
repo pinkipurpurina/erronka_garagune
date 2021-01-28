@@ -3,6 +3,7 @@ import { File } from '@ionic-native/file/ngx';
 import { TtsService } from './../services/tts.service';
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-user-kategoria',
   templateUrl: './user-kategoria.page.html',
@@ -10,12 +11,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserKategoriaPage implements OnInit {
   nombre;
-  kategoriaName;
+  kategoriaName: any[] = [];
   constructor(private _stts: TtsService, private fileManager: File, public filer: FileManagementService) { }
 
   ngOnInit() {
     this.getNombre();
     this.getKategoriaName()
+    console.log(this.kategoriaName) 
   }
 
   getNombre(){
@@ -26,10 +28,11 @@ export class UserKategoriaPage implements OnInit {
 
   getKategoriaName(){
     this.filer.getUser().then((datos) => {
-      console.log("DATA=> ", JSON.parse(datos)[1]['data']);
-      console.log(JSON.parse(datos)[1]['data'](0));
+      const array= JSON.parse(datos)[1]['data']
+      Object.keys(array).forEach(function(key) {
+        this.kategoriaName.push({data:array[key]})  
+      })  
       
-      this.kategoriaName.push(JSON.parse(datos)[1]['data'])    
     })
   }
 
