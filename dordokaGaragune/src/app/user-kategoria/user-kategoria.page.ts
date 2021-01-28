@@ -27,15 +27,43 @@ export class UserKategoriaPage implements OnInit {
   }
 
   getKategoriaName(){
+    this.kategoriaName = [];
     this.filer.getUser().then((datos) => {
-      const array= JSON.parse(datos)[1]['data']
+      let array= JSON.parse(datos)[1]['data'];
+      for(var i in array){
+        this.kategoriaName.push({
+          uid:i,
+          data:array[i],
+        }); 
+      }
+    });
 
-      Object.values(array).forEach(function(key) {
-        console.log(key)
-        datos
-      })  
-      
-    })
+
+ 
+
+
+
+
+    // this.kategoriak = [];
+    // this.firebaseConnect.getKategoriaList().once("value", (snap) => {
+    //   snap.forEach((element) => {
+    //     var uid = element.key;
+    //     var data = element.val();
+    //     this.kategoriak.push({
+    //       uid: uid,
+    //       data: data,
+    //     });
+    //   });
+    // });
+
+
+
+
+
+
+
+
+
   }
 
   hablar(esp: string) {
