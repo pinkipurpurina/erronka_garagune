@@ -29,8 +29,10 @@ export class UserKategoriaPage implements OnInit {
   getKategoriaName(){
     this.filer.getUser().then((datos) => {
       const array= JSON.parse(datos)[1]['data']
-      Object.keys(array).forEach(function(key) {
-        this.kategoriaName.push({data:array[key]})  
+
+      Object.values(array).forEach(function(key) {
+        console.log(key)
+        datos
       })  
       
     })
