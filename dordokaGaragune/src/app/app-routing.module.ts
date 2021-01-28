@@ -43,6 +43,11 @@ const routes: Routes = [
     loadChildren: () =>
       import("./piktogramak-sortu/piktogramak-sortu.module").then((m) => m.PiktogramakSortuPageModule),
   },
+  {
+    path: 'user-piktograma',
+    loadChildren: () => import('./user-piktograma/user-piktograma.module').then( m => m.UserPiktogramaPageModule)
+  },
+
 ];
 
 @NgModule({
