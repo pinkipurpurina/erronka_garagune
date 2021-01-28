@@ -1,9 +1,11 @@
+import { from } from 'rxjs';
 import { onErrorResumeNext } from 'rxjs';
 import { ForgotPasswordPage } from "./../forgot-password/forgot-password.page";
 import { Component, OnInit } from "@angular/core";
 import { File } from "@ionic-native/file/ngx";
 import firebase from "firebase";
 import { UsuariosFirebaseService } from '../services/usuarios-firebase.service';
+import {FitxeroKudeaketaService} from '../services/fitxategi/fitxero-kudeaketa.service'
 @Component({
   selector: "app-crud-piktogramak",
   templateUrl: "./crud-piktogramak.page.html",
@@ -13,30 +15,30 @@ export class CrudPiktogramakPage implements OnInit {
   promiseDeFile: any;
   monitor: any[] = [];
   monitorUId: string;
-  constructor(private file: File, public firebaseConnect: UsuariosFirebaseService) { }
+  constructor(private file: File, public firebaseConnect: UsuariosFirebaseService, private data:FitxeroKudeaketaService,) { }
 
   ngOnInit() { }
 
   leerData(monitorUID) {
     this.monitorUId = monitorUID;
     this.file
-      .checkDir(this.file.dataDirectory, "userData") //comprobar que existe el directorio
+      .checkDir(this.file.dataDirectory, this.monitorUId) //comprobar que existe el directorio
       .then((_) => {
         console.log(
           "1- El directorio: ",
           this.file.dataDirectory,
-          "userData",
+          this.monitorUId,
           " Existe"
         ); //si existe directorio:
         //comprobar que existe el fichero
         this.file
-          .checkFile(this.file.dataDirectory, "userData/" + this.monitorUId + ".json")//***************************** */
+          .checkFile(this.file.dataDirectory, this.monitorUId+"/" + this.monitorUId + ".json")//***************************** */
           .then((result) => {
             //si existe el fichero:
             console.log(
               "2- El fichero: ",
               this.file.dataDirectory,
-              "userData/" + this.monitorUId + ".txt",
+              this.monitorUId+"/" + this.monitorUId + ".txt",
               " Existe"
             );
 
@@ -48,7 +50,7 @@ export class CrudPiktogramakPage implements OnInit {
             console.log(
               "2- El fichero: ",
               this.file.dataDirectory,
-              "userData/" + this.monitorUId + ".txt",
+              this.monitorUId+"/" + this.monitorUId + ".txt",
               " NO EXISTE. ERROR: ", err
             );
             //leer firebase y añadir el contenido a el fichero que vamos a crear
@@ -63,7 +65,7 @@ export class CrudPiktogramakPage implements OnInit {
       .catch((err) => {//si no existe el directorio:
         console.log("1- El directorio: ",
           this.file.dataDirectory,
-          "userData",
+          this.monitorUId,
           " NO EXISTE. ERROR: ", err);
         //crear directorio, leer firebase y crear fichero
         this.crearDirectorio().then((_) => {
@@ -79,24 +81,27 @@ export class CrudPiktogramakPage implements OnInit {
 
   leerFichero() {
     console.log("3- Va ha leer el fichero: ");
-
+    this.monitor=[];
     this.file
       .readAsText(
         this.file.dataDirectory,
-        "userData/" + this.monitorUId + ".json"/*************** */
+        this.monitorUId+"/" + this.monitorUId + ".json"/*************** */
       )
       .then((result) => {
         //window.alert(result); //falta el restro del código
         console.log("4- contenido del fichero", result);
         console.log(this.monitor);
-
+        let jsonObject = JSON.parse(result);
+        console.log("Prueba de parseo", jsonObject);
+        this.data.monitor=jsonObject;
+        
       })
       .catch((err) => {
         console.log("4- No ha leido nada chata");
       });
   }
   leerParte() {
-this.file.
+
   }
 
 
@@ -124,7 +129,7 @@ this.file.
     this.file
       .createFile(
         this.file.dataDirectory,
-        "userData/" + this.monitorUId + ".json",/*************** */
+        this.monitorUId+"/" + this.monitorUId + ".json",/*************** */
         true
       )
       .then((result) => {
@@ -132,7 +137,7 @@ this.file.
         this.file
           .writeExistingFile(
             this.file.dataDirectory,
-            "userData/" + this.monitorUId + ".json",/********************* */
+            this.monitorUId+"/" + this.monitorUId + ".json",/********************* */
             JSON.stringify(this.monitor)
           )
           .then((_) => {
@@ -151,19 +156,19 @@ this.file.
   //creacion de directorios en dataDirectory de nombre userData
   crearDirectorio() {
     return this.file
-      .createDir(this.file.dataDirectory, "userData", false)
+      .createDir(this.file.dataDirectory, this.monitorUId, false)
       .then((_) => {
         console.log(
           "1.2- Directorio nuevo creado: ",
           this.file.dataDirectory,
-          "userData"
+          this.monitorUId
         );
       })
       .catch((err) => {
         console.log(
           "1.2- Directory NO creado: ",
           this.file.dataDirectory,
-          "userData"
+          this.monitorUId
         );
       });
   }

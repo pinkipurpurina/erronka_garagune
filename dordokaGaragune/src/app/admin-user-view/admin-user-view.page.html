@@ -10,6 +10,9 @@
         </ion-toolbar>
     </ion-header>
     <ion-content>
+       
+        <ion-button color="warning" (click)="logTodo()"> log</ion-button>
+        <ion-button color="danger"(click)="recargar()">recargar</ion-button>
         <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
             <ion-refresher-content></ion-refresher-content>
         </ion-refresher>
@@ -22,9 +25,18 @@
                 <ion-button (click)="setErabiltzailea(item.$key)" color="tertiary">Categorías</ion-button>
             </ion-item>
         </ion-list>
+        <ion-list *ngFor="let item of data.monitor ">
+            <ion-item>
+                <ion-label>{{item.$key}}</ion-label>
+                <ion-label>{{item.erabiltzaileIzena}}</ion-label>
+                <ion-button (click)="setErabiltzailea(item.$key)" color="danger">Categorías</ion-button>
+            </ion-item>
+        </ion-list>
     </ion-content>
     <ion-fab vertical="bottom" horizontal="center" slot="fixed">
         <ion-fab-button (click)="presentModal()" color="tertiary">
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>
     </ion-fab>
+
+   

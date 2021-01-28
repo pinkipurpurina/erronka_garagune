@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { ModalController } from '@ionic/angular';
 import { AdminCrearUsuarioPage } from '../admin-crear-usuario/admin-crear-usuario.page';
+import { FitxeroKudeaketaService } from '../services/fitxategi/fitxero-kudeaketa.service'
 
 import { UsuariosFirebaseService } from '../services/usuarios-firebase.service';
 import firebase from 'firebase';
@@ -14,7 +15,8 @@ import firebase from 'firebase';
   styleUrls: ['./admin-user-view.page.scss'],
 })
 export class AdminUserViewPage implements OnInit {
-  erabiltzaileak: any[] = [];
+  private _erabiltzaileak: any[] = this.data.monitor;
+
   uid: any;
   ref = firebase.database().ref('/users');
 
@@ -23,7 +25,8 @@ export class AdminUserViewPage implements OnInit {
     public modalController: ModalController,
     public firebaseConnect: UsuariosFirebaseService,
     private router: Router,
-    public auth: AuthService
+    public auth: AuthService,
+    public data: FitxeroKudeaketaService
   ) {
     // this.ref.on('child_changed', (snapshot) => {               //No borrar
     //   console.log('child_changed ::' + snapshot.val());
@@ -31,20 +34,44 @@ export class AdminUserViewPage implements OnInit {
     // });
   }
   ngOnInit() {
-    this.firebaseConnect.monitoreUID = firebase.auth().currentUser.uid;
-    this.erabiltzaileakIrakurri();
+    //this.firebaseConnect.monitoreUID = firebase.auth().currentUser.uid;
+    //this.erabiltzaileakIrakurri();
+    this.data.leerData(firebase.auth().currentUser.uid);
+  }
+
+  public get erabiltzaileak(): any[] {
+    return this._erabiltzaileak;
+  }
+
+  public set erabiltzaileak(value: any[]) {
+    this._erabiltzaileak = value;
+  }
+
+  logTodo() {
+    console.log(this._erabiltzaileak);
+    this._erabiltzaileak.forEach(element => {
+      console.log(element);
+    });
+  }
+
+  recargar() {
+    this.data.leerData(firebase.auth().currentUser.uid);
+    console.log("RECARGAR: ", this.erabiltzaileak);
+    this.erabiltzaileak = this.data.monitor;
+    console.log("RECARGAR: ", this.erabiltzaileak);
+
   }
 
   async presentModal() {
     const modal = await this.modalController.create({
-      component: CrudPiktogramakPage,
+      component: AdminCrearUsuarioPage,
       cssClass: 'my-custom-class',
     });
     return await modal.present();
   }
 
   erabiltzaileakIrakurri() {
-   // this.erabiltzaileak = [];
+    // this.erabiltzaileak = [];
     let bookingRes = this.firebaseConnect.erabiltzaileakKargatu();
     bookingRes.snapshotChanges().subscribe(res => {
       this.erabiltzaileak = [];
@@ -62,10 +89,12 @@ export class AdminUserViewPage implements OnInit {
   }
 
   doRefresh(event) {
-    console.log('Begin async operation');
-    this.erabiltzaileakIrakurri();
-    console.log(this.erabiltzaileak);
+    //console.log('Begin async operation');
+    //this.erabiltzaileakIrakurri();
 
+    console.log("RELOAD antes: ",this.data.monitor);
+   this.data.updateFichero();
+   console.log("RELOAD despues: ",this.data.monitor);
     setTimeout(() => {
       console.log('Async operation has ended');
       event.target.complete();
