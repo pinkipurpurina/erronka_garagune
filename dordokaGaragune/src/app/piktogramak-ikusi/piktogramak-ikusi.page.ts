@@ -58,6 +58,7 @@ export class PiktogramakIkusiPage implements OnInit {
     });
   }
   async presentModal() {
+    this.firebaseConnect.ruta=false;
     const modal = await this.modalController.create({
       component: PiktogramakSortuPage,
       cssClass: "my-custom-class",
