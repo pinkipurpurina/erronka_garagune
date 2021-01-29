@@ -14,6 +14,7 @@ import { UsuariosFirebaseService } from '../services/usuarios-firebase.service'
 
 import { environment } from '../../environments/environment';
 import firebase from 'firebase';
+import { Erabiltzailea } from '../interfaces/usersInterface';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class AuthService {
   public user$: Observable<User>;
   authState: any = null;
 
-  constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore, private firebase2: UsuariosFirebaseService, public secondaryAuth: AngularFireAuth,public fileManager: File) {
+  constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore, private firebase2: UsuariosFirebaseService, public fileManager: File) {
     this.user$ = this.afAuth.authState.pipe(
       switchMap((user) => {
         if (user) {
@@ -78,30 +79,30 @@ export class AuthService {
   }
 
   async userRegister(email: string, password: string, nickname: string): Promise<User> {
+    var idAdminActual = (await firebase.auth().currentUser.uid);
+    const secondaryAuth = firebase.initializeApp(environment.firebase, 'Secondary');
     try {
-      // Esto crea una nueva sesion internamente para poder crear el usuario desde la cuenta de administrador sin afectar la sesion de este
-      var idAdminActual = (await firebase.auth().currentUser.uid);
-      const { user } = await this.secondaryAuth.createUserWithEmailAndPassword(email, password);
-      // await this.sendVerificationEmail();
-
-      var userUID = this.secondaryAuth.authState.subscribe(res => {
-        if (res && res.uid) {
-          this.firebase2.createUsuarioNormal(nickname, idAdminActual)
-          this.secondaryAuth.signOut();
-        }
+      console.log('Admin actual=> ', idAdminActual);
+      secondaryAuth.auth().createUserWithEmailAndPassword(email, password).then((data) => {
+        // if (data && data.user.uid) {
+        this.firebase2.createUsuarioNormal(nickname, idAdminActual, data.user.uid);
+        secondaryAuth.auth().signOut();
+        secondaryAuth.delete();
+        // }
       });
 
-      return user;
     } catch (error) {
-      console.log('Error->', error);
+      console.log('Error=> ', error);
+    } finally {
+      return firebase.auth().currentUser;
     }
   }
 
-  async login(email: string, password: string): Promise<firebase.auth.UserCredential>{
-    return this.afAuth.signInWithEmailAndPassword(email,password);
+  async login(email: string, password: string): Promise<firebase.auth.UserCredential> {
+    return this.afAuth.signInWithEmailAndPassword(email, password);
   }
 
-  getCurrentUser(){
+  getCurrentUser() {
     return firebase.auth().currentUser;
   }
 
