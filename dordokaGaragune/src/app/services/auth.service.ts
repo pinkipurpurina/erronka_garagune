@@ -10,6 +10,7 @@ import { switchMap } from 'rxjs/operators';
 import { UsuariosFirebaseService } from '../services/usuarios-firebase.service'
 import firebase from 'firebase';
 import { Erabiltzailea } from '../interfaces/usersInterface';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
