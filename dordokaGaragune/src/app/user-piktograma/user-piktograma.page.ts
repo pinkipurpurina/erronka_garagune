@@ -39,8 +39,8 @@ export class UserPiktogramaPage implements OnInit {
   hablarPalabras(){
     this._stts.hablarGrupoDePalabras()
   }
-  anadirPalabra(palabra){
-    this._stts.agruparMensajes(palabra)
+  anadirPalabra(palabra,imagen){
+    this._stts.agruparMensajes(palabra,imagen)
   }
 
   borrarPalabras(){

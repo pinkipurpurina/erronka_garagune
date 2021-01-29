@@ -1,15 +1,16 @@
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+
 import { Injectable } from '@angular/core';
 import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
 import { ToastController } from '@ionic/angular';
-import { HttpClient } from '@angular/common/http';
+   
 
 @Injectable({
   providedIn: 'root'
 })
 export class TtsService {
 
-  constructor(private _tts: TextToSpeech, private _toast: ToastController,private http: HttpClient) { }
+  constructor(private _tts: TextToSpeech, private _toast: ToastController) { }
   arrayDePalabras: any[] = [];
   discurso(texto: string) {
     this._tts.speak({
@@ -27,17 +28,23 @@ export class TtsService {
     toast.present();
   }
 
-  // getArrayDePalabras():Observable<ArrayBuffer>{
-  //   return this.http.get<any[]>(this.arrayDePalabras)
-  // }
+  getArrayDePalabrasObservable():Observable<any>{
+    return of(this.arrayDePalabras)
+  }
 
-  async agruparMensajes(palabra){
+
+
+  async agruparMensajes(palabra,imagen){
     palabra += " ";
-    this.arrayDePalabras += palabra;
+    this.arrayDePalabras.push({nombre:palabra,foto:imagen});
   }
 
   async hablarGrupoDePalabras(){
-    this.discurso(this.arrayDePalabras.toString())
+    let frase = '';
+    this.arrayDePalabras.forEach(element => {
+      frase +=element['nombre'].toString()
+    });
+    this.discurso(frase)
   }
 
   async vaciarGrupoDePalabras(){

@@ -7,12 +7,14 @@
 <ion-content>
     <ion-grid>
         <ion-row style="background-color: aqua;">
-            <ion-col size="col-md-12">
+            <ion-col size="col-md-12" *ngFor="let pikto of arrayDeTodasLasPalabras">
                 <ion-card expand="block">
-                    <ion-item>
-                        <ion-img src="../../assets/icon/favicon.png"></ion-img>
-                        <ion-img src="../../assets/icon/favicon.png"></ion-img>
+                    <ion-item class="center">
+                        <ion-img [src]="pikto['foto']" class="center" style="height: 13em;width: 13em;"></ion-img>
                     </ion-item>
+                <ion-card-content class="center">
+                    <ion-label class="center">{{pikto['nombre']}}</ion-label><br>
+                </ion-card-content>
                 </ion-card>
             </ion-col>
         </ion-row>

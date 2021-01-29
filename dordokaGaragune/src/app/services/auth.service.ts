@@ -4,15 +4,10 @@ import { User } from './../shared/user.interface';
 import { Injectable } from '@angular/core';
 
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-
-import { Observable, of } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable, of } from 'rxjs'
 import { switchMap } from 'rxjs/operators';
-
 import { UsuariosFirebaseService } from '../services/usuarios-firebase.service'
-
-import { environment } from '../../environments/environment';
 import firebase from 'firebase';
 
 @Injectable({
