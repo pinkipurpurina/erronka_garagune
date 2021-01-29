@@ -41,7 +41,7 @@ export class ColorPickerPage {
 
   multiSettings: MbscColorOptions = {
     select: "single",
-    headerText: "Selecciona el color para la categor'ia",
+    headerText: "Selecciona el color para la categora",
     display: "top",
     touchUi: false,
   };

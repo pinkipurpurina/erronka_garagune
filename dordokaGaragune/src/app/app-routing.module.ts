@@ -44,6 +44,14 @@ const routes: Routes = [
       import("./piktogramak-sortu/piktogramak-sortu.module").then((m) => m.PiktogramakSortuPageModule),
   },
   {
+    path: 'color-picker',
+    loadChildren: () => import('./color-picker/color-picker.module').then( m => m.ColorPickerPageModule)
+  },
+  {
+    path: 'kategoriak-sortu',
+    loadChildren: () => import('./kategoriak-sortu/kategoriak-sortu.module').then( m => m.KategoriakSortuPageModule)
+  },
+  {
     path: 'user-piktograma',
     loadChildren: () => import('./user-piktograma/user-piktograma.module').then( m => m.UserPiktogramaPageModule)
   },

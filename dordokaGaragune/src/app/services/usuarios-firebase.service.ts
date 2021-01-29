@@ -209,6 +209,18 @@ export class UsuariosFirebaseService {
     // return this.db.list('users/'+idAdmin+'/erabiltzaileak/'+id).push(name);
     return this.db.list("users/" + idAdmin + "/erabiltzaileak").push(x);
   }
+
+    // Delete user
+    deleteUser(id: string) {
+      this.usuarioRef = this.db.object(
+        "/users/" +
+        firebase.auth().currentUser.uid +
+        "/erabiltzaileak/" + // user listaren helbidea
+        id
+      );
+      this.usuarioRef.remove();
+      console.log(id + "removed!");
+    }
   // Delete kategoria
   deleteKategoria(id: string) {
     this.usuarioRef = this.db.object(
