@@ -40,21 +40,19 @@ export class LoginPage implements OnInit {
       if (!this.ionicForm.valid) {
         return false;
       } else {
-        const user = await this.authSvc.login(email.value, password.value);
-        console.log();
-        
+        const user = await this.authSvc.login(email.value, password.value);    
         if (user) {
-          this.authSvc.getUsers().once("value", (snap) => {
+          this.authSvc.getUsers().once('value', (snap) => {
             snap.forEach((element) => {
               var monitorUid = element.key;
               if (user.user.uid == monitorUid) {
                 this.router.navigate(['admin-user-view']);
               }
-              this.authSvc.getMonitorUsers(monitorUid).once("value", (snap) => {
+              this.authSvc.getMonitorUsers(monitorUid).once('value', (snap) => {
                 snap.forEach((element2) => {
                   var usuarioUid = element2.key;
                   if (user.user.uid == usuarioUid) {
-                    this.fileManager.userFileCreator(monitorUid, usuarioUid)
+                    this.fileManager.userFileCreator(monitorUid, usuarioUid);
                     this.router.navigate(['user-kategoria']);
                   }
                 });

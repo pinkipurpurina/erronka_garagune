@@ -202,12 +202,12 @@ export class UsuariosFirebaseService {
     return this.usuarioListRef.update(id, x);
   }
 
-  public createUsuarioNormal(name: string, idAdmin: any) {
+  public createUsuarioNormal(name: string, idAdmin: any, idUser: string) {
     const x = {} as Erabiltzailea;
     x.erabiltzaileIzena = name;
     x.kategoriak = [];
     // return this.db.list('users/'+idAdmin+'/erabiltzaileak/'+id).push(name);
-    return this.db.list("users/" + idAdmin + "/erabiltzaileak").push(x);
+    return this.db.list("users/" + idAdmin + "/erabiltzaileak").update(idUser, x);
   }
 
     // Delete user
