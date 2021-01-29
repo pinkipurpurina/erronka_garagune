@@ -55,7 +55,7 @@ export class LoginPage implements OnInit {
                   var usuarioUid = element2.key;
                   if (user.user.uid == usuarioUid) {
                     this.fileManager.userFileCreator(monitorUid, usuarioUid)
-                    this.router.navigate(['user-kategoria']);
+                    this.router.navigate(['componente-frase']);
                   }
                 });
               });

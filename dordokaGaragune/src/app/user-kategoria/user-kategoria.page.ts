@@ -43,21 +43,9 @@ export class UserKategoriaPage implements OnInit {
     });
   }
 
-  getTodasLasPalabras(){
-    this._stts.getArrayDePalabrasObservable().subscribe((datos) =>{
-      console.log('Algo',datos)
-      this.arrayDeTodasLasPalabras = datos
-    })
-  }
-
-  hablarPalabras(){
-    this._stts.hablarGrupoDePalabras()
-  }
   
 
-  borrarPalabras(){
-    this._stts.vaciarGrupoDePalabras()
-  }
+
 
   
 

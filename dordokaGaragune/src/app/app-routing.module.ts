@@ -47,6 +47,14 @@ const routes: Routes = [
     path: 'user-piktograma',
     loadChildren: () => import('./user-piktograma/user-piktograma.module').then( m => m.UserPiktogramaPageModule)
   },
+  {
+    path: 'componente-frase',
+    loadChildren: () => import('./componente-frase/componente-frase.module').then( m => m.ComponenteFrasePageModule)
+  },
+  {
+    path: 'componente-frase/categoria',
+    loadChildren: () => import('./user-kategoria/user-kategoria.module').then( m => m.UserKategoriaPageModule)
+  },
 
 ];
 

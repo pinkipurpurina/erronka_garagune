@@ -6,27 +6,6 @@
 
 <ion-content>
     <ion-grid>
-        <ion-row style="background-color: aqua;">
-            <ion-col size="col-md-12">
-                <ion-card expand="block">
-                    <ion-item>
-                        <ion-img src="../../assets/icon/favicon.png"></ion-img>
-                        <ion-img src="../../assets/icon/favicon.png"></ion-img>
-                    </ion-item>
-                </ion-card>
-            </ion-col>
-        </ion-row>
-        <ion-row class="center" style="background-color: aqua;">
-            <ion-item class="button" (click)="hablarPalabras()">
-                <ion-icon class="icon" name="play-outline"></ion-icon>
-            </ion-item>
-            <ion-item class="button">
-                <ion-icon name="close-circle-outline"></ion-icon>
-            </ion-item>
-            <ion-item class="button">
-                <ion-icon name="trash-bin-outline" (click)="borrarPalabras()"></ion-icon>
-            </ion-item>
-        </ion-row>
         <ion-row class="center" >
             <ion-col size-xs="12" size-sm="6" size-md="3" size-lg="2" *ngFor="let item of piktoName">
                 <ion-card (click)="hablar(item.data['piktogramaIzena'])" (click)="anadirPalabra(item.data['piktogramaIzena'],item.data['piktogramaHelbidea'])">
