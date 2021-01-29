@@ -29,9 +29,9 @@
         </ion-row>
         <ion-row class="center" >
             <ion-col size-xs="12" size-sm="6" size-md="3" size-lg="2" *ngFor="let item of piktoName">
-                <ion-card (click)="hablar(item.data['piktogramaIzena'])" (click)="anadirPalabra(item.data['piktogramaIzena'])">
+                <ion-card (click)="hablar(item.data['piktogramaIzena'])" (click)="anadirPalabra(item.data['piktogramaIzena'],item.data['piktogramaHelbidea'])">
                     <ion-item class="center">
-                            <ion-img [src]="item.data['piktogramaHelbidea']" class="center"></ion-img>
+                            <ion-img [src]="item.data['piktogramaHelbidea']" class="center" style="height: 13em;width: 13em;"></ion-img>
                         </ion-item>
                     <ion-card-content class="center">
                         <ion-label class="center">{{item.data["piktogramaIzena"]}}</ion-label><br>

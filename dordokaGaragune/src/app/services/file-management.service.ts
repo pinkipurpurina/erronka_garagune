@@ -33,7 +33,6 @@ export class FileManagementService {
             console.log('Ha sucedido un error al escribir en el json', err)
           });
         });
-        
       })
     }).catch((err) => {
       console.log('Ha sucedido un error al crear el json', err);
