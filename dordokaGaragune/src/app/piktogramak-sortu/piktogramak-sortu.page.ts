@@ -63,11 +63,6 @@ export class PiktogramakSortuPage {
     private camera: Camera, public toastController: ToastController
     
   ) {
-    this.isUploading = false;
-    this.isUploaded = false;
-    //Set collection where our documents/ images info will save
-    this.imageCollection = database.collection<MyData>("imagenesDordoka");
-    this.images = this.imageCollection.valueChanges();
   }
 
   update(e: FileList) {

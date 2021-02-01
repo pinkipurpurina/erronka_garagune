@@ -10,18 +10,25 @@
     <ion-list *ngFor="let item of kategoriak">
         <ion-item-sliding>
             <ion-item-options side="start">
+                <ion-item-option color="secondary" expandable (click)="ikonoaIpini(item)">
+                    <ion-icon name="image-sharp"></ion-icon>
+                </ion-item-option>
                 <ion-item-option color="danger" expandable (click)="delete(item.uid)">
                     <ion-icon name="trash-bin-sharp"></ion-icon>
                 </ion-item-option>
             </ion-item-options>
+            <ion-item (dblclick)="dobleclick(' dobleClick' )" (doubletap)="dobleclick( 'dobleTap' )">
+                <ion-avatar slot="start">
 
-            <ion-item>
+                    <img [attr.src]="item.data.kategoriaIkono!=null ? item.data.kategoriaIkono : '../../assets/icon/image.svg'">
 
-                <ion-label>{{item.data.kategoriaIzena}}</ion-label>
+                </ion-avatar>
+                <ion-label (dblclick)="dobleclick()">
+                    <h2>{{item.data.kategoriaIzena}}</h2>
+                </ion-label>
                 <ion-icon style="color: {{item.data.kolorea}}" name="color-palette" (click)="presentModal2(item.uid,item)">
                 </ion-icon>
                 <ion-button (click)="setPiktograma(item.uid)" color="tertiary">Pictogramas</ion-button>
-
             </ion-item>
         </ion-item-sliding>
     </ion-list>
