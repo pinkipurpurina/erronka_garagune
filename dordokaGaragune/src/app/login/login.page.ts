@@ -24,19 +24,23 @@ export class LoginPage implements OnInit {
   constructor(public formBuilder: FormBuilder, private network: Network, private authSvc: AuthService, private router: Router, public toastController: ToastController, private fileManager: FileManagementService) { }
 
   ngOnInit() {
-    if (this.network.type === 'none') {
-      this.fileManager.getUser().then(
-        (result) => {
-          this.router.navigate(['user-kategoria'])
-        });
-    } else {
-      this.fileManager.getUser().then(
-        (result) => {
-          this.fileManager.userFileCreator(JSON.parse(result)[0]['adminUID'], JSON.parse(result)[0]['uid']);
-        }).then(
-          (data) => {
-            this.router.navigate(['user-kategoria']);
+    try {
+      if (this.network.type === 'none') {
+        this.fileManager.getUser().then(
+          (result) => {
+            this.router.navigate(['user-kategoria'])
           });
+      } else {
+        this.fileManager.getUser().then(
+          (result) => {
+            this.fileManager.userFileCreator(JSON.parse(result)[0]['adminUID'], JSON.parse(result)[0]['uid']);
+          }).then(
+            (data) => {
+              this.router.navigate(['user-kategoria']);
+            });
+      }
+    } catch (error) {
+      this.toastSortu("Ha habido un error al cargar los pictogramas del usuario.");
     }
 
     this.ionicForm = this.formBuilder.group({
@@ -67,8 +71,9 @@ export class LoginPage implements OnInit {
                 snap.forEach((element2) => {
                   var usuarioUid = element2.key;
                   if (user.user.uid == usuarioUid) {
-                    this.fileManager.userFileCreator(monitorUid, usuarioUid);
-                    this.router.navigate(['user-kategoria']);
+                    this.fileManager.userFileCreator(monitorUid, usuarioUid).finally(() => {
+                      this.router.navigate(['user-kategoria']);
+                    });
                   }
                 });
               });
