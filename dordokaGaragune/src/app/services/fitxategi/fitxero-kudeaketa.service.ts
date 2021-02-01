@@ -1,23 +1,37 @@
-import { from } from 'rxjs';
-import { onErrorResumeNext } from 'rxjs';
-import { ForgotPasswordPage } from "./../forgot-password/forgot-password.page";
-import { Component, OnInit } from "@angular/core";
-import { File } from "@ionic-native/file/ngx";
-import firebase from "firebase";
-import { UsuariosFirebaseService } from '../services/usuarios-firebase.service';
-import {FitxeroKudeaketaService} from '../services/fitxategi/fitxero-kudeaketa.service'
-@Component({
-  selector: "app-crud-piktogramak",
-  templateUrl: "./crud-piktogramak.page.html",
-  styleUrls: ["./crud-piktogramak.page.scss"],
-})
-export class CrudPiktogramakPage implements OnInit {
-  promiseDeFile: any;
-  monitor: any[] = [];
-  monitorUId: string;
-  constructor(private file: File, public firebaseConnect: UsuariosFirebaseService, private data:FitxeroKudeaketaService,) { }
+import firebase from 'firebase';
+import { Injectable } from '@angular/core';
+import { File } from '@ionic-native/file/ngx'
+import { UsuariosFirebaseService } from '../usuarios-firebase.service';
 
-  ngOnInit() { }
+
+@Injectable({
+  providedIn: 'root'
+})
+export class FitxeroKudeaketaService {
+  monitorUId: string;
+
+  private _monitor: any[] = [];
+
+  private _uId: string;
+
+  constructor(private file: File, public firebaseConnect: UsuariosFirebaseService) { }
+
+  public get monitor(): any[] {
+    return this._monitor;
+  }
+
+  public set monitor(value: any[]) {
+    this._monitor = value;
+    console.log("Actualizado: ", this._monitor);
+  }
+
+  public get uId(): string {
+    return this._uId;
+  }
+  public set uId(value: string) {
+    this._uId = value;
+  }
+
 
   leerData(monitorUID) {
     this.monitorUId = monitorUID;
@@ -32,16 +46,15 @@ export class CrudPiktogramakPage implements OnInit {
         ); //si existe directorio:
         //comprobar que existe el fichero
         this.file
-          .checkFile(this.file.dataDirectory, this.monitorUId+"/" + this.monitorUId + ".json")//***************************** */
+          .checkFile(this.file.dataDirectory, this.monitorUId + "/" + this.monitorUId + ".json")//***************************** */
           .then((result) => {
             //si existe el fichero:
             console.log(
               "2- El fichero: ",
               this.file.dataDirectory,
-              this.monitorUId+"/" + this.monitorUId + ".txt",
+              this.monitorUId + "/" + this.monitorUId + ".txt",
               " Existe"
             );
-
             //leemos y devolvemos contenido-->Promise<string>
             this.leerFichero();
           })
@@ -50,13 +63,11 @@ export class CrudPiktogramakPage implements OnInit {
             console.log(
               "2- El fichero: ",
               this.file.dataDirectory,
-              this.monitorUId+"/" + this.monitorUId + ".txt",
+              this.monitorUId + "/" + this.monitorUId + ".txt",
               " NO EXISTE. ERROR: ", err
             );
             //leer firebase y añadir el contenido a el fichero que vamos a crear
             this.erabiltzaileakIrakurri();
-            //crear fichero y guardar en el fichero
-            this.crearFichero();
             //leer fichero
             //leemos y devolvemos contenido-->Promise<string>
             this.leerFichero();
@@ -69,57 +80,53 @@ export class CrudPiktogramakPage implements OnInit {
           " NO EXISTE. ERROR: ", err);
         //crear directorio, leer firebase y crear fichero
         this.crearDirectorio().then((_) => {
-
-          this.erabiltzaileakIrakurri()
+          this.erabiltzaileakIrakurri(); //leer firebase y añadir el contenido a el fichero que vamos a crear
+          //leer fichero
+          //leemos y devolvemos contenido-->Promise<string>
+          this.leerFichero();
         }).catch((err) => {
           console.log("crearDirectorio Error: ", err);
-        });
-
-
+        });//termina checkdir
       });
   }
 
   leerFichero() {
     console.log("3- Va ha leer el fichero: ");
-    this.monitor=[];
+    this.monitor = [];
     this.file
       .readAsText(
         this.file.dataDirectory,
-        this.monitorUId+"/" + this.monitorUId + ".json"/*************** */
+        this.monitorUId + "/" + this.monitorUId + ".json"/*************** */
       )
       .then((result) => {
         //window.alert(result); //falta el restro del código
         console.log("4- contenido del fichero", result);
-        console.log(this.monitor);
+        // console.log(this.monitor);
         let jsonObject = JSON.parse(result);
         console.log("Prueba de parseo", jsonObject);
-        this.data.monitor=jsonObject;
-        
+        this.monitor = jsonObject;
+        console.log(this.monitor);
+
+
       })
       .catch((err) => {
         console.log("4- No ha leido nada chata");
       });
   }
-  leerParte() {
-
-  }
-
 
   erabiltzaileakIrakurri() {
     console.log("1.2- Se va conectar a la base de datos");
-
-    this.monitor = [];
     let bookingRes = this.firebaseConnect.erabiltzaileakKargatuPrueba(this.monitorUId);
     return bookingRes.snapshotChanges().subscribe(res => {
+      this.monitor = [];
       res.forEach(item => {
         let a = item.payload.toJSON();
         a['$key'] = item.key;
         this.monitor.push(a);
         console.log(a);
       })
-        console.log("1.3- Carga de RTDB:", this.monitor);
-        console.log("1.4 -Crear fichero con: ", this.monitor);
-        this.crearFichero();//mirar si poner un return y si tiene que ser asinc
+      console.log("1.3 -Crear fichero con: ", this.monitor);
+      this.crearFichero();//mirar si poner un return y si tiene que ser asinc
     })
   }
 
@@ -129,30 +136,37 @@ export class CrudPiktogramakPage implements OnInit {
     this.file
       .createFile(
         this.file.dataDirectory,
-        this.monitorUId+"/" + this.monitorUId + ".json",/*************** */
+        this.monitorUId + "/" + this.monitorUId + ".json",/*************** */
         true
       )
       .then((result) => {
         console.log(result);
-        this.file
-          .writeExistingFile(
-            this.file.dataDirectory,
-            this.monitorUId+"/" + this.monitorUId + ".json",/********************* */
-            JSON.stringify(this.monitor)
-          )
-          .then((_) => {
-            console.log("fichero escrito");
-            //leemos y devolvemos contenido-->Promise<string>
-            this.leerFichero();
-          })
-          .catch((err) => {
-            console.log("fichero NO escrito. ERROR: ", err);
-          });
+        this.updateFichero();
+
       })
       .catch((err) => {
         console.log("error de creación de fichero. ERROR: ", err);
       });
   }
+
+  //reescribr el fichero con las actualizaciones de rtdb
+  updateFichero() {
+    this.file
+      .writeFile(
+        this.file.dataDirectory,
+        this.monitorUId + "/" + this.monitorUId + ".json",/********************* */
+        JSON.stringify(this.monitor), { replace: true }
+      )
+      .then((_) => {
+        console.log("fichero escrito");
+        //leemos y devolvemos contenido-->Promise<string>
+        this.leerFichero();
+      })
+      .catch((err) => {
+        console.log("fichero NO escrito. ERROR: ", err);
+      });
+  }
+
   //creacion de directorios en dataDirectory de nombre userData
   crearDirectorio() {
     return this.file
@@ -172,4 +186,5 @@ export class CrudPiktogramakPage implements OnInit {
         );
       });
   }
+
 }

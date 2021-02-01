@@ -52,7 +52,7 @@
 //     appId: "1:113309518985:web:96811b8b02071265700a58"
 //   },
 // };
-export const environment = {
+export const environment = {//laura
   production: false,
   firebase: {
     apiKey: "AIzaSyC-BEcphfe-7pNpAyjnlmMMtQLUO-JhifI",
