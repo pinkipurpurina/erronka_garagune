@@ -22,8 +22,6 @@ export class AdminUserViewPage implements OnInit {
     public firebaseConnect: UsuariosFirebaseService,
     private router: Router,
     public auth: AuthService
-    public auth: AuthService,
-    public data: FitxeroKudeaketaService
   ) {
     // this.ref.on('child_changed', (snapshot) => {               //No borrar
     //   console.log('child_changed ::' + snapshot.val());
