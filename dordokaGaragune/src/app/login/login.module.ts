@@ -8,14 +8,17 @@ import { LoginPageRoutingModule } from './login-routing.module';
 
 import { LoginPage } from './login.page';
 
+import { Network } from '@ionic-native/network/ngx';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     LoginPageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
+  providers: [Network],
   declarations: [LoginPage]
 })
 export class LoginPageModule {}

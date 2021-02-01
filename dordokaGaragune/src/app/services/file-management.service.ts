@@ -17,7 +17,7 @@ export class FileManagementService {
     this.usuario = [];
     firebase.database().ref('users/' + uidAdmin + '/erabiltzaileak/' + uidUser).once('value', (snap) => {
       snap.forEach((element) => {
-        var uid = element.key;
+        var uid = uidUser;
         var admin = uidAdmin;
         var data = element.val();
         this.usuario.push({
