@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { KategoriakSortuPage } from "../kategoriak-sortu/kategoriak-sortu.page";
 import { ColorPickerPage } from "../color-picker/color-picker.page";
 import firebase from "firebase";
+import { PiktogramakSortuPage } from "../piktogramak-sortu/piktogramak-sortu.page";
 
 @Component({
   selector: "app-kategoriak-ikusi",
@@ -45,6 +46,17 @@ export class KategoriakIkusiPage implements OnInit {
     });
     modal.present();
   }
+
+  async presentModal3() {
+    this.firebaseConnect.ruta=true;
+    const modal = await this.modalController.create({
+      component: PiktogramakSortuPage,
+      cssClass: "my-custom-class",
+    });
+    modal.present();
+  }
+ 
+
   async irakurriKategoriak() {
     this.kategoriak = [];
     this.firebaseConnect.getKategoriaList().once("value", (snap) => {
