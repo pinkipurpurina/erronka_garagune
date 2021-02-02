@@ -44,7 +44,6 @@ export class UserPiktogramaPage implements OnInit {
 
   hablar(esp: string) {
     this._stts.discurso(esp);
-
   }
 
 }

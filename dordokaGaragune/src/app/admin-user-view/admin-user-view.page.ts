@@ -28,6 +28,7 @@ export class AdminUserViewPage implements OnInit {
     //   this.erabiltzaileakIrakurri();
     // });
   }
+
   ngOnInit() {
     this.firebaseConnect.monitoreUID = firebase.auth().currentUser.uid;
     this.erabiltzaileakIrakurri();
@@ -52,7 +53,6 @@ export class AdminUserViewPage implements OnInit {
         this.erabiltzaileak.push(a);
         console.log(a);
 
-
       })
     })
   }
@@ -70,6 +70,13 @@ export class AdminUserViewPage implements OnInit {
       console.log('Async operation has ended');
       event.target.complete();
     }, 2000);
+  }
+
+  delete(id: string) {
+    console.log(id);
+    if (window.confirm("Do you really want to delete?")) {
+      this.firebaseConnect.deleteUser(id);
+    }
   }
 
 }

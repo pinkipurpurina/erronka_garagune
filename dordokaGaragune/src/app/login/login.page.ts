@@ -6,6 +6,8 @@ import { ToastController } from '@ionic/angular';
 import { FileManagementService } from '../services/file-management.service'
 import { onErrorResumeNext } from 'rxjs';
 import { HttpHandler } from '@angular/common/http';
+import { Network } from '@ionic-native/network/ngx';
+import firebase from 'firebase';
 
 @Component({
   selector: 'app-login',
@@ -19,15 +21,32 @@ export class LoginPage implements OnInit {
   ionicForm: FormGroup;
   isSubmitted = false;
 
-  constructor(public formBuilder: FormBuilder, private authSvc: AuthService, private router: Router, public toastController: ToastController, private fileManager: FileManagementService) { }
+  constructor(public formBuilder: FormBuilder, private network: Network, private authSvc: AuthService, private router: Router, public toastController: ToastController, private fileManager: FileManagementService) { }
 
   ngOnInit() {
+    try {
+      if (this.network.type === 'none') {
+        this.fileManager.getUser().then(
+          (result) => {
+            this.router.navigate(['user-kategoria'])
+          });
+      } else {
+        this.fileManager.getUser().then(
+          (result) => {
+            this.fileManager.userFileCreator(JSON.parse(result)[0]['adminUID'], JSON.parse(result)[0]['uid']);
+          }).then(
+            (data) => {
+              this.router.navigate(['user-kategoria']);
+            });
+      }
+    } catch (error) {
+      this.toastSortu("Ha habido un error al cargar los pictogramas del usuario.");
+    }
+
     this.ionicForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
-      // 8 letras, una minuscula, una mayuscula, un numero y un caracter especial
-      // password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}')]]
       password: ['', [Validators.required]]
-    })
+    });
   }
 
   get errorControl() {
@@ -41,21 +60,20 @@ export class LoginPage implements OnInit {
         return false;
       } else {
         const user = await this.authSvc.login(email.value, password.value);
-        console.log();
-        
         if (user) {
-          this.authSvc.getUsers().once("value", (snap) => {
+          this.authSvc.getUsers().once('value', (snap) => {
             snap.forEach((element) => {
               var monitorUid = element.key;
               if (user.user.uid == monitorUid) {
                 this.router.navigate(['admin-user-view']);
               }
-              this.authSvc.getMonitorUsers(monitorUid).once("value", (snap) => {
+              this.authSvc.getMonitorUsers(monitorUid).once('value', (snap) => {
                 snap.forEach((element2) => {
                   var usuarioUid = element2.key;
                   if (user.user.uid == usuarioUid) {
-                    this.fileManager.userFileCreator(monitorUid, usuarioUid)
-                    this.router.navigate(['user-kategoria']);
+                    this.fileManager.userFileCreator(monitorUid, usuarioUid).finally(() => {
+                      this.router.navigate(['user-kategoria']);
+                    });
                   }
                 });
               });
@@ -66,8 +84,8 @@ export class LoginPage implements OnInit {
         }
       }
     } catch (error) {
-      console.log('Error->', error["code"]);  
-      if(error["code"] == "auth/network-request-failed"){
+      console.log('Error->', error["code"]);
+      if (error["code"] == "auth/network-request-failed") {
         this.toastSortu("No hay conexión a internet.");
       } else {
         this.toastSortu("Email o contraseña incorrecta.");

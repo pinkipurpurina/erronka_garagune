@@ -18,19 +18,29 @@ import firebase from "firebase";
   providedIn: "root",
 })
 export class UsuariosFirebaseService {
+  private _ruta: boolean;
+  toastController: any;
+  public get ruta(): boolean {
+    return this._ruta;
+  }
+  public set ruta(value: boolean) {
+    this._ruta = value;
+  }
   usuarioListRef: AngularFireList<any>;
   usuarioRef: AngularFireObject<any>;
   monitoreUID = "re2KbiU45PcouAHb4fThHSbs3dS2";
   erabiltzaileNormalaUID = "re2KbiU45PcouAHb4fThHSbs3dS2";
   kategoriaUID = "-MRKLVnXoBcLjP76TNsC";
-  kategoriaUserUID ="";
-  kategoriaName: string ="";
+  kategoriaUserUID = "";
+  kategoriaName: string = "";
   // tslint:disable-next-line: variable-name
-  private _kategoiaObj = {} as Kategoria;
+ 
 
   constructor(private db: AngularFireDatabase) {
     this.usuarioListRef = this.db.list("/users");
   }
+  private _kategoiaObj = {} as Kategoria;
+  
   public get kategoiaObj() {
     return this._kategoiaObj;
   }
@@ -51,16 +61,13 @@ export class UsuariosFirebaseService {
   }
 
   getKategoriaList() {
-    console.log("erabiltzailea->", this.erabiltzaileNormalaUID);
-    console.log("firebase->", firebase.auth().currentUser.uid);
-
     return firebase.database().ref(
       "/users/" +
-      // firebase.auth().currentUser.uid +
-      this.monitoreUID +
-      "/erabiltzaileak/" +
-      this.erabiltzaileNormalaUID +
-      "/kategoriak"
+        // firebase.auth().currentUser.uid +
+        this.monitoreUID +
+        "/erabiltzaileak/" +
+        this.erabiltzaileNormalaUID +
+        "/kategoriak"
     );
     // .ref("/users/" + firebase.auth().currentUser.uid + "/erabiltzaileak/" + this.erabiltzaileNormalaUID + "/kategoriak");
   }
@@ -69,12 +76,12 @@ export class UsuariosFirebaseService {
       .database()
       .ref(
         "/users/" +
-        firebase.auth().currentUser.uid +
-        "/erabiltzaileak/" +
-        this.erabiltzaileNormalaUID +
-        "/kategoriak/" +
-        this.kategoriaUID +
-        "/piktogramak"
+          firebase.auth().currentUser.uid +
+          "/erabiltzaileak/" +
+          this.erabiltzaileNormalaUID +
+          "/kategoriak/" +
+          this.kategoriaUID +
+          "/piktogramak"
       );
   }
 
@@ -83,7 +90,7 @@ export class UsuariosFirebaseService {
     this.usuarioListRef = this.db.list(
       "/users/" +
         /*firebase.auth().currentUser.uid*/ this.monitoreUID +
-      "/erabiltzaileak"
+        "/erabiltzaileak"
     );
     return this.usuarioListRef;
   }
@@ -124,35 +131,49 @@ export class UsuariosFirebaseService {
       // usuarios con discapacidad
       id: idCreate,
       erabiltzaileIzena: "Erabiltzailearen izena****",
-      kategoriak: [] /* [
-            {
-              idKategoria: idKat,
-              kategoriaIzena: "Kategoriaren izena",
-              KategoriaIkono: "ikonoarenHelbidea",
-
-              piktogramak: [
-                {
-                  idPic: idPic,
-                  piktogramaIzena: "Piktogramaren izena",
-                  piktogramaHelbidea: "Pictogramaren izena",
-                },
-              ],
-            },
-          ]*/,
+      kategoriak: [],
     });
   }
+  async toastSortu(mns) {
+    const toast = await this.toastController.create({
+      color: "dark",
+      duration: 2000,
+      message: mns,
+    });
+    toast.present();
+  }
 
+  createIkono(ikonoa) {
+    this.toastSortu("servicio");
+    try {
+      this.usuarioListRef = this.db.list(
+        "/users/" +
+          firebase.auth().currentUser.uid +
+          "/erabiltzaileak/" +
+          this.erabiltzaileNormalaUID +
+          "/kategoriak/" +
+          this.kategoriaUID
+          
+      );
+      return this.usuarioListRef.set("kategoriaIkono", ikonoa);
+    } catch (error) {
+      console.log(error);
+      this.toastSortu("servicio -->fallo");
+      
+    }
+  }
   // Create Piktograma
   createPiktograma(path: string, name: string) {
     this.usuarioListRef = this.db.list(
       "/users/" +
-      firebase.auth().currentUser.uid +
-      "/erabiltzaileak/" +
-      this.erabiltzaileNormalaUID +
-      "/kategoriak/" +
-      this.kategoriaUID +
-      "/piktogramak"
+        firebase.auth().currentUser.uid +
+        "/erabiltzaileak/" +
+        this.erabiltzaileNormalaUID +
+        "/kategoriak/" +
+        this.kategoriaUID +
+        "/piktogramak"
     );
+
     return this.usuarioListRef.push({
       piktogramaIzena: name,
       piktogramaHelbidea: path,
@@ -164,10 +185,10 @@ export class UsuariosFirebaseService {
     return this.db
       .list(
         "/users/" +
-        monitorearenUID + // firebase.auth().currentUser.uid +
-        "/erabiltzaileak/" +
-        this.erabiltzaileNormalaUID +
-        "/kategoriak" // kategorien listaren helbidea
+          monitorearenUID + // firebase.auth().currentUser.uid +
+          "/erabiltzaileak/" +
+          this.erabiltzaileNormalaUID +
+          "/kategoriak" // kategorien listaren helbidea
       )
       .push(x); // bat gehitu
   }
@@ -177,10 +198,10 @@ export class UsuariosFirebaseService {
     return this.db
       .list(
         "/users/" +
-        firebase.auth().currentUser.uid +
-        "/erabiltzaileak/" +
-        this.erabiltzaileNormalaUID +
-        "/kategoriak/" // kategorien listaren helbidea
+          firebase.auth().currentUser.uid +
+          "/erabiltzaileak/" +
+          this.erabiltzaileNormalaUID +
+          "/kategoriak/" // kategorien listaren helbidea
       )
       .update(this.kategoriaUID, x); // bat gehitu
   }
@@ -202,22 +223,36 @@ export class UsuariosFirebaseService {
     return this.usuarioListRef.update(id, x);
   }
 
-  public createUsuarioNormal(name: string, idAdmin: any) {
+  public createUsuarioNormal(name: string, idAdmin: any, idUser: string) {
     const x = {} as Erabiltzailea;
     x.erabiltzaileIzena = name;
     x.kategoriak = [];
     // return this.db.list('users/'+idAdmin+'/erabiltzaileak/'+id).push(name);
-    return this.db.list("users/" + idAdmin + "/erabiltzaileak").push(x);
+    return this.db
+      .list("users/" + idAdmin + "/erabiltzaileak")
+      .update(idUser, x);
+  }
+
+  // Delete user
+  deleteUser(id: string) {
+    this.usuarioRef = this.db.object(
+      "/users/" +
+        firebase.auth().currentUser.uid +
+        "/erabiltzaileak/" + // user listaren helbidea
+        id
+    );
+    this.usuarioRef.remove();
+    console.log(id + "removed!");
   }
   // Delete kategoria
   deleteKategoria(id: string) {
     this.usuarioRef = this.db.object(
       "/users/" +
-      firebase.auth().currentUser.uid +
-      "/erabiltzaileak/" +
-      this.erabiltzaileNormalaUID +
-      "/kategoriak/" + // kategorien listaren helbidea
-      id
+        firebase.auth().currentUser.uid +
+        "/erabiltzaileak/" +
+        this.erabiltzaileNormalaUID +
+        "/kategoriak/" + // kategorien listaren helbidea
+        id
     );
     this.usuarioRef.remove();
     console.log(id + "removed!");
@@ -226,26 +261,26 @@ export class UsuariosFirebaseService {
   deletePiktograma(id: string) {
     this.usuarioRef = this.db.object(
       "/users/" +
-      firebase.auth().currentUser.uid +
-      "/erabiltzaileak/" +
-      this.erabiltzaileNormalaUID +
-      "/kategoriak/" + // kategorien listaren helbidea
-      this.kategoriaUID +
-      "/piktogramak/" +
-      id
+        firebase.auth().currentUser.uid +
+        "/erabiltzaileak/" +
+        this.erabiltzaileNormalaUID +
+        "/kategoriak/" + // kategorien listaren helbidea
+        this.kategoriaUID +
+        "/piktogramak/" +
+        id
     );
     this.usuarioRef.remove();
 
     console.log(
       "/users/" +
-      firebase.auth().currentUser.uid +
-      "/erabiltzaileak/" +
-      this.erabiltzaileNormalaUID +
-      "/kategoriak/" + // kategorien listaren helbidea
-      this.kategoriaUID +
-      "/piktogramak/" +
-      id)
+        firebase.auth().currentUser.uid +
+        "/erabiltzaileak/" +
+        this.erabiltzaileNormalaUID +
+        "/kategoriak/" + // kategorien listaren helbidea
+        this.kategoriaUID +
+        "/piktogramak/" +
+        id
+    );
     console.log(id + " --removed!");
-
   }
 }

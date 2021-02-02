@@ -3,27 +3,42 @@
         <ion-title>colorPicker</ion-title>
         <ion-buttons slot="end">
             <ion-button (click)='close()'>
-              <ion-icon slot="icon-only" name="close"></ion-icon>
+                <ion-icon slot="icon-only" name="close"></ion-icon>
             </ion-button>
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
-
 <ion-content>
+    <div class="mbsc-grid">
+        <div class="mbsc-row mbsc-justify-content-center">
+            <div class="mbsc-col-sm-9 mbsc-col-md-7">
+                <ion-item-group inset>
 
-    <mbsc-form>
-        <div class="mbsc-grid">
-            <div class="mbsc-row mbsc-justify-content-center">
-                <div class="mbsc-col-sm-9 mbsc-col-md-7 mbsc-col-xl-5">
-                    <mbsc-form-group inset>
+                    <div class="color-picker">
+                        <div class="opened">
+                            <div class="circle" [ngStyle]="{'background': color}"></div>
+                            <ion-item>
+                                <ion-grid>
+                                    <ion-row>
+                                        <ion-col size="3" *ngFor="let paint of defaultColors">
+                                            <!-- <div class="circle" [ngStyle]="{'background': paint}"></div> -->
+                                            <ion-icon style="color: {{paint}}" name="ellipse" class="circle" (click)="esan(paint)">
+                                            </ion-icon>
+                                        </ion-col>
+                                    </ion-row>
 
-                        <mbsc-color [(ngModel)]="multi" [options]="multiSettings" >Selecciona color</mbsc-color>
-                        <ion-button type="submit" (click)="print()" expand="block" color="tertiary">Guardar cambios</ion-button>
-                    </mbsc-form-group>
-                </div>
+                                </ion-grid>
+
+                            </ion-item>
+                        </div>
+                    </div>
+                    <ion-button type="submit" (click)="print()" expand="block" color="tertiary">Guardar cambios
+                    </ion-button>
+                </ion-item-group>
             </div>
-
         </div>
-    </mbsc-form>
+
+    </div>
+
 
 </ion-content>
