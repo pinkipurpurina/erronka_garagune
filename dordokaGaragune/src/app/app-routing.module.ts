@@ -51,11 +51,6 @@ const routes: Routes = [
     path: 'componente-frase',
     loadChildren: () => import('./componente-frase/componente-frase.module').then( m => m.ComponenteFrasePageModule)
   },
-  {
-    path: 'componente-frase/categoria',
-    loadChildren: () => import('./user-kategoria/user-kategoria.module').then( m => m.UserKategoriaPageModule)
-  },
-
 ];
 
 @NgModule({

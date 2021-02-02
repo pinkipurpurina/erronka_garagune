@@ -28,12 +28,6 @@ export class TtsService {
     toast.present();
   }
 
-  getArrayDePalabrasObservable():Observable<any>{
-    return of(this.arrayDePalabras)
-  }
-
-
-
   async agruparMensajes(palabra,imagen){
     palabra += " ";
     this.arrayDePalabras.push({nombre:palabra,foto:imagen});

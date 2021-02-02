@@ -1,10 +1,6 @@
-<ion-header>
-    <ion-toolbar>
-        <ion-title>{{nombre}}</ion-title>
-    </ion-toolbar>
-</ion-header>
-
 <ion-content>
+    <app-componente-frase>
+    </app-componente-frase>
     <ion-grid>
         <ion-row class="center" >
             <ion-col size-xs="12" size-sm="6" size-md="3" size-lg="2" *ngFor="let item of kategoriaName">
@@ -20,7 +16,7 @@
         </ion-row>
     </ion-grid>
 
-</ion-content>
+
 <!-- fab placed to the bottom and start and on the bottom edge of the content overlapping footer with a list to the right -->
 <ion-fab vertical="bottom" horizontal="center" slot="fixed">
     <ion-fab-button>
@@ -48,3 +44,4 @@
         </ion-fab-button>
     </ion-fab-list>
 </ion-fab>
+</ion-content>

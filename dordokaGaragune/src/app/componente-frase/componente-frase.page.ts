@@ -7,26 +7,24 @@ import { TtsService } from '../services/tts.service';
   styleUrls: ['./componente-frase.page.scss'],
 })
 export class ComponenteFrasePage implements OnInit {
-  arrayDeTodasLasPalabras;
-  constructor(private _stts: TtsService) { }
+  constructor(public _stts: TtsService) { }
 
   ngOnInit() {
   }
 
 
-  hablarPalabras(){
+  async hablarPalabras(){
     this._stts.hablarGrupoDePalabras()
   }
   
 
-  borrarPalabras(){
+  async borrarPalabras(){
     this._stts.vaciarGrupoDePalabras()
   }
 
-  getTodasLasPalabras(){
-    this._stts.getArrayDePalabrasObservable().subscribe((datos) =>{
-      console.log('Algo',datos)
-      this.arrayDeTodasLasPalabras = datos
-    })
+  async hablar(esp: string) {
+    this._stts.discurso(esp);
+
   }
+
 }

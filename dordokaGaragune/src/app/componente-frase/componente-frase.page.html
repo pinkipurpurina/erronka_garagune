@@ -1,40 +1,31 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>componenteFrase</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
   <ion-grid>
     <ion-row style="background-color: aqua">
-      <ion-col size="col-md-12" *ngFor="let pikto of arrayDeTodasLasPalabras">
+      <ion-col size="col-md-12" *ngFor="let pikto of _stts.arrayDePalabras">
         <ion-card expand="block">
-          <ion-item class="center">
             <ion-img
               [src]="pikto['foto']"
               class="center"
-              style="height: 13em; width: 13em"
+              style="height: 7em; width: 7em"
             ></ion-img>
-          </ion-item>
           <ion-card-content class="center">
-            <ion-label class="center">{{pikto['nombre']}}</ion-label><br />
+            <ion-label class="center">{{pikto['nombre']}}</ion-label><br/>
           </ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>
-    <ion-row class="center" style="background-color: aqua">
-      <ion-item class="button" (click)="hablarPalabras()">
-        <ion-icon class="icon" name="play-outline"></ion-icon>
-      </ion-item>
-      <ion-item class="button">
-        <ion-icon name="close-circle-outline"></ion-icon>
-      </ion-item>
-      <ion-item class="button">
-        <ion-icon
-          name="trash-bin-outline"
-          (click)="borrarPalabras()"
-        ></ion-icon>
-      </ion-item>
-    </ion-row>
+    <div class="mbsc-btn-group-justified">
+      <mbsc-button outline (click)="hablarPalabras()">
+        <ion-icon name="play-outline" style="zoom: 2"></ion-icon>
+      </mbsc-button>
+
+      <mbsc-button outline>
+        <ion-icon name="close-circle-outline" style="zoom: 2"></ion-icon>
+      </mbsc-button>
+
+      <mbsc-button outline (click)="borrarPalabras()">
+        <ion-icon name="trash-bin-outline" style="zoom: 2"></ion-icon>
+      </mbsc-button>
+    </div>
   </ion-grid>
-</ion-content>
+</ion-header>

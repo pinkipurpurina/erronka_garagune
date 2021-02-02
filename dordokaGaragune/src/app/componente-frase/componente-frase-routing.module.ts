@@ -10,7 +10,7 @@ const routes: Routes = [
     component: ComponenteFrasePage,
     children: [
       {
-        path: 'categoria',
+        path: 'componente-frase/categoria',
         loadChildren: () => import('../user-kategoria/user-kategoria.module').then(m => m.UserKategoriaPageModule)
       },
       {
@@ -18,15 +18,15 @@ const routes: Routes = [
         loadChildren: () => import('../user-piktograma/user-piktograma.module').then(m => m.UserPiktogramaPageModule)
       },
       {
-        path: '',
-        redirectTo: '/componente-frase/categoria',
+        path: 'componente-frase',
+        redirectTo: 'componente-frase/categoria',
         pathMatch: 'full'
       }
     ]
   },
   {
-    path: '',
-    redirectTo: '/componente-frase/categoria',
+    path: 'componente-frase',
+    redirectTo: 'componente-frase/categoria',
     pathMatch: 'full'
   }
 ];

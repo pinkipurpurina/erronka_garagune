@@ -14,7 +14,6 @@ import { UsuariosFirebaseService } from '../services/usuarios-firebase.service';
 export class UserKategoriaPage implements OnInit {
   nombre;
   kategoriaName: any[] = [];
-  arrayDeTodasLasPalabras=this._stts.arrayDePalabras;
   constructor(private _stts: TtsService, public firebaseConnect: UsuariosFirebaseService, private fileManager: File, public filer: FileManagementService, private router: Router) { }
 
   ngOnInit() {
