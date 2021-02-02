@@ -1,25 +1,13 @@
+import { PiktogramaEditatuPage } from './../piktograma-editatu/piktograma-editatu.page';
 import { Component, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
-
-// import {
-//   AngularFireStorage,
-//   AngularFireUploadTask,
-// } from "@angular/fire/storage";
-// import {
-//   AngularFirestore,
-//   AngularFirestoreCollection,
-// } from "@angular/fire/firestore";
-// import { Observable } from "rxjs";
-// import { finalize, tap } from "rxjs/operators";
-
-// import { MyData } from "../interfaces/usersInterface";
 import { UsuariosFirebaseService } from "../services/usuarios-firebase.service";
 import { PiktogramakSortuPage } from "../piktogramak-sortu/piktogramak-sortu.page";
 import firebase from "firebase";
 import { CrudPiktogramakPage } from "../crud-piktogramak/crud-piktogramak.page";
 import { Router } from "@angular/router";
 import { AuthService } from "../services/auth.service";
-
+import { PopoverController } from '@ionic/angular';
 @Component({
   selector: "app-piktogramak-ikusi",
   templateUrl: "./piktogramak-ikusi.page.html",
@@ -32,7 +20,8 @@ export class PiktogramakIkusiPage implements OnInit {
     public modalController: ModalController,
     private firebaseConnect: UsuariosFirebaseService, //igual public?
     private router: Router,
-    public auth: AuthService
+    public auth: AuthService,
+    public popoverController: PopoverController
   ) {
     this.ref.on("child_changed", (snapshot) => {
       console.log("child_changed ::" + snapshot.val());
@@ -69,9 +58,10 @@ export class PiktogramakIkusiPage implements OnInit {
     });
     modal.present();
   }
-  async presentModalEdit() {
+  async presentModalEdit(piktogramaUid) {
+    this.firebaseConnect.piktogramaUID=piktogramaUid;
     const modal = await this.modalController.create({
-      component: CrudPiktogramakPage,
+      component: PiktogramaEditatuPage,
       cssClass: "my-custom-class",
     });
     modal.present();
@@ -88,5 +78,14 @@ export class PiktogramakIkusiPage implements OnInit {
   async salir(){
     await this.auth.logout();
     this.router.navigate(['login']);
+  }
+  async presentPopover(ev: any) {
+    const popover = await this.popoverController.create({
+      component: CrudPiktogramakPage,
+      cssClass: 'my-custom-class',
+      event: ev,
+      translucent: true
+    });
+    return await popover.present();
   }
 }

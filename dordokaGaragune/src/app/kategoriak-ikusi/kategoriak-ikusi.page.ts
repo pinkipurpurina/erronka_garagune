@@ -9,7 +9,8 @@ import firebase from "firebase";
 import { PiktogramakSortuPage } from "../piktogramak-sortu/piktogramak-sortu.page";
 import { Camera, CameraOptions } from "@ionic-native/camera/ngx";
 import { Kategoria } from "../interfaces/usersInterface";
-
+import { PopoverController } from '@ionic/angular';
+import { CrudPiktogramakPage } from "../crud-piktogramak/crud-piktogramak.page";
 @Component({
   selector: "app-kategoriak-ikusi",
   templateUrl: "./kategoriak-ikusi.page.html",
@@ -36,7 +37,8 @@ export class KategoriakIkusiPage implements OnInit {
     private router: Router,
     private camera: Camera,
     public auth: AuthService,
-    public toastController: ToastController
+    public toastController: ToastController,
+    public popoverController: PopoverController
  
   ) {
     this.ref.on("child_changed", (snapshot) => {
@@ -192,4 +194,14 @@ export class KategoriakIkusiPage implements OnInit {
     await this.auth.logout();
     this.router.navigate(['login']);
   }
+  async presentPopover(ev: any) {
+    const popover = await this.popoverController.create({
+      component: CrudPiktogramakPage,
+      cssClass: 'my-custom-class',
+      event: ev,
+      translucent: true
+    });
+    return await popover.present();
+  }
+  
 }

@@ -6,6 +6,8 @@ import { ModalController } from '@ionic/angular';
 import { AdminCrearUsuarioPage } from '../admin-crear-usuario/admin-crear-usuario.page';
 import { UsuariosFirebaseService } from '../services/usuarios-firebase.service';
 import firebase from 'firebase';
+import { PopoverController } from '@ionic/angular';
+import { CrudPiktogramakPage } from '../crud-piktogramak/crud-piktogramak.page';
 @Component({
   selector: 'app-admin-user-view',
   templateUrl: './admin-user-view.page.html',
@@ -21,7 +23,8 @@ export class AdminUserViewPage implements OnInit {
     public modalController: ModalController,
     public firebaseConnect: UsuariosFirebaseService,
     private router: Router,
-    public auth: AuthService
+    public auth: AuthService,
+    public popoverController: PopoverController
   ) {
     // this.ref.on('child_changed', (snapshot) => {               //No borrar
     //   console.log('child_changed ::' + snapshot.val());
@@ -82,5 +85,14 @@ export class AdminUserViewPage implements OnInit {
   async salir(){
     await this.auth.logout();
     this.router.navigate(['login']);
+  }
+  async presentPopover(ev: any) {
+    const popover = await this.popoverController.create({
+      component: CrudPiktogramakPage,
+      cssClass: 'my-custom-class',
+      event: ev,
+      translucent: true
+    });
+    return await popover.present();
   }
 }
