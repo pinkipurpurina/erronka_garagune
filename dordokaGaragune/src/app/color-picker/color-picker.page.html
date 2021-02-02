@@ -16,23 +16,30 @@
 
                     <div class="color-picker">
                         <div class="opened">
-                            <div class="circle" [ngStyle]="{'background': color}"></div>
-                            <ion-item>
-                                <ion-grid>
-                                    <ion-row>
-                                        <ion-col size="3" *ngFor="let paint of defaultColors">
-                                            <!-- <div class="circle" [ngStyle]="{'background': paint}"></div> -->
-                                            <ion-icon style="color: {{paint}}" name="ellipse" class="circle" (click)="esan(paint)">
-                                            </ion-icon>
-                                        </ion-col>
-                                    </ion-row>
+                            <ion-grid>
+                                <ion-row>
+                                    <ion-col size="3" text-center>
+                                        <div class="circle" [ngStyle]="{'background': color}" style="zoom:2.0;"></div>
+                                    </ion-col>
+                                    <ion-col size="9" text-center>
+                                        <ion-item>
+                                            <ion-label position="floating">Nuevo nombre</ion-label>
+                                            <ion-input [(ngModel)]="kategoriaIzena"></ion-input>
+                                        </ion-item>
+                                    </ion-col>
+                                    <br>
+                                    <hr>
 
-                                </ion-grid>
-
-                            </ion-item>
+                                    <ion-col size="3" *ngFor="let paint of defaultColors">
+                                        <!-- <div class="circle" [ngStyle]="{'background': paint}"></div> -->
+                                        <ion-icon style="color: {{paint}}" name="ellipse" class="circle" (click)="esan(paint)">
+                                        </ion-icon>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-grid>
                         </div>
                     </div>
-                    <ion-button type="submit" (click)="print()" expand="block" color="tertiary">Guardar cambios
+                    <ion-button *ngIf="color ||kategoriaIzena " type="submit" (click)="balidatu()" expand="block" color="tertiary">Guardar cambios
                     </ion-button>
                 </ion-item-group>
             </div>

@@ -41,43 +41,36 @@ export class ColorPickerPage {
     "#c97545",
     // "#c1800b",
   ];
-
-  /**
-   * Change color from default colors
-   * @param {string} color
-   */
-  public changeColor(color: string): void {
-    this.color = color;
-    this.event.emit(this.color);
-    this.show = false;
-  }
-
-  /**
-   * Change color from input
-   * @param {string} color
-   */
-  public changeColorManual(color: string): void {
-    const isValid = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(color);
-
-    if (isValid) {
-      this.color = color;
-      this.event.emit(this.color);
-    }
-  }
-
-  /**
-   * Change status of visibility to color picker
-   */
-  public toggleColors(): void {
-    this.show = !this.show;
-  }
-
+  kategoriaIzena: string;
   constructor(
     private modalCtrl: ModalController,
     private FirebaseService: UsuariosFirebaseService
   ) {}
 
-  async print() {
+  async close() {
+    await this.modalCtrl.dismiss();
+  }
+  esan(kolorea) {
+    console.log(kolorea);
+    this.color = kolorea;
+  }
+  async balidatu() {
+    if (this.color) {
+      console.log("cambio de color");
+      this.aldatuKolorea();
+    } else {
+      console.log("NO entra color");
+    }
+
+    if (this.kategoriaIzena) {
+      console.log("cambio de nombre");
+      this.aldatuIzena();
+    } else {
+      console.log("no entra");
+    }
+  }
+
+  aldatuKolorea() {
     try {
       this.FirebaseService.updateKategoriaKolorea(this.color)
         .then(() => {})
@@ -90,11 +83,16 @@ export class ColorPickerPage {
     }
   }
 
-  async close() {
-    await this.modalCtrl.dismiss();
-  }
-  esan(kolorea) {
-    console.log(kolorea);
-    this.color = kolorea;
+  aldatuIzena() {
+    try {
+      this.FirebaseService.updateKategoriaIzena(this.kategoriaIzena)
+        .then(() => {})
+        .catch((err) => {
+          console.log("Error cambio nombre -->", err);
+        });
+      this.modalCtrl.dismiss();
+    } catch (error) {
+      console.log("Error->", error);
+    }
   }
 }

@@ -192,9 +192,24 @@ export class UsuariosFirebaseService {
       )
       .push(x); // bat gehitu
   }
+  //kategoriaren kolorea aldatu
   updateKategoriaKolorea(kategoriaKolorea) {
     const x = {} as Kategoria;
     x.kolorea = kategoriaKolorea;
+    return this.db
+      .list(
+        "/users/" +
+          firebase.auth().currentUser.uid +
+          "/erabiltzaileak/" +
+          this.erabiltzaileNormalaUID +
+          "/kategoriak/" // kategorien listaren helbidea
+      )
+      .update(this.kategoriaUID, x); // bat gehitu
+  }
+  //kategoriaren izena aldatu
+  updateKategoriaIzena(kategoriaIzena) {
+    const x = {} as Kategoria;
+    x.kategoriaIzena = kategoriaIzena;
     return this.db
       .list(
         "/users/" +
