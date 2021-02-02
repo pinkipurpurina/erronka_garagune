@@ -36,16 +36,11 @@ export class UserPiktogramaPage implements OnInit {
     });
   }
 
-  hablarPalabras(){
-    this._stts.hablarGrupoDePalabras()
-  }
+
   anadirPalabra(palabra,imagen){
     this._stts.agruparMensajes(palabra,imagen)
   }
 
-  borrarPalabras(){
-    this._stts.vaciarGrupoDePalabras()
-  }
 
   hablar(esp: string) {
     this._stts.discurso(esp);

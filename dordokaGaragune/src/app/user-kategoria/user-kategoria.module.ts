@@ -1,3 +1,4 @@
+import { ComponenteFrasePage } from './../componente-frase/componente-frase.page';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,6 +16,6 @@ import { UserKategoriaPage } from './user-kategoria.page';
     IonicModule,
     UserKategoriaPageRoutingModule,
   ],
-  declarations: [UserKategoriaPage]
+  declarations: [UserKategoriaPage,ComponenteFrasePage]
 })
 export class UserKategoriaPageModule {}
