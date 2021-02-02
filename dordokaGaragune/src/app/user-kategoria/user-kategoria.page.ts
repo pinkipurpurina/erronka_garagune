@@ -15,7 +15,7 @@ import { AuthService } from '../services/auth.service';
 export class UserKategoriaPage implements OnInit {
   nombre;
   kategoriaName: any[] = [];
-  constructor(private _stts: TtsService, public firebaseConnect: UsuariosFirebaseService, private authSvc: AuthService, private fileManager: File, public filer: FileManagementService, private router: Router) { }
+  constructor(private _stts: TtsService, public filem: FileManagementService, public firebaseConnect: UsuariosFirebaseService, private authSvc: AuthService, private fileManager: File, public filer: FileManagementService, private router: Router) { }
 
   ngOnInit() {
     this.getNombre();
@@ -54,7 +54,8 @@ export class UserKategoriaPage implements OnInit {
   }
   
   async salir(){
-    await this.authSvc.logout();
+    this.filem.eliminar();
+    // await this.authSvc.logout();
     this.router.navigate(['login']);
   }
 }

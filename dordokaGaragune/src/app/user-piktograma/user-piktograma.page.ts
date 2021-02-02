@@ -14,7 +14,7 @@ export class UserPiktogramaPage implements OnInit {
   nombre: string;
   piktoName: any[] = [];
 
-  constructor(private _stts: TtsService, private authSvc: AuthService, public firebaseConnect: UsuariosFirebaseService, public filer: FileManagementService, private router: Router) { }
+  constructor(private _stts: TtsService, public filem: FileManagementService, private authSvc: AuthService, public firebaseConnect: UsuariosFirebaseService, public filer: FileManagementService, private router: Router) { }
 
   ngOnInit() {
     this.getNombre();
@@ -47,7 +47,8 @@ export class UserPiktogramaPage implements OnInit {
   }
 
   async salir(){
-    await this.authSvc.logout();
+    this.filem.eliminar();
+    // await this.authSvc.logout();
     this.router.navigate(['login']);
   }
 }

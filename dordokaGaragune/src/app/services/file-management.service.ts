@@ -22,7 +22,7 @@ export class FileManagementService {
         var data = element.val();
         this.usuario.push({
           uid: uid,
-          adminUID:admin,
+          adminUID: admin,
           data: data,
         });
       });
@@ -32,17 +32,21 @@ export class FileManagementService {
     });
 
     console.log("empezar funcion");
-    await this.fileManager.createFile(this.fileManager.dataDirectory,'UserData.txt',true).then(async () =>{     
-        // this.fileManager.removeFile(this.fileManager.dataDirectory,'UserData.txt');
-        await this.fileManager.writeFile(this.fileManager.dataDirectory, 'UserData.txt', JSON.stringify(this.usuario)).catch(async (err) => {
-          await this.fileManager.writeExistingFile(this.fileManager.dataDirectory, 'UserData.txt', JSON.stringify(this.usuario)).catch((err2) => {
-            console.log('Ha sucedido un error al escribir en el json', err, err2)
-          });
+    await this.fileManager.createFile(this.fileManager.dataDirectory, 'UserData.txt', true).then(async () => {
+      // this.fileManager.removeFile(this.fileManager.dataDirectory,'UserData.txt');
+      await this.fileManager.writeFile(this.fileManager.dataDirectory, 'UserData.txt', JSON.stringify(this.usuario)).catch(async (err) => {
+        await this.fileManager.writeExistingFile(this.fileManager.dataDirectory, 'UserData.txt', JSON.stringify(this.usuario)).catch((err2) => {
+          console.log('Ha sucedido un error al escribir en el json', err, err2)
         });
       });
+    });
   }
-  getUser(){
+  getUser() {
     // console.log(this.fileManager.readAsText(this.fileManager.dataDirectory,'UserData.txt'))
-    return this.fileManager.readAsText(this.fileManager.dataDirectory,'UserData.txt');
+    return this.fileManager.readAsText(this.fileManager.dataDirectory, 'UserData.txt');
+  }
+
+  eliminar() {
+    this.fileManager.removeFile(this.fileManager.dataDirectory, 'UserData.txt');
   }
 }
