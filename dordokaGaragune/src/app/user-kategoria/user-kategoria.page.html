@@ -4,11 +4,11 @@
     <ion-grid>
         <ion-row class="center">
             <ion-col size-xs="12" size-sm="6" size-md="3" size-lg="2" *ngFor="let item of kategoriaName">
-                <ion-card (click)="hablar(item.data['kategoriaIzena'])" (click)="piktograma(item.uid, item.data['kategoriaIzena'])">
-                    <ion-item class="center" style="background-color: {{item.data['kolorea']}}">
-                        <ion-img [src]="item.data['kategoriaIkono']" class="center" style="height: 13em;width: 13em;"></ion-img>
-                    </ion-item>
-                    <ion-card-content class="ion-text-center">
+                <ion-card class="ion-text-center" (click)="hablar(item.data['kategoriaIzena'])" (click)="piktograma(item.uid, item.data['kategoriaIzena'])">
+                    <ion-card-content>
+                        <ion-item class="center" style="background-color: {{item.data['kolorea']}}">
+                            <ion-img [src]="item.data['kategoriaIkono']" class="center" style="height: 13em;width: 13em;"></ion-img>
+                        </ion-item>
                         <ion-label>{{item.data["kategoriaIzena"]}}</ion-label><br>
                     </ion-card-content>
                 </ion-card>
