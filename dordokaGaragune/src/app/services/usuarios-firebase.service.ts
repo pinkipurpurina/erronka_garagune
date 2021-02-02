@@ -58,9 +58,6 @@ export class UsuariosFirebaseService {
   }
 
   getKategoriaList() {
-    console.log("erabiltzailea->", this.erabiltzaileNormalaUID);
-    console.log("firebase->", firebase.auth().currentUser.uid);
-
     return firebase.database().ref(
       "/users/" +
         // firebase.auth().currentUser.uid +
