@@ -14,7 +14,6 @@ import { UsuariosFirebaseService } from '../services/usuarios-firebase.service';
 export class UserKategoriaPage implements OnInit {
   nombre;
   kategoriaName: any[] = [];
-  arrayDeTodasLasPalabras=this._stts.arrayDePalabras;
   constructor(private _stts: TtsService, public firebaseConnect: UsuariosFirebaseService, private fileManager: File, public filer: FileManagementService, private router: Router) { }
 
   ngOnInit() {
@@ -33,7 +32,6 @@ export class UserKategoriaPage implements OnInit {
     this.kategoriaName = [];
     this.filer.getUser().then((datos) => {
       let array= JSON.parse(datos)[1]['data'];
-      // console.log("Array=> ",array);
       for(var i in array){
         this.kategoriaName.push({
           uid:i,
@@ -42,23 +40,6 @@ export class UserKategoriaPage implements OnInit {
       }
     });
   }
-
-  getTodasLasPalabras(){
-    this._stts.getArrayDePalabrasObservable().subscribe((datos) =>{
-      this.arrayDeTodasLasPalabras = datos
-    })
-  }
-
-  hablarPalabras(){
-    this._stts.hablarGrupoDePalabras()
-  }
-  
-
-  borrarPalabras(){
-    this._stts.vaciarGrupoDePalabras()
-  }
-
-  
 
   hablar(esp: string) {
     this._stts.discurso(esp);
