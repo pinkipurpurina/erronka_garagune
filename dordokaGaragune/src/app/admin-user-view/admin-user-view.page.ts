@@ -79,4 +79,8 @@ export class AdminUserViewPage implements OnInit {
     }
   }
 
+  async salir(){
+    await this.auth.logout();
+    this.router.navigate(['login']);
+  }
 }

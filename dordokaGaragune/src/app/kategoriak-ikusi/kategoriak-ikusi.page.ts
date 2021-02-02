@@ -1,3 +1,4 @@
+import { AuthService } from './../services/auth.service';
 import { Component, OnChanges, OnInit } from "@angular/core";
 import { ModalController, ToastController } from "@ionic/angular";
 import { UsuariosFirebaseService } from "../services/usuarios-firebase.service";
@@ -34,6 +35,7 @@ export class KategoriakIkusiPage implements OnInit {
     public firebaseConnect: UsuariosFirebaseService,
     private router: Router,
     private camera: Camera,
+    public auth: AuthService,
     public toastController: ToastController
  
   ) {
@@ -185,8 +187,9 @@ export class KategoriakIkusiPage implements OnInit {
     });
     toast.present();
   }
-aldatuIzena(){
 
-
-}
+  async salir(){
+    await this.auth.logout();
+    this.router.navigate(['login']);
+  }
 }

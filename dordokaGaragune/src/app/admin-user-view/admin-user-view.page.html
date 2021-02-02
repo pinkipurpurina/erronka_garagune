@@ -1,11 +1,15 @@
 <ion-header>
-    <ion-title>Vista del monitor</ion-title>
+    <ion-toolbar>
+        <button slot="end" (click)="salir()">
+            <ion-icon name="log-out-outline" color="danger" size="large"></ion-icon>
+        </button>
+        <ion-title>Vista del monitor</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <ion-header>
         <ion-toolbar>
-
             <ion-title>Usuarios disponibles</ion-title>
         </ion-toolbar>
     </ion-header>
