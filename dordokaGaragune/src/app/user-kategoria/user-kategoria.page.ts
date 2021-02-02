@@ -32,7 +32,6 @@ export class UserKategoriaPage implements OnInit {
     this.kategoriaName = [];
     this.filer.getUser().then((datos) => {
       let array= JSON.parse(datos)[1]['data'];
-      // console.log("Array=> ",array);
       for(var i in array){
         this.kategoriaName.push({
           uid:i,
@@ -41,12 +40,6 @@ export class UserKategoriaPage implements OnInit {
       }
     });
   }
-
-  
-
-
-
-  
 
   hablar(esp: string) {
     this._stts.discurso(esp);

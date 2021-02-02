@@ -5,11 +5,11 @@
         <ion-row class="center" >
             <ion-col size-xs="12" size-sm="6" size-md="3" size-lg="2" *ngFor="let item of kategoriaName">
                 <ion-card (click)="hablar(item.data['kategoriaIzena'])" (click)="piktograma(item.uid, item.data['kategoriaIzena'])">
-                    <!-- <ion-item class="center">
-                            <ion-img [src]="item" class="center"></ion-img>
-                        </ion-item> -->
-                    <ion-card-content class="center">
-                        <ion-label class="center">{{item.data["kategoriaIzena"]}}</ion-label><br>
+                    <ion-item class="center">
+                        <ion-img [src]="item.data['kategoriaIkono']" class="center" style="height: 13em;width: 13em;"></ion-img>
+                    </ion-item>
+                    <ion-card-content class="ion-text-center">
+                        <ion-label>{{item.data["kategoriaIzena"]}}</ion-label><br>
                     </ion-card-content>
                 </ion-card>
             </ion-col>
@@ -19,7 +19,7 @@
 
 <!-- fab placed to the bottom and start and on the bottom edge of the content overlapping footer with a list to the right -->
 <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-    <ion-fab-button>
+    <ion-fab-button color="tertiary">
         <ion-icon name="settings"></ion-icon>
     </ion-fab-button>
 

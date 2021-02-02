@@ -8,15 +8,15 @@
                     <ion-item class="center">
                             <ion-img [src]="item.data['piktogramaHelbidea']" class="center" style="height: 13em;width: 13em;"></ion-img>
                         </ion-item>
-                    <ion-card-content class="center">
-                        <ion-label class="center">{{item.data["piktogramaIzena"]}}</ion-label><br>
+                    <ion-card-content class="ion-text-center">
+                        <ion-label>{{item.data["piktogramaIzena"]}}</ion-label><br>
                     </ion-card-content>
                 </ion-card>
             </ion-col>
         </ion-row> 
     </ion-grid>
     <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-        <ion-fab-button>
+        <ion-fab-button color="tertiary">
             <ion-icon name="settings"></ion-icon>
         </ion-fab-button>
     
@@ -40,6 +40,12 @@
                 <ion-icon name="heart-dislike-outline"></ion-icon>
             </ion-fab-button>
         </ion-fab-list>
+    </ion-fab>
+
+    <ion-fab vertical="bottom" horizontal="right" slot="fixed">
+        <ion-fab-button color="red">
+            <ion-icon name="settings"></ion-icon>
+        </ion-fab-button>
     </ion-fab>
 </ion-content>
 <!-- fab placed to the bottom and start and on the bottom edge of the content overlapping footer with a list to the right -->
