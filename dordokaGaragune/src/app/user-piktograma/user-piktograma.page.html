@@ -2,24 +2,24 @@
     <app-componente-frase>
     </app-componente-frase>
     <ion-grid>
-        <ion-row class="center" >
+        <ion-row class="center">
             <ion-col size-xs="12" size-sm="6" size-md="3" size-lg="2" *ngFor="let item of piktoName">
                 <ion-card (click)="hablar(item.data['piktogramaIzena'])" (click)="anadirPalabra(item.data['piktogramaIzena'],item.data['piktogramaHelbidea'])">
                     <ion-item class="center">
-                            <ion-img [src]="item.data['piktogramaHelbidea']" class="center" style="height: 13em;width: 13em;"></ion-img>
-                        </ion-item>
+                        <ion-img [src]="item.data['piktogramaHelbidea']" class="center" style="height: 13em;width: 13em;"></ion-img>
+                    </ion-item>
                     <ion-card-content class="ion-text-center">
                         <ion-label>{{item.data["piktogramaIzena"]}}</ion-label><br>
                     </ion-card-content>
                 </ion-card>
             </ion-col>
-        </ion-row> 
+        </ion-row>
     </ion-grid>
     <ion-fab vertical="bottom" horizontal="center" slot="fixed">
         <ion-fab-button color="tertiary">
             <ion-icon name="settings"></ion-icon>
         </ion-fab-button>
-    
+
         <ion-fab-list side="start">
             <ion-fab-button color="light" (click)="hablar('No')">
                 <ion-icon name="thumbs-down-outline"></ion-icon>
@@ -28,7 +28,7 @@
                 <ion-icon name="thumbs-up-outline"></ion-icon>
             </ion-fab-button>
         </ion-fab-list>
-    
+
         <ion-fab-list side="end">
             <ion-fab-button color="light" (click)="hablar('Yo')">
                 <ion-icon name="happy-outline"></ion-icon>
@@ -42,10 +42,9 @@
         </ion-fab-list>
     </ion-fab>
 
-    <ion-fab vertical="bottom" horizontal="right" slot="fixed">
-        <ion-fab-button color="red">
-            <ion-icon name="settings"></ion-icon>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="salir()">
+        <ion-fab-button color="danger">
+            <ion-icon name="close-circle"></ion-icon>
         </ion-fab-button>
     </ion-fab>
 </ion-content>
-<!-- fab placed to the bottom and start and on the bottom edge of the content overlapping footer with a list to the right -->

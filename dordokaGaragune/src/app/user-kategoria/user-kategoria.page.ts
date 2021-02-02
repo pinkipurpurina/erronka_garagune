@@ -4,6 +4,7 @@ import { TtsService } from './../services/tts.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuariosFirebaseService } from '../services/usuarios-firebase.service';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { UsuariosFirebaseService } from '../services/usuarios-firebase.service';
 export class UserKategoriaPage implements OnInit {
   nombre;
   kategoriaName: any[] = [];
-  constructor(private _stts: TtsService, public firebaseConnect: UsuariosFirebaseService, private fileManager: File, public filer: FileManagementService, private router: Router) { }
+  constructor(private _stts: TtsService, public firebaseConnect: UsuariosFirebaseService, private authSvc: AuthService, private fileManager: File, public filer: FileManagementService, private router: Router) { }
 
   ngOnInit() {
     this.getNombre();
@@ -50,5 +51,10 @@ export class UserKategoriaPage implements OnInit {
     this.firebaseConnect.setKategoriaUsuario(piktoUid);
     this.firebaseConnect.setKategoriaName(texto);
     this.router.navigate(["user-piktograma"]);
+  }
+  
+  async salir(){
+    await this.authSvc.logout();
+    this.router.navigate(['login']);
   }
 }

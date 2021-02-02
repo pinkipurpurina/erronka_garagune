@@ -17,6 +17,8 @@ import { UsuariosFirebaseService } from "../services/usuarios-firebase.service";
 import { PiktogramakSortuPage } from "../piktogramak-sortu/piktogramak-sortu.page";
 import firebase from "firebase";
 import { CrudPiktogramakPage } from "../crud-piktogramak/crud-piktogramak.page";
+import { Router } from "@angular/router";
+import { AuthService } from "../services/auth.service";
 
 @Component({
   selector: "app-piktogramak-ikusi",
@@ -28,7 +30,9 @@ export class PiktogramakIkusiPage implements OnInit {
   piktogramak: any[] = [];
   constructor(
     public modalController: ModalController,
-    private firebaseConnect: UsuariosFirebaseService //igual public?
+    private firebaseConnect: UsuariosFirebaseService, //igual public?
+    private router: Router,
+    public auth: AuthService
   ) {
     this.ref.on("child_changed", (snapshot) => {
       console.log("child_changed ::" + snapshot.val());
@@ -81,4 +85,8 @@ export class PiktogramakIkusiPage implements OnInit {
     }
   }
   
+  async salir(){
+    await this.auth.logout();
+    this.router.navigate(['login']);
+  }
 }
