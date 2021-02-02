@@ -8,6 +8,7 @@ import firebase from "firebase";
 import { PiktogramakSortuPage } from "../piktogramak-sortu/piktogramak-sortu.page";
 import { Camera, CameraOptions } from "@ionic-native/camera/ngx";
 import { Kategoria } from "../interfaces/usersInterface";
+
 @Component({
   selector: "app-kategoriak-ikusi",
   templateUrl: "./kategoriak-ikusi.page.html",
@@ -63,6 +64,15 @@ export class KategoriakIkusiPage implements OnInit {
   }
 
   async presentModal3() {
+    this.firebaseConnect.ruta=true;
+    const modal = await this.modalController.create({
+      component: PiktogramakSortuPage,
+      cssClass: "my-custom-class",
+    });
+    modal.present();
+  }
+ 
+  async presentModal4() {
     this.firebaseConnect.ruta=true;
     const modal = await this.modalController.create({
       component: PiktogramakSortuPage,
@@ -175,4 +185,8 @@ export class KategoriakIkusiPage implements OnInit {
     });
     toast.present();
   }
+aldatuIzena(){
+
+
+}
 }
