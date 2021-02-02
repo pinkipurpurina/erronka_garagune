@@ -17,6 +17,9 @@ export class ComponenteFrasePage implements OnInit {
     this._stts.hablarGrupoDePalabras()
   }
   
+  async borrarLaUltima(){
+    this._stts.borrarLaUltimaPalabra()
+  }
 
   async borrarPalabras(){
     this._stts.vaciarGrupoDePalabras()

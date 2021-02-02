@@ -46,4 +46,8 @@ export class TtsService {
     console.log(this.arrayDePalabras)
   }
 
+
+  async borrarLaUltimaPalabra(){
+    this.arrayDePalabras.pop()
+  }
 }

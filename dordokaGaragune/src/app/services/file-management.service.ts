@@ -13,7 +13,7 @@ export class FileManagementService {
   usuarioNombre;
   constructor(private fileManager: File) { }
 
-  userFileCreator(uidAdmin: string, uidUser: string) {
+  async userFileCreator(uidAdmin: string, uidUser: string) {
     this.usuario = [];
     await firebase.database().ref('users/' + uidAdmin + '/erabiltzaileak/' + uidUser).once('value', (snap) => {
       snap.forEach((element) => {
