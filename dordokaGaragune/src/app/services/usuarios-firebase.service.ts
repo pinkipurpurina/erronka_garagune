@@ -19,6 +19,7 @@ import firebase from "firebase";
 })
 export class UsuariosFirebaseService {
   private _ruta: boolean;
+  toastController: any;
   public get ruta(): boolean {
     return this._ruta;
   }
@@ -33,11 +34,13 @@ export class UsuariosFirebaseService {
   kategoriaUserUID = "";
   kategoriaName: string = "";
   // tslint:disable-next-line: variable-name
-  private _kategoiaObj = {} as Kategoria;
+ 
 
   constructor(private db: AngularFireDatabase) {
     this.usuarioListRef = this.db.list("/users");
   }
+  private _kategoiaObj = {} as Kategoria;
+  
   public get kategoiaObj() {
     return this._kategoiaObj;
   }
@@ -128,45 +131,49 @@ export class UsuariosFirebaseService {
       // usuarios con discapacidad
       id: idCreate,
       erabiltzaileIzena: "Erabiltzailearen izena****",
-      kategoriak: [] /* [
-            {
-              idKategoria: idKat,
-              kategoriaIzena: "Kategoriaren izena",
-              KategoriaIkono: "ikonoarenHelbidea",
-
-              piktogramak: [
-                {
-                  idPic: idPic,
-                  piktogramaIzena: "Piktogramaren izena",
-                  piktogramaHelbidea: "Pictogramaren izena",
-                },
-              ],
-            },
-          ]*/,
+      kategoriak: [],
     });
   }
+  async toastSortu(mns) {
+    const toast = await this.toastController.create({
+      color: "dark",
+      duration: 2000,
+      message: mns,
+    });
+    toast.present();
+  }
 
-  // Create Piktograma
-  createPiktograma(path: string, name: string) {
-    if (this.ruta) {
-      this.usuarioListRef = this.db.list(
-        "/users/" +
-          firebase.auth().currentUser.uid +
-          "/erabiltzaileak/" +
-          this.erabiltzaileNormalaUID +
-          "/kategoriak"
-      );
-    } else {
+  createIkono(ikonoa) {
+    this.toastSortu("servicio");
+    try {
       this.usuarioListRef = this.db.list(
         "/users/" +
           firebase.auth().currentUser.uid +
           "/erabiltzaileak/" +
           this.erabiltzaileNormalaUID +
           "/kategoriak/" +
-          this.kategoriaUID +
-          "/piktogramak"
+          this.kategoriaUID
+          
       );
+      return this.usuarioListRef.set("kategoriaIkono", ikonoa);
+    } catch (error) {
+      console.log(error);
+      this.toastSortu("servicio -->fallo");
+      
     }
+  }
+  // Create Piktograma
+  createPiktograma(path: string, name: string) {
+    this.usuarioListRef = this.db.list(
+      "/users/" +
+        firebase.auth().currentUser.uid +
+        "/erabiltzaileak/" +
+        this.erabiltzaileNormalaUID +
+        "/kategoriak/" +
+        this.kategoriaUID +
+        "/piktogramak"
+    );
+
     return this.usuarioListRef.push({
       piktogramaIzena: name,
       piktogramaHelbidea: path,
