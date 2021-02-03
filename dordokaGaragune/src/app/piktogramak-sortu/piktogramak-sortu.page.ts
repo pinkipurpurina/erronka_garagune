@@ -88,7 +88,7 @@ export class PiktogramakSortuPage {
       quality: 100,
       sourceType: 0, //Set the source of the picture. Defined in Camera.PictureSourceType. Default is CAMERA. PHOTOLIBRARY : 0, CAMERA : 1, SAVEDPHOTOALBUM : 2
       destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
+      encodingType: this.camera.EncodingType.PNG,
       mediaType: this.camera.MediaType.PICTURE,
       targetHeight: 200,
       targetWidth: 200,
@@ -101,7 +101,7 @@ export class PiktogramakSortuPage {
       (imageData) => {
         // imageData is either a base64 encoded string or a file URI
         // If it's base64 (DATA_URL):
-        let base64Image = "data:image/jpeg;base64," + imageData;
+        let base64Image = "data:image/png;base64," + imageData;
         this.argazkia = base64Image;
       },
       (err) => {
