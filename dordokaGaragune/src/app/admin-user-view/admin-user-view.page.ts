@@ -37,7 +37,7 @@ export class AdminUserViewPage implements OnInit {
     this.firebaseConnect.monitoreUID = firebase.auth().currentUser.uid;
     this.erabiltzaileakIrakurri();
   }
-
+  
   async presentModal() {
     const modal = await this.modalController.create({
       component: AdminCrearUsuarioPage,
