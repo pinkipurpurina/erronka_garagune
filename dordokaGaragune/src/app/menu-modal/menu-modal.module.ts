@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CrudPiktogramakPageRoutingModule } from './crud-piktogramak-routing.module';
+import { MenuModalPageRoutingModule } from './menu-modal-routing.module';
 
-import { CrudPiktogramakPage } from './crud-piktogramak.page';
+import { MenuModalPage } from './menu-modal.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CrudPiktogramakPageRoutingModule
+    MenuModalPageRoutingModule
   ],
-  declarations: [CrudPiktogramakPage]
+  declarations: [MenuModalPage]
 })
-export class CrudPiktogramakPageModule {}
+export class MenuModalPageModule {}

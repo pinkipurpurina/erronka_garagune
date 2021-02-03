@@ -1,3 +1,4 @@
+import { MenuModalPage } from './../menu-modal/menu-modal.page';
 import { AuthService } from './../services/auth.service';
 import { Component, OnChanges, OnInit } from "@angular/core";
 import { ModalController, ToastController } from "@ionic/angular";
@@ -10,7 +11,7 @@ import { PiktogramakSortuPage } from "../piktogramak-sortu/piktogramak-sortu.pag
 import { Camera, CameraOptions } from "@ionic-native/camera/ngx";
 import { Kategoria } from "../interfaces/usersInterface";
 import { PopoverController } from '@ionic/angular';
-import { CrudPiktogramakPage } from "../crud-piktogramak/crud-piktogramak.page";
+
 @Component({
   selector: "app-kategoriak-ikusi",
   templateUrl: "./kategoriak-ikusi.page.html",
@@ -196,7 +197,7 @@ export class KategoriakIkusiPage implements OnInit {
   }
   async presentPopover(ev: any) {
     const popover = await this.popoverController.create({
-      component: CrudPiktogramakPage,
+      component: MenuModalPage,
       cssClass: 'my-custom-class',
       event: ev,
       translucent: true

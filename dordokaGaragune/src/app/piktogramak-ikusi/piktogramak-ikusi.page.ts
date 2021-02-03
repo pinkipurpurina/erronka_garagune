@@ -1,10 +1,10 @@
+import { MenuModalPage } from './../menu-modal/menu-modal.page';
 import { PiktogramaEditatuPage } from './../piktograma-editatu/piktograma-editatu.page';
 import { Component, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { UsuariosFirebaseService } from "../services/usuarios-firebase.service";
 import { PiktogramakSortuPage } from "../piktogramak-sortu/piktogramak-sortu.page";
 import firebase from "firebase";
-import { CrudPiktogramakPage } from "../crud-piktogramak/crud-piktogramak.page";
 import { Router } from "@angular/router";
 import { AuthService } from "../services/auth.service";
 import { PopoverController } from '@ionic/angular';
@@ -81,7 +81,7 @@ export class PiktogramakIkusiPage implements OnInit {
   }
   async presentPopover(ev: any) {
     const popover = await this.popoverController.create({
-      component: CrudPiktogramakPage,
+      component: MenuModalPage,
       cssClass: 'my-custom-class',
       event: ev,
       translucent: true

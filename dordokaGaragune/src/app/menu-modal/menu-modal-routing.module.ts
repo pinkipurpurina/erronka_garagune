@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { CrudPiktogramakPage } from './crud-piktogramak.page';
+import { MenuModalPage } from './menu-modal.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: CrudPiktogramakPage
+    component: MenuModalPage
   }
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CrudPiktogramakPageRoutingModule {}
+export class MenuModalPageRoutingModule {}

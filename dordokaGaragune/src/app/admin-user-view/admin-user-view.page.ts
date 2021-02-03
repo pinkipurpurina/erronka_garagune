@@ -1,3 +1,4 @@
+import { MenuModalPage } from './../menu-modal/menu-modal.page';
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -7,7 +8,7 @@ import { AdminCrearUsuarioPage } from '../admin-crear-usuario/admin-crear-usuari
 import { UsuariosFirebaseService } from '../services/usuarios-firebase.service';
 import firebase from 'firebase';
 import { PopoverController } from '@ionic/angular';
-import { CrudPiktogramakPage } from '../crud-piktogramak/crud-piktogramak.page';
+
 @Component({
   selector: 'app-admin-user-view',
   templateUrl: './admin-user-view.page.html',
@@ -82,13 +83,9 @@ export class AdminUserViewPage implements OnInit {
     }
   }
 
-  async salir(){
-    await this.auth.logout();
-    this.router.navigate(['login']);
-  }
   async presentPopover(ev: any) {
     const popover = await this.popoverController.create({
-      component: CrudPiktogramakPage,
+      component: MenuModalPage,
       cssClass: 'my-custom-class',
       event: ev,
       translucent: true

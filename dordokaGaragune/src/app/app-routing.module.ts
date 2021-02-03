@@ -27,10 +27,6 @@ const routes: Routes = [
     loadChildren: () => import('./user-kategoria/user-kategoria.module').then( m => m.UserKategoriaPageModule)
   },
   {
-    path: 'crud-piktogramak',
-    loadChildren: () => import('./crud-piktogramak/crud-piktogramak.module').then( m => m.CrudPiktogramakPageModule)
-  },
-  {
     path: 'kategoriak',
     loadChildren: () => import('./kategoriak-ikusi/kategoriak-ikusi.module').then( m => m.KategoriakIkusiPageModule)
   },
@@ -58,9 +54,14 @@ const routes: Routes = [
   {
     path: 'componente-frase',
     loadChildren: () => import('./componente-frase/componente-frase.module').then( m => m.ComponenteFrasePageModule)
-  },  {
+  },
+  {
     path: 'piktograma-editatu',
     loadChildren: () => import('./piktograma-editatu/piktograma-editatu.module').then( m => m.PiktogramaEditatuPageModule)
+  },
+  {
+    path: 'menu-modal',
+    loadChildren: () => import('./menu-modal/menu-modal.module').then( m => m.MenuModalPageModule)
   },
 
 ];

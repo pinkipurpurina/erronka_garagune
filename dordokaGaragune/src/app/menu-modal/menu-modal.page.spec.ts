@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { CrudPiktogramakPage } from './crud-piktogramak.page';
+import { MenuModalPage } from './menu-modal.page';
 
-describe('CrudPiktogramakPage', () => {
-  let component: CrudPiktogramakPage;
-  let fixture: ComponentFixture<CrudPiktogramakPage>;
+describe('MenuModalPage', () => {
+  let component: MenuModalPage;
+  let fixture: ComponentFixture<MenuModalPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CrudPiktogramakPage ],
+      declarations: [ MenuModalPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CrudPiktogramakPage);
+    fixture = TestBed.createComponent(MenuModalPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
