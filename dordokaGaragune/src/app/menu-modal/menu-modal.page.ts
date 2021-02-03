@@ -21,14 +21,8 @@ export class MenuModalPage implements OnInit {
   }
 
   async salir(){
-    await this.auth.logout();
-    this.router.navigate(['login']);
-    this.close()
-  }
-
-  async userSalir(){
     this.filer.eliminar();
-    // await this.authSvc.logout();
+    await this.auth.logout();
     this.router.navigate(['login']);
     this.close()
   }
