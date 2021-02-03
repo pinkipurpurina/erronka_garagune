@@ -55,6 +55,13 @@ const routes: Routes = [
     path: 'user-piktograma',
     loadChildren: () => import('./user-piktograma/user-piktograma.module').then( m => m.UserPiktogramaPageModule)
   },
+  {
+    path: 'componente-frase',
+    loadChildren: () => import('./componente-frase/componente-frase.module').then( m => m.ComponenteFrasePageModule)
+  },  {
+    path: 'piktograma-editatu',
+    loadChildren: () => import('./piktograma-editatu/piktograma-editatu.module').then( m => m.PiktogramaEditatuPageModule)
+  },
 
 ];
 

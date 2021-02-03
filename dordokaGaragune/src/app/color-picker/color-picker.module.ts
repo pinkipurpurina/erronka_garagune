@@ -11,8 +11,9 @@ import { BrowserModule } from "@angular/platform-browser";
 
 import { HttpClientModule, HttpClientJsonpModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MbscModule } from "@mobiscroll/angular";
+
 import { AppComponent } from "../app.component";
+
 
 @NgModule({
   imports: [
@@ -21,7 +22,6 @@ import { AppComponent } from "../app.component";
     IonicModule,
     ColorPickerPageRoutingModule,
     BrowserModule,
-    MbscModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
