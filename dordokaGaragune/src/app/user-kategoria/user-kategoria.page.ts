@@ -5,8 +5,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuariosFirebaseService } from '../services/usuarios-firebase.service';
 import { AuthService } from '../services/auth.service';
-
-
+import { MenuModalPage } from '../menu-modal/menu-modal.page';
+import { ModalController } from "@ionic/angular";
+import { PopoverController } from '@ionic/angular';
 @Component({
   selector: 'app-user-kategoria',
   templateUrl: './user-kategoria.page.html',
@@ -15,7 +16,7 @@ import { AuthService } from '../services/auth.service';
 export class UserKategoriaPage implements OnInit {
   nombre;
   kategoriaName: any[] = [];
-  constructor(private _stts: TtsService, public firebaseConnect: UsuariosFirebaseService, private authSvc: AuthService, private fileManager: File, public filer: FileManagementService, private router: Router) { }
+  constructor(private _stts: TtsService, public firebaseConnect: UsuariosFirebaseService, private authSvc: AuthService, private fileManager: File, public filer: FileManagementService, private router: Router,public popoverController: PopoverController) { }
 
   ngOnInit() {
     this.getNombre();
@@ -52,6 +53,14 @@ export class UserKategoriaPage implements OnInit {
     this.firebaseConnect.setKategoriaName(texto);
     this.router.navigate(["user-piktograma"]);
   }
-  
+  async presentPopover(ev: any) {
+    const popover = await this.popoverController.create({
+      component: MenuModalPage,
+      cssClass: 'my-custom-class',
+      event: ev,
+      translucent: true
+    });
+    return await popover.present();
+  }
   
 }

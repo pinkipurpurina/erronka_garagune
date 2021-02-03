@@ -194,7 +194,7 @@ export class KategoriakIkusiPage implements OnInit {
   async presentPopover(ev: any) {
     const popover = await this.popoverController.create({
       component: MenuModalPage,
-      cssClass: 'my-custom-class',
+      cssClass: 'custom-popover',
       event: ev,
       translucent: true
     });

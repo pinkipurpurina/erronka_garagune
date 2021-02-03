@@ -1,10 +1,10 @@
 <ion-header>
     <ion-toolbar>
-        <ion-icon slot="end" name="ellipsis-vertical" size="large" (click)="presentPopover()" ></ion-icon>
+        <ion-icon slot="end" name="ellipsis-vertical" size="large" (click)="presentPopover($event)"></ion-icon>
         <ion-title>Categorías</ion-title>
     </ion-toolbar>
 </ion-header>
-<ion-content>    
+<ion-content>
     <!-- List of Text Items-->
     <ion-list *ngFor="let item of kategoriak">
         <ion-item-sliding>

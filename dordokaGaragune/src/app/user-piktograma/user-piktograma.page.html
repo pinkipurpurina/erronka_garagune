@@ -1,5 +1,6 @@
 <ion-header>
     <ion-toolbar>
+        <ion-icon slot="end" name="ellipsis-vertical" size="large" (click)="presentPopover($event)"></ion-icon>
         <ion-title>Pictogramas</ion-title>
     </ion-toolbar>
 </ion-header>
@@ -47,9 +48,4 @@
         </ion-fab-list>
     </ion-fab>
 
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="salir()">
-        <ion-fab-button color="danger">
-            <ion-icon name="close-circle"></ion-icon>
-        </ion-fab-button>
-    </ion-fab>
 </ion-content>
