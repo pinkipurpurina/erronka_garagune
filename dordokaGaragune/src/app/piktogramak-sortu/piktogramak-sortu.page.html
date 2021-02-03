@@ -22,10 +22,10 @@
                 </ion-item>
                 <ion-img *ngIf="argazkia" [src]="argazkia"></ion-img>
                 <ion-button expand="block" (click)="argazkiaJaso()" color="tertiary">
-                    <span>Seleccionar imagen de la galeria</span>
+                    <span>Seleccionar imagen</span>
                 </ion-button>
 
-                <ion-button *ngIf="picNombre && argazkia" shape="round" expand="block" (click)="formSubmit()" color="tertiary">
+                <ion-button *ngIf="picNombre && argazkia" expand="block" (click)="formSubmit()" color="tertiary">
                     <span>Guardar imagen</span>
                 </ion-button>
 

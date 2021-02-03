@@ -1,3 +1,4 @@
+import { AuthService } from './../services/auth.service';
 import { Component, OnChanges, OnInit } from "@angular/core";
 import { ModalController, ToastController } from "@ionic/angular";
 import { UsuariosFirebaseService } from "../services/usuarios-firebase.service";
@@ -8,6 +9,8 @@ import firebase from "firebase";
 import { PiktogramakSortuPage } from "../piktogramak-sortu/piktogramak-sortu.page";
 import { Camera, CameraOptions } from "@ionic-native/camera/ngx";
 import { Kategoria } from "../interfaces/usersInterface";
+import { PopoverController } from '@ionic/angular';
+import { CrudPiktogramakPage } from "../crud-piktogramak/crud-piktogramak.page";
 @Component({
   selector: "app-kategoriak-ikusi",
   templateUrl: "./kategoriak-ikusi.page.html",
@@ -33,7 +36,9 @@ export class KategoriakIkusiPage implements OnInit {
     public firebaseConnect: UsuariosFirebaseService,
     private router: Router,
     private camera: Camera,
-    public toastController: ToastController
+    public auth: AuthService,
+    public toastController: ToastController,
+    public popoverController: PopoverController
  
   ) {
     this.ref.on("child_changed", (snapshot) => {
@@ -63,6 +68,15 @@ export class KategoriakIkusiPage implements OnInit {
   }
 
   async presentModal3() {
+    this.firebaseConnect.ruta=true;
+    const modal = await this.modalController.create({
+      component: PiktogramakSortuPage,
+      cssClass: "my-custom-class",
+    });
+    modal.present();
+  }
+ 
+  async presentModal4() {
     this.firebaseConnect.ruta=true;
     const modal = await this.modalController.create({
       component: PiktogramakSortuPage,
@@ -175,4 +189,19 @@ export class KategoriakIkusiPage implements OnInit {
     });
     toast.present();
   }
+
+  async salir(){
+    await this.auth.logout();
+    this.router.navigate(['login']);
+  }
+  async presentPopover(ev: any) {
+    const popover = await this.popoverController.create({
+      component: CrudPiktogramakPage,
+      cssClass: 'my-custom-class',
+      event: ev,
+      translucent: true
+    });
+    return await popover.present();
+  }
+  
 }

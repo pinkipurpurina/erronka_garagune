@@ -58,7 +58,11 @@ const routes: Routes = [
   {
     path: 'componente-frase',
     loadChildren: () => import('./componente-frase/componente-frase.module').then( m => m.ComponenteFrasePageModule)
+  },  {
+    path: 'piktograma-editatu',
+    loadChildren: () => import('./piktograma-editatu/piktograma-editatu.module').then( m => m.PiktogramaEditatuPageModule)
   },
+
 ];
 
 @NgModule({

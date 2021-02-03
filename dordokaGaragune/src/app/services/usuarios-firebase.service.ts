@@ -34,18 +34,25 @@ export class UsuariosFirebaseService {
   kategoriaUserUID = "";
   kategoriaName: string = "";
   // tslint:disable-next-line: variable-name
- 
+
 
   constructor(private db: AngularFireDatabase) {
     this.usuarioListRef = this.db.list("/users");
   }
   private _kategoiaObj = {} as Kategoria;
-  
+
   public get kategoiaObj() {
     return this._kategoiaObj;
   }
   public set kategoiaObj(value) {
     this._kategoiaObj = value;
+  }
+  private _piktogramaUID: string;
+  public get piktogramaUID(): string {
+    return this._piktogramaUID;
+  }
+  public set piktogramaUID(value: string) {
+    this._piktogramaUID = value;
   }
   setKategoria(kategoriaUID: string) {
     this.kategoriaUID = kategoriaUID;
@@ -63,11 +70,11 @@ export class UsuariosFirebaseService {
   getKategoriaList() {
     return firebase.database().ref(
       "/users/" +
-        // firebase.auth().currentUser.uid +
-        this.monitoreUID +
-        "/erabiltzaileak/" +
-        this.erabiltzaileNormalaUID +
-        "/kategoriak"
+      // firebase.auth().currentUser.uid +
+      this.monitoreUID +
+      "/erabiltzaileak/" +
+      this.erabiltzaileNormalaUID +
+      "/kategoriak"
     );
     // .ref("/users/" + firebase.auth().currentUser.uid + "/erabiltzaileak/" + this.erabiltzaileNormalaUID + "/kategoriak");
   }
@@ -76,12 +83,12 @@ export class UsuariosFirebaseService {
       .database()
       .ref(
         "/users/" +
-          firebase.auth().currentUser.uid +
-          "/erabiltzaileak/" +
-          this.erabiltzaileNormalaUID +
-          "/kategoriak/" +
-          this.kategoriaUID +
-          "/piktogramak"
+        firebase.auth().currentUser.uid +
+        "/erabiltzaileak/" +
+        this.erabiltzaileNormalaUID +
+        "/kategoriak/" +
+        this.kategoriaUID +
+        "/piktogramak"
       );
   }
 
@@ -90,7 +97,7 @@ export class UsuariosFirebaseService {
     this.usuarioListRef = this.db.list(
       "/users/" +
         /*firebase.auth().currentUser.uid*/ this.monitoreUID +
-        "/erabiltzaileak"
+      "/erabiltzaileak"
     );
     return this.usuarioListRef;
   }
@@ -148,30 +155,30 @@ export class UsuariosFirebaseService {
     try {
       this.usuarioListRef = this.db.list(
         "/users/" +
-          firebase.auth().currentUser.uid +
-          "/erabiltzaileak/" +
-          this.erabiltzaileNormalaUID +
-          "/kategoriak/" +
-          this.kategoriaUID
-          
+        firebase.auth().currentUser.uid +
+        "/erabiltzaileak/" +
+        this.erabiltzaileNormalaUID +
+        "/kategoriak/" +
+        this.kategoriaUID
+
       );
       return this.usuarioListRef.set("kategoriaIkono", ikonoa);
     } catch (error) {
       console.log(error);
       this.toastSortu("servicio -->fallo");
-      
+
     }
   }
   // Create Piktograma
   createPiktograma(path: string, name: string) {
     this.usuarioListRef = this.db.list(
       "/users/" +
-        firebase.auth().currentUser.uid +
-        "/erabiltzaileak/" +
-        this.erabiltzaileNormalaUID +
-        "/kategoriak/" +
-        this.kategoriaUID +
-        "/piktogramak"
+      firebase.auth().currentUser.uid +
+      "/erabiltzaileak/" +
+      this.erabiltzaileNormalaUID +
+      "/kategoriak/" +
+      this.kategoriaUID +
+      "/piktogramak"
     );
 
     return this.usuarioListRef.push({
@@ -185,25 +192,56 @@ export class UsuariosFirebaseService {
     return this.db
       .list(
         "/users/" +
-          monitorearenUID + // firebase.auth().currentUser.uid +
-          "/erabiltzaileak/" +
-          this.erabiltzaileNormalaUID +
-          "/kategoriak" // kategorien listaren helbidea
+        monitorearenUID + // firebase.auth().currentUser.uid +
+        "/erabiltzaileak/" +
+        this.erabiltzaileNormalaUID +
+        "/kategoriak" // kategorien listaren helbidea
       )
       .push(x); // bat gehitu
   }
+  //kategoriaren kolorea aldatu
   updateKategoriaKolorea(kategoriaKolorea) {
     const x = {} as Kategoria;
     x.kolorea = kategoriaKolorea;
     return this.db
       .list(
         "/users/" +
-          firebase.auth().currentUser.uid +
-          "/erabiltzaileak/" +
-          this.erabiltzaileNormalaUID +
-          "/kategoriak/" // kategorien listaren helbidea
+        firebase.auth().currentUser.uid +
+        "/erabiltzaileak/" +
+        this.erabiltzaileNormalaUID +
+        "/kategoriak/" // kategorien listaren helbidea
       )
       .update(this.kategoriaUID, x); // bat gehitu
+  }
+  //kategoriaren izena aldatu
+  updateKategoriaIzena(kategoriaIzena) {
+    const x = {} as Kategoria;
+    x.kategoriaIzena = kategoriaIzena;
+    return this.db
+      .list(
+        "/users/" +
+        firebase.auth().currentUser.uid +
+        "/erabiltzaileak/" +
+        this.erabiltzaileNormalaUID +
+        "/kategoriak/" // kategorien listaren helbidea
+      )
+      .update(this.kategoriaUID, x); // izena aldatu
+  }
+  //kategoriaren izena aldatu
+  updatePiktogramaIzena(piktogramaIzena: string) {
+    const x = {} as Piktograma;
+    x.piktogramaIzena = piktogramaIzena;
+    return this.db
+      .list(
+        "/users/" +
+        firebase.auth().currentUser.uid +
+        "/erabiltzaileak/" +
+        this.erabiltzaileNormalaUID +
+        "/kategoriak/" +// piktograma listaren helbidea
+        this.kategoriaUID +
+        "/piktogramak/"
+      )
+      .update(this.piktogramaUID, x); // izena aldatu
   }
   // create datos de admin google
   createUsuarioAdmin(id: any, name: any) {
@@ -237,9 +275,9 @@ export class UsuariosFirebaseService {
   deleteUser(id: string) {
     this.usuarioRef = this.db.object(
       "/users/" +
-        firebase.auth().currentUser.uid +
-        "/erabiltzaileak/" + // user listaren helbidea
-        id
+      firebase.auth().currentUser.uid +
+      "/erabiltzaileak/" + // user listaren helbidea
+      id
     );
     this.usuarioRef.remove();
     console.log(id + "removed!");
@@ -248,11 +286,11 @@ export class UsuariosFirebaseService {
   deleteKategoria(id: string) {
     this.usuarioRef = this.db.object(
       "/users/" +
-        firebase.auth().currentUser.uid +
-        "/erabiltzaileak/" +
-        this.erabiltzaileNormalaUID +
-        "/kategoriak/" + // kategorien listaren helbidea
-        id
+      firebase.auth().currentUser.uid +
+      "/erabiltzaileak/" +
+      this.erabiltzaileNormalaUID +
+      "/kategoriak/" + // kategorien listaren helbidea
+      id
     );
     this.usuarioRef.remove();
     console.log(id + "removed!");
@@ -261,25 +299,25 @@ export class UsuariosFirebaseService {
   deletePiktograma(id: string) {
     this.usuarioRef = this.db.object(
       "/users/" +
-        firebase.auth().currentUser.uid +
-        "/erabiltzaileak/" +
-        this.erabiltzaileNormalaUID +
-        "/kategoriak/" + // kategorien listaren helbidea
-        this.kategoriaUID +
-        "/piktogramak/" +
-        id
+      firebase.auth().currentUser.uid +
+      "/erabiltzaileak/" +
+      this.erabiltzaileNormalaUID +
+      "/kategoriak/" + // kategorien listaren helbidea
+      this.kategoriaUID +
+      "/piktogramak/" +
+      id
     );
     this.usuarioRef.remove();
 
     console.log(
       "/users/" +
-        firebase.auth().currentUser.uid +
-        "/erabiltzaileak/" +
-        this.erabiltzaileNormalaUID +
-        "/kategoriak/" + // kategorien listaren helbidea
-        this.kategoriaUID +
-        "/piktogramak/" +
-        id
+      firebase.auth().currentUser.uid +
+      "/erabiltzaileak/" +
+      this.erabiltzaileNormalaUID +
+      "/kategoriak/" + // kategorien listaren helbidea
+      this.kategoriaUID +
+      "/piktogramak/" +
+      id
     );
     console.log(id + " --removed!");
   }
