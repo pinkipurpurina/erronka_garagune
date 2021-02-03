@@ -68,15 +68,11 @@ export class KategoriakIkusiPage implements OnInit {
     modal.present();
   }
 
-  async presentModal3() {
-    this.firebaseConnect.ruta=true;
-    const modal = await this.modalController.create({
-      component: PiktogramakSortuPage,
-      cssClass: "my-custom-class",
-    });
-    modal.present();
+  dobleclick(texto) {
+    console.log(texto);
+    this.toastSortu(texto);
+   
   }
- 
   async presentModal4() {
     this.firebaseConnect.ruta=true;
     const modal = await this.modalController.create({
