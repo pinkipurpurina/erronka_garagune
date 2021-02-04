@@ -86,7 +86,6 @@ export class AuthService {
         secondaryAuth.delete();
         // }
       });
-
     } catch (error) {
       console.log('Error=> ', error);
     } finally {

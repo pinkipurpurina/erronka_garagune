@@ -6,12 +6,12 @@ import {
 } from "./../interfaces/usersInterface";
 import { Injectable } from "@angular/core";
 
+
 import {
   AngularFireDatabase,
   AngularFireList,
   AngularFireObject,
 } from "@angular/fire/database";
-import { stringify } from "@angular/compiler/src/util";
 import firebase from "firebase";
 
 @Injectable({
@@ -264,11 +264,20 @@ export class UsuariosFirebaseService {
   public createUsuarioNormal(name: string, idAdmin: any, idUser: string) {
     const x = {} as Erabiltzailea;
     x.erabiltzaileIzena = name;
-    x.kategoriak = [];
-    // return this.db.list('users/'+idAdmin+'/erabiltzaileak/'+id).push(name);
+
+    // fetch("../../assets/user_template.json").then(res=>res.json()).then(json=>{
+    //   x.kategoriak =[];
+    //   x.kategoriak.push(json);
+    //   console.log("kat: ", x.kategoriak);
+    // });
+    console.log("x=> ", x);
     return this.db
       .list("users/" + idAdmin + "/erabiltzaileak")
-      .update(idUser, x);
+      .update(idUser, x).then(() => {
+        fetch("../../assets/user_template.json").then(res => res.json()).then(json => {
+          return this.db.list("users/" + idAdmin + "/erabiltzaileak/" + idUser + "/").update("kategoriak",json)
+        });
+      }); 
   }
 
   // Delete user

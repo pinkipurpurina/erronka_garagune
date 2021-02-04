@@ -74,12 +74,13 @@ export class LoginPage implements OnInit {
               if (user.user.uid == monitorUid) {
                 this.router.navigate(['admin-user-view']);
               }
-              this.authSvc.getMonitorUsers(monitorUid).once('value', (snap) => {
+              this.authSvc.getMonitorUsers(monitorUid).once('value', async (snap) => {
                 snap.forEach((element2) => {
                   var usuarioUid = element2.key;
                   if (user.user.uid == usuarioUid) {
-                    this.fileManager.userFileCreator(monitorUid, usuarioUid);
-                    this.router.navigate(['user-kategoria']);
+                    this.fileManager.userFileCreator(monitorUid, usuarioUid).finally(() => {
+                      this.router.navigate(['user-kategoria']);
+                    })
                   }
                 });
               });
