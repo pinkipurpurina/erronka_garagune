@@ -45,35 +45,28 @@ export class ColorPickerPage {
   constructor(
     private modalCtrl: ModalController,
     private FirebaseService: UsuariosFirebaseService
-  ) {}
+  ) { }
 
   async close() {
     await this.modalCtrl.dismiss();
   }
   esan(kolorea) {
-    console.log(kolorea);
     this.color = kolorea;
   }
   async balidatu() {
     if (this.color) {
-      console.log("cambio de color");
       this.aldatuKolorea();
-    } else {
-      console.log("NO entra color");
     }
 
     if (this.kategoriaIzena) {
-      console.log("cambio de nombre");
       this.aldatuIzena();
-    } else {
-      console.log("no entra");
     }
   }
 
   aldatuKolorea() {
     try {
       this.FirebaseService.updateKategoriaKolorea(this.color)
-        .then(() => {})
+        .then(() => { })
         .catch((err) => {
           console.log("Error colorpicker -->", err);
         });
@@ -86,7 +79,7 @@ export class ColorPickerPage {
   aldatuIzena() {
     try {
       this.FirebaseService.updateKategoriaIzena(this.kategoriaIzena)
-        .then(() => {})
+        .then(() => { })
         .catch((err) => {
           console.log("Error cambio nombre -->", err);
         });

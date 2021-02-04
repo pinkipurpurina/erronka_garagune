@@ -26,7 +26,6 @@ export class FileManagementService {
           data: data,
         });
       });
-      console.log("user=> ", this.usuario);
     }).catch((err) => {
       console.log('Ha sucedido un error al crear el json', err);
     }).finally(async () => {
@@ -43,7 +42,6 @@ export class FileManagementService {
 
   }
   getUser() {
-    // console.log(this.fileManager.readAsText(this.fileManager.dataDirectory,'UserData.txt'))
     return this.fileManager.readAsText(this.fileManager.dataDirectory, 'UserData.txt');
   }
 

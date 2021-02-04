@@ -78,7 +78,6 @@ export class AuthService {
     var idAdminActual = (await firebase.auth().currentUser.uid);
     const secondaryAuth = firebase.initializeApp(environment.firebase, 'Secondary');
     try {
-      console.log('Admin actual=> ', idAdminActual);
       secondaryAuth.auth().createUserWithEmailAndPassword(email, password).then((data) => {
         // if (data && data.user.uid) {
         this.firebase2.createUsuarioNormal(nickname, idAdminActual, data.user.uid);
@@ -100,22 +99,6 @@ export class AuthService {
   getCurrentUser() {
     return firebase.auth().currentUser;
   }
-
-  // async login(email: string, password: string): Promise<User> {
-  //   //     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-  // // .then(function() { 
-  //   // return firebase.auth().signInWithEmailAndPassword(email, password);
-  // //   }).catch(function(error){
-  // //   console.log("failed to set persistence: " + error.message)
-  // // });
-  //   try {
-  //     const { user } = await this.afAuth.signInWithEmailAndPassword(email, password);
-  //     // this.updateUserData(user);
-  //     return user;
-  //   } catch (error) {
-  //     console.log('Error->', error);
-  //   }
-  // }
 
   // async sendVerificationEmail(): Promise<void> {
   //   try {

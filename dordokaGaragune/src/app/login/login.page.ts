@@ -54,8 +54,6 @@ export class LoginPage implements OnInit {
     await this.authSvc.logout();
   }
 
-
-
   get errorControl() {
     return this.ionicForm.controls;
   }

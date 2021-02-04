@@ -24,7 +24,6 @@ export class PiktogramakIkusiPage implements OnInit {
     public popoverController: PopoverController
   ) {
     this.ref.on("child_changed", (snapshot) => {
-      console.log("child_changed ::" + snapshot.val());
       this.irakurriPiktogramak();
     });
   }
@@ -34,15 +33,11 @@ export class PiktogramakIkusiPage implements OnInit {
   }
 
   irakurriPiktogramak() {
-    this.piktogramak=[]
+    this.piktogramak = []
     this.firebaseConnect.getPiktogramaList().once("value", (snap) => {
       snap.forEach((element) => {
-        console.log("bakoitza---", element.val());
         var uid = element.key;
         var data = element.val();
-        console.log("UID--", uid);
-        console.log("IZENA--", data.piktogramaIzena);
-        console.log("HELBIDEA--", data.piktogramaHelbidea);
         this.piktogramak.push({
           uid: uid,
           data: data,
@@ -51,7 +46,7 @@ export class PiktogramakIkusiPage implements OnInit {
     });
   }
   async presentModal() {
-    this.firebaseConnect.ruta=false;
+    this.firebaseConnect.ruta = false;
     const modal = await this.modalController.create({
       component: PiktogramakSortuPage,
       cssClass: "my-custom-class",
@@ -59,7 +54,7 @@ export class PiktogramakIkusiPage implements OnInit {
     modal.present();
   }
   async presentModalEdit(piktogramaUid) {
-    this.firebaseConnect.piktogramaUID=piktogramaUid;
+    this.firebaseConnect.piktogramaUID = piktogramaUid;
     const modal = await this.modalController.create({
       component: PiktogramaEditatuPage,
       cssClass: "my-custom-class",
@@ -68,14 +63,13 @@ export class PiktogramakIkusiPage implements OnInit {
   }
   //delete piktograma
   delete(id: string) {
-    console.log("que id llega:  ",id);
     if (window.confirm("Do you really want to delete?")) {
       this.firebaseConnect.deletePiktograma(id);
-     // this.irakurriPiktogramak();
+      // this.irakurriPiktogramak();
     }
   }
-  
-  async salir(){
+
+  async salir() {
     await this.auth.logout();
     this.router.navigate(['login']);
   }

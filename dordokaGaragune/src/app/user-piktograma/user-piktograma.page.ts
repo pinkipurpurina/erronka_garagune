@@ -16,43 +16,38 @@ export class UserPiktogramaPage implements OnInit {
   nombre: string;
   piktoName: any[] = [];
 
-  constructor(private _stts: TtsService, public filem: FileManagementService, private authSvc: AuthService, public firebaseConnect: UsuariosFirebaseService, public filer: FileManagementService, private router: Router,public popoverController: PopoverController) { }
+  constructor(private _stts: TtsService, public filem: FileManagementService, private authSvc: AuthService, public firebaseConnect: UsuariosFirebaseService, public filer: FileManagementService, private router: Router, public popoverController: PopoverController) { }
 
   ngOnInit() {
     this.getNombre();
     this.getPiktogramak();
   }
 
-  getNombre(){
+  getNombre() {
     this.nombre = this.firebaseConnect.kategoriaName;
   }
 
-  getPiktogramak(){
+  getPiktogramak() {
     this.piktoName = [];
     this.filer.getUser().then((datos) => {
-      let array= JSON.parse(datos)[1]['data'][this.firebaseConnect.kategoriaUserUID]['piktogramak'];
-      for(var i in array){
+      let array = JSON.parse(datos)[1]['data'][this.firebaseConnect.kategoriaUserUID]['piktogramak'];
+      for (var i in array) {
         this.piktoName.push({
-          uid:i,
-          data:array[i],
-        }); 
+          uid: i,
+          data: array[i],
+        });
       }
     });
   }
 
-  anadirPalabra(palabra,imagen){
-    this._stts.agruparMensajes(palabra,imagen)
+  anadirPalabra(palabra, imagen) {
+    this._stts.agruparMensajes(palabra, imagen)
   }
 
   hablar(esp: string) {
     this._stts.discurso(esp);
   }
 
-  async salir(){
-    this.filem.eliminar();
-    // await this.authSvc.logout();
-    this.router.navigate(['login']);
-  }
   async presentPopover(ev: any) {
     const popover = await this.popoverController.create({
       component: MenuModalPage,

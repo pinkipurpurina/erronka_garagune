@@ -9,12 +9,12 @@ import { AuthService } from '../services/auth.service';
 })
 export class ForgotPasswordPage implements OnInit {
 
-  constructor(private authSvc:AuthService, private router: Router) { }
+  constructor(private authSvc: AuthService, private router: Router) { }
 
   ngOnInit() {
   }
 
-  async onResetPassword(email){
+  async onResetPassword(email) {
     try {
       await this.authSvc.resetPassword(email.value);
       this.router.navigate(['/login'])
@@ -22,5 +22,4 @@ export class ForgotPasswordPage implements OnInit {
       console.log('Error->', error);
     }
   }
-
 }

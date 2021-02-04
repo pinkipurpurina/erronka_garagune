@@ -39,7 +39,7 @@ export class RegisterPage implements OnInit {
           this.router.navigate(['/login']);
         }
       }
-    } catch (error){
+    } catch (error) {
       console.log('Error->', error);
     }
   }

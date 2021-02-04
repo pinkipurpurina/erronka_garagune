@@ -12,16 +12,15 @@ export class ComponenteFrasePage implements OnInit {
   ngOnInit() {
   }
 
-
-  async hablarPalabras(){
+  async hablarPalabras() {
     this._stts.hablarGrupoDePalabras()
   }
-  
-  async borrarLaUltima(){
+
+  async borrarLaUltima() {
     this._stts.borrarLaUltimaPalabra()
   }
 
-  async borrarPalabras(){
+  async borrarPalabras() {
     this._stts.vaciarGrupoDePalabras()
   }
 
@@ -29,5 +28,4 @@ export class ComponenteFrasePage implements OnInit {
     this._stts.discurso(esp);
 
   }
-
 }

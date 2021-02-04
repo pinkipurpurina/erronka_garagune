@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
 import { ToastController } from '@ionic/angular';
-   
+
 
 @Injectable({
   providedIn: 'root'
@@ -28,26 +28,25 @@ export class TtsService {
     toast.present();
   }
 
-  async agruparMensajes(palabra,imagen){
+  async agruparMensajes(palabra, imagen) {
     palabra += " ";
-    this.arrayDePalabras.push({nombre:palabra,foto:imagen});
+    this.arrayDePalabras.push({ nombre: palabra, foto: imagen });
   }
 
-  async hablarGrupoDePalabras(){
+  async hablarGrupoDePalabras() {
     let frase = '';
     this.arrayDePalabras.forEach(element => {
-      frase +=element['nombre'].toString()
+      frase += element['nombre'].toString()
     });
     this.discurso(frase)
   }
 
-  async vaciarGrupoDePalabras(){
+  async vaciarGrupoDePalabras() {
     this.arrayDePalabras = [] = [];
-    console.log(this.arrayDePalabras)
   }
 
 
-  async borrarLaUltimaPalabra(){
+  async borrarLaUltimaPalabra() {
     this.arrayDePalabras.pop()
   }
 }

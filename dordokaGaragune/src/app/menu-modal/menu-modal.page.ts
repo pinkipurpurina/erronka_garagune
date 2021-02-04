@@ -11,16 +11,16 @@ import { FileManagementService } from '../services/file-management.service';
 })
 export class MenuModalPage implements OnInit {
   promiseDeFile: any;
-  constructor(public auth: AuthService,public popoverController: PopoverController, public router: Router, public filer: FileManagementService) {}
+  constructor(public auth: AuthService, public popoverController: PopoverController, public router: Router, public filer: FileManagementService) { }
 
   ngOnInit() {
-    
+
   }
   async close() {
     await this.popoverController.dismiss();
   }
 
-  async salir(){
+  async salir() {
     this.filer.eliminar();
     await this.auth.logout();
     this.router.navigate(['login']);

@@ -61,7 +61,7 @@ export class PiktogramakSortuPage {
     private database: AngularFirestore,
     private FirebaseService: UsuariosFirebaseService,
     private camera: Camera, public toastController: ToastController
-    
+
   ) {
   }
 
@@ -73,7 +73,6 @@ export class PiktogramakSortuPage {
     this.FirebaseService.createPiktograma(this.argazkia, this.picNombre)
       .then(async (res) => {
         //asinc funtzioa hemen deklaratu dugu
-        console.log(res);
         this.toastSortu("Imagen cargada");
         await this.modalCtrl.dismiss(); //await-ek itxaron egiten du bukatu arte eta horria ixten du
         this.argazkia = null;
@@ -111,7 +110,7 @@ export class PiktogramakSortuPage {
       }
     );
   }
-  async close(){
+  async close() {
     await this.modalCtrl.dismiss();
   }
   async toastSortu(mns) {

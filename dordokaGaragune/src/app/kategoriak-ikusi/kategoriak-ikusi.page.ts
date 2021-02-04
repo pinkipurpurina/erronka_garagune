@@ -40,10 +40,9 @@ export class KategoriakIkusiPage implements OnInit {
     public auth: AuthService,
     public toastController: ToastController,
     public popoverController: PopoverController
- 
+
   ) {
     this.ref.on("child_changed", (snapshot) => {
-      console.log("child_changed ::" + snapshot.val());
       this.irakurriKategoriak();
     });
   }
@@ -69,19 +68,18 @@ export class KategoriakIkusiPage implements OnInit {
   }
 
   dobleclick(texto) {
-    console.log(texto);
     this.toastSortu(texto);
-   
+
   }
   async presentModal4() {
-    this.firebaseConnect.ruta=true;
+    this.firebaseConnect.ruta = true;
     const modal = await this.modalController.create({
       component: PiktogramakSortuPage,
       cssClass: "my-custom-class",
     });
     modal.present();
   }
- 
+
 
   async irakurriKategoriak() {
     this.kategoriak = [];
@@ -116,17 +114,14 @@ export class KategoriakIkusiPage implements OnInit {
     }
   }
   delete(id: string) {
-    console.log(id);
     if (window.confirm("Do you really want to delete?")) {
       this.firebaseConnect.deleteKategoria(id);
     }
   }
   ikonoaIpini(kategoria) {
-    this.firebaseConnect.kategoriaUID=kategoria.uid;
+    this.firebaseConnect.kategoriaUID = kategoria.uid;
     this._kategoria = kategoria;
-    console.log("variables1: ",kategoria.uid);
-    console.log("variables2: ", this._kategoria);
-    
+
     this.argazkiaJaso();
   }
 
@@ -169,7 +164,6 @@ export class KategoriakIkusiPage implements OnInit {
       .createIkono(this.argazkia)
       .then(async (res) => {
         //asinc funtzioa hemen deklaratu dugu
-        console.log(res);
         this.toastSortu("Imagen cargada");
         this.argazkia = null;
       })
@@ -187,7 +181,7 @@ export class KategoriakIkusiPage implements OnInit {
     toast.present();
   }
 
-  async salir(){
+  async salir() {
     await this.auth.logout();
     this.router.navigate(['login']);
   }
@@ -200,5 +194,5 @@ export class KategoriakIkusiPage implements OnInit {
     });
     return await popover.present();
   }
-  
+
 }
