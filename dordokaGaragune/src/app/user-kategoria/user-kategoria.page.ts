@@ -48,7 +48,6 @@ export class UserKategoriaPage implements OnInit {
   }
 
   piktograma(piktoUid: string, texto: string) {
-    this.hablar(texto);
     this.firebaseConnect.setKategoriaUsuario(piktoUid);
     this.firebaseConnect.setKategoriaName(texto);
     this.router.navigate(["user-piktograma"]);
