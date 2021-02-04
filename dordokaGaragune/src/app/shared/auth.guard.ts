@@ -9,7 +9,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private authSvc:AuthService, private router: Router) { }
+  constructor(private authSvc: AuthService, private router: Router) { }
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -17,8 +17,7 @@ export class AuthGuard implements CanActivate {
     return this.authSvc.user$.pipe(
       take(1),
       map(user => {
-        console.log('User=>',user);
-        if(user){
+        if (user) {
           return true;
         } else {
           this.router.navigate(['/home']);

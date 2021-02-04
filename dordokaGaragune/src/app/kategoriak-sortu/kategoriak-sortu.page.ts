@@ -43,14 +43,11 @@ export class KategoriakSortuPage implements OnInit {
       if (!this.ionicForm.valid) {
         return false;
       } else {
-        console.log("UID: ", firebase.auth().currentUser.uid);
-        console.log("izenaKategoria: ", izenaKategoria.value);
         this.FirebaseService.createKategoria(izenaKategoria.value, firebase.auth().currentUser.uid);
         this.toastSortu("Categoría creada");
         await this.modalCtrl.dismiss();
       }
     } catch (error) {
-      console.log('Error->', error);
       this.toastSortu("Error")
     }
   }

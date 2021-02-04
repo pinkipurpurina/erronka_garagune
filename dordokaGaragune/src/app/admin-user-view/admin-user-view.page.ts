@@ -27,17 +27,13 @@ export class AdminUserViewPage implements OnInit {
     public auth: AuthService,
     public popoverController: PopoverController
   ) {
-    // this.ref.on('child_changed', (snapshot) => {               //No borrar
-    //   console.log('child_changed ::' + snapshot.val());
-    //   this.erabiltzaileakIrakurri();
-    // });
   }
 
   ngOnInit() {
     this.firebaseConnect.monitoreUID = firebase.auth().currentUser.uid;
     this.erabiltzaileakIrakurri();
   }
-  
+
   async presentModal() {
     const modal = await this.modalController.create({
       component: AdminCrearUsuarioPage,
@@ -57,8 +53,6 @@ export class AdminUserViewPage implements OnInit {
         let a = item.payload.toJSON();
         a['$key'] = item.key;
         this.erabiltzaileak.push(a);
-        console.log(a);
-
       })
     })
   }
@@ -70,7 +64,6 @@ export class AdminUserViewPage implements OnInit {
   doRefresh(event) {
     console.log('Begin async operation');
     this.erabiltzaileakIrakurri();
-    console.log(this.erabiltzaileak);
 
     setTimeout(() => {
       console.log('Async operation has ended');

@@ -11,7 +11,7 @@ export interface Erabiltzailea {
 export interface Kategoria {
   kategoriaIkono: string;
   kategoriaIzena: string;
-  kolorea:string;
+  kolorea: string;
   piktogramak: Piktograma[];
 }
 

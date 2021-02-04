@@ -16,7 +16,7 @@ import { PopoverController } from '@ionic/angular';
 export class UserKategoriaPage implements OnInit {
   nombre;
   kategoriaName: any[] = [];
-  constructor(private _stts: TtsService, public firebaseConnect: UsuariosFirebaseService, private authSvc: AuthService, private fileManager: File, public filer: FileManagementService, private router: Router,public popoverController: PopoverController) { }
+  constructor(private _stts: TtsService, public firebaseConnect: UsuariosFirebaseService, private authSvc: AuthService, private fileManager: File, public filer: FileManagementService, private router: Router, public popoverController: PopoverController) { }
 
   ngOnInit() {
     this.getNombre();
@@ -24,21 +24,21 @@ export class UserKategoriaPage implements OnInit {
   }
 
 
-  getNombre(){
+  getNombre() {
     this.filer.getUser().then((datos) => {
       this.nombre = JSON.parse(datos)[0]['data'];
     })
   }
 
-  getKategoriaName(){
+  getKategoriaName() {
     this.kategoriaName = [];
     this.filer.getUser().then((datos) => {
-      let array= JSON.parse(datos)[1]['data'];
-      for(var i in array){
+      let array = JSON.parse(datos)[1]['data'];
+      for (var i in array) {
         this.kategoriaName.push({
-          uid:i,
-          data:array[i],
-        }); 
+          uid: i,
+          data: array[i],
+        });
       }
     });
   }
@@ -47,7 +47,7 @@ export class UserKategoriaPage implements OnInit {
     this._stts.discurso(esp);
   }
 
-  piktograma(piktoUid: string, texto: string){
+  piktograma(piktoUid: string, texto: string) {
     this.hablar(texto);
     this.firebaseConnect.setKategoriaUsuario(piktoUid);
     this.firebaseConnect.setKategoriaName(texto);
@@ -62,5 +62,4 @@ export class UserKategoriaPage implements OnInit {
     });
     return await popover.present();
   }
-  
 }
