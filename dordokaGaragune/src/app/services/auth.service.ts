@@ -131,7 +131,10 @@ export class AuthService {
 
   async logout(): Promise<void> {
     try {
+      console.log("1)",this.afAuth.currentUser);
+      
       await this.afAuth.signOut();
+      console.log("2)",this.afAuth.currentUser);
     } catch (error) {
       console.log('Error->', error);
     }

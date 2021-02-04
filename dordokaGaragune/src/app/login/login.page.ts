@@ -74,6 +74,7 @@ export class LoginPage implements OnInit {
               if (user.user.uid == monitorUid) {
                 this.router.navigate(['admin-user-view']);
               }
+              else{
               this.authSvc.getMonitorUsers(monitorUid).once('value', async (snap) => {
                 snap.forEach((element2) => {
                   var usuarioUid = element2.key;
@@ -84,6 +85,7 @@ export class LoginPage implements OnInit {
                   }
                 });
               });
+            }
             });
           });
         } else {

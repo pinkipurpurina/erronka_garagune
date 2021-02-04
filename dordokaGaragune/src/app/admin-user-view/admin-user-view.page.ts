@@ -46,6 +46,8 @@ export class AdminUserViewPage implements OnInit {
     return await modal.present();
   }
 
+
+
   erabiltzaileakIrakurri() {
     this.erabiltzaileak = [];
     let bookingRes = this.firebaseConnect.erabiltzaileakKargatu();
@@ -78,7 +80,7 @@ export class AdminUserViewPage implements OnInit {
 
   delete(id: string) {
     console.log(id);
-    if (window.confirm("Do you really want to delete?")) {
+    if (window.confirm("Estas segur@ de querer borrar este usuario?")) {
       this.firebaseConnect.deleteUser(id);
     }
   }

@@ -1,3 +1,4 @@
+import { User } from './../shared/user.interface';
 import {
   Monitorea,
   Erabiltzailea,
@@ -258,7 +259,7 @@ export class UsuariosFirebaseService {
     const x = {} as Monitorea;
     x.monitoreIzena = name;
     x.erabiltzaileak = [];
-    return this.usuarioListRef.update(id, x);
+    return this.db.list("users/").update(id, x);
   }
 
   public createUsuarioNormal(name: string, idAdmin: any, idUser: string) {
@@ -288,6 +289,7 @@ export class UsuariosFirebaseService {
       "/erabiltzaileak/" + // user listaren helbidea
       id
     );
+    console.log(firebase.auth().currentUser) 
     this.usuarioRef.remove();
     console.log(id + "removed!");
   }
