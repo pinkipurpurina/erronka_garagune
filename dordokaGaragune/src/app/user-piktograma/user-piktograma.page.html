@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar>
         <ion-icon slot="end" name="ellipsis-vertical" size="large" (click)="presentPopover($event)"></ion-icon>
-        <ion-title>Pictogramas</ion-title>
+        <ion-title>{{nombre}}</ion-title>
     </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -12,7 +12,7 @@
             <ion-col size-xs="12" size-sm="6" size-md="3" size-lg="2" *ngFor="let item of piktoName">
                 <ion-card (click)="hablar(item.data['piktogramaIzena'])" (click)="anadirPalabra(item.data['piktogramaIzena'],item.data['piktogramaHelbidea'])">
                     <ion-item class="center">
-                        <ion-img [src]="item.data['piktogramaHelbidea']" class="center" style="height: 13em;width: 13em;"></ion-img>
+                        <ion-img [src]="item.data['piktogramaHelbidea']" class="center" style="height: 13em;width: 13em; margin:0 auto;"></ion-img>
                     </ion-item>
                     <ion-card-content class="ion-text-center">
                         <ion-label>{{item.data["piktogramaIzena"]}}</ion-label><br>
@@ -28,21 +28,24 @@
 
         <ion-fab-list side="start">
             <ion-fab-button color="light" (click)="hablar('No')">
-                <ion-icon name="thumbs-down-outline"></ion-icon>
+                <ion-icon name="close-outline"></ion-icon>
             </ion-fab-button>
             <ion-fab-button color="light" (click)="hablar('Sí')">
+                <ion-icon name="checkmark-outline"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button color="light" (click)="hablar('Gracias')">
                 <ion-icon name="thumbs-up-outline"></ion-icon>
             </ion-fab-button>
         </ion-fab-list>
 
         <ion-fab-list side="end">
-            <ion-fab-button color="light" (click)="hablar('Yo')">
+            <ion-fab-button color="light" (click)="hablar('Por favor')">
                 <ion-icon name="happy-outline"></ion-icon>
             </ion-fab-button>
             <ion-fab-button color="light" (click)="hablar('Quiero')">
                 <ion-icon name="heart-outline"></ion-icon>
             </ion-fab-button>
-            <ion-fab-button color="light" (click)="hablar('No desea que')">
+            <ion-fab-button color="light" (click)="hablar('No quiero')">
                 <ion-icon name="heart-dislike-outline"></ion-icon>
             </ion-fab-button>
         </ion-fab-list>

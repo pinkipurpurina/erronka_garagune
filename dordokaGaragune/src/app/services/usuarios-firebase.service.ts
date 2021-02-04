@@ -263,6 +263,8 @@ export class UsuariosFirebaseService {
   }
 
   public createUsuarioNormal(name: string, idAdmin: any, idUser: string) {
+    console.log("u=> ", name,idAdmin,idUser);
+    
     const x = {} as Erabiltzailea;
     x.erabiltzaileIzena = name;
     return this.db

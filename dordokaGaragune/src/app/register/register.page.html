@@ -1,11 +1,11 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>Register user</ion-title>
+        <ion-title>Registro de usuarios</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <form [formGroup]="ionicForm" (ngSubmit)="onLogin(email,password)" novalidate>
+    <form [formGroup]="ionicForm" (ngSubmit)="onRegister(email,password)" novalidate>
         <ion-item lines="full">
             <ion-label position="floating">Nombre</ion-label>
             <ion-input formControlName="nick" type="text" #nick required></ion-input>

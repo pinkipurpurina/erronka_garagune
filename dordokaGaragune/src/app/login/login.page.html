@@ -1,6 +1,6 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>login</ion-title>
+        <ion-title>Iniciar Sesión</ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -17,7 +17,7 @@
             Por favor, introduzca un Email valido.
         </span>
         <ion-item lines="full">
-            <ion-label position="floating" color="tertiary">Password</ion-label>
+            <ion-label position="floating" color="tertiary">Contraseña</ion-label>
             <ion-input formControlName="password" type="password" #password required></ion-input>
         </ion-item>
         <span class="red error ion-padding" *ngIf="isSubmitted && errorControl.password.errors?.required">
@@ -28,7 +28,7 @@
         </span>
         <ion-row>
             <ion-col>
-                <ion-button type="submit" expand="block" color="tertiary">Login</ion-button>
+                <ion-button type="submit" expand="block" color="tertiary">Iniciar Sesión</ion-button>
             </ion-col>
         </ion-row>
     </form>

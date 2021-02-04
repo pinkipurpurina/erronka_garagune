@@ -39,7 +39,7 @@ export class LoginPage implements OnInit {
             });
       }
     } catch (error) {
-      this.toastSortu("Ha habido un error al cargar los pictogramas del usuario.");
+      // this.toastSortu("Ha habido un error al cargar los pictogramas del usuario.");
     }
 
     this.ionicForm = this.formBuilder.group({
@@ -71,19 +71,18 @@ export class LoginPage implements OnInit {
               var monitorUid = element.key;
               if (user.user.uid == monitorUid) {
                 this.router.navigate(['admin-user-view']);
-              }
-              else{
-              this.authSvc.getMonitorUsers(monitorUid).once('value', async (snap) => {
-                snap.forEach((element2) => {
-                  var usuarioUid = element2.key;
-                  if (user.user.uid == usuarioUid) {
-                    this.fileManager.userFileCreator(monitorUid, usuarioUid).finally(() => {
-                      this.router.navigate(['user-kategoria']);
-                    })
-                  }
+              } else {
+                this.authSvc.getMonitorUsers(monitorUid).once('value', async (snap) => {
+                  snap.forEach((element2) => {
+                    var usuarioUid = element2.key;
+                    if (user.user.uid == usuarioUid) {
+                      this.fileManager.userFileCreator(monitorUid, usuarioUid).finally(() => {
+                        this.router.navigate(['user-kategoria']);
+                      })
+                    }
+                  });
                 });
-              });
-            }
+              }
             });
           });
         } else {

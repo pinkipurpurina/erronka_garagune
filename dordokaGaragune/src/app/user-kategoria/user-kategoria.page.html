@@ -13,7 +13,7 @@
                 <ion-card class="ion-text-center" (click)="piktograma(item.uid, item.data['kategoriaIzena'])">
                     <ion-card-content>
                         <ion-item class="center" style="background-color: {{item.data['kolorea']}}">
-                            <ion-img [src]="item.data['kategoriaIkono']" class="center" style="height: 13em;width: 13em;"></ion-img>
+                            <ion-img [src]="item.data['kategoriaIkono']" class="center" style="height: 13em;width: 13em; margin:0 auto;"></ion-img>
                         </ion-item>
                         <ion-label>{{item.data["kategoriaIzena"]}}</ion-label><br>
                     </ion-card-content>
@@ -29,21 +29,24 @@
 
         <ion-fab-list side="start">
             <ion-fab-button color="light" (click)="hablar('No')">
-                <ion-icon name="thumbs-down-outline"></ion-icon>
+                <ion-icon name="close-outline"></ion-icon>
             </ion-fab-button>
             <ion-fab-button color="light" (click)="hablar('Sí')">
+                <ion-icon name="checkmark-outline"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button color="light" (click)="hablar('Gracias')">
                 <ion-icon name="thumbs-up-outline"></ion-icon>
             </ion-fab-button>
         </ion-fab-list>
 
         <ion-fab-list side="end">
-            <ion-fab-button color="light" (click)="hablar('Yo')">
+            <ion-fab-button color="light" (click)="hablar('Por favor')">
                 <ion-icon name="happy-outline"></ion-icon>
             </ion-fab-button>
             <ion-fab-button color="light" (click)="hablar('Quiero')">
                 <ion-icon name="heart-outline"></ion-icon>
             </ion-fab-button>
-            <ion-fab-button color="light" (click)="hablar('No desea que')">
+            <ion-fab-button color="light" (click)="hablar('No quiero')">
                 <ion-icon name="heart-dislike-outline"></ion-icon>
             </ion-fab-button>
         </ion-fab-list>

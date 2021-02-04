@@ -34,21 +34,21 @@
     </ion-card>
     <ion-card class="ion-text-center" *ngIf="isUploading && !isUploaded">
         <ion-card-header>
-            <ion-card-title>Selected File:<b>{{ fileName }}</b></ion-card-title>
+            <ion-card-title>Archivo seleccionado:<b>{{ fileName }}</b></ion-card-title>
         </ion-card-header>
 
         <ion-card-content>
             <div *ngIf="percentage | async as pct">
-                Progress: {{ pct | number }}%
+                Progreso: {{ pct | number }}%
                 <ion-progress-bar value="{{ pct / 100 }}"></ion-progress-bar>
             </div>
             <div *ngIf="snapshot | async as snap">
 
                 <div *ngIf="snapshot && snap.bytesTransferred != snap.totalBytes">
-                    <ion-button color="warning" size="small" (click)="task.pause()" class="button is-warning">Pause
+                    <ion-button color="warning" size="small" (click)="task.pause()" class="button is-warning">Pausar
                     </ion-button>
-                    <ion-button size="small" (click)="task.resume()" class="button is-info">Resume</ion-button>
-                    <ion-button color="danger" size="small" (click)="task.cancel()" class="button is-danger">Cancel
+                    <ion-button size="small" (click)="task.resume()" class="button is-info">Reanudar</ion-button>
+                    <ion-button color="danger" size="small" (click)="task.cancel()" class="button is-danger">Cancelar
                     </ion-button>
                 </div>
             </div>
@@ -58,7 +58,7 @@
     <ion-card class="ion-text-center" *ngIf="!isUploading && isUploaded">
         <ion-card-header>
             <ion-card-title>
-                <b>{{ fileName }}</b> Uploaded!
+                <b>{{ fileName }}</b> Subido!
             </ion-card-title>
         </ion-card-header>
     </ion-card>

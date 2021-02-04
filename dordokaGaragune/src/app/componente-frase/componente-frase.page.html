@@ -3,9 +3,9 @@
         <ion-row style="background-color: rgb(223, 223, 223)">
             <ion-col size="col-md-12" *ngFor="let pikto of _stts.arrayDePalabras">
                 <ion-card expand="block">
-                    <ion-img [src]="pikto['foto']" class="center" style="height: 7em; width: 7em"></ion-img>
-                    <ion-card-content class="center">
-                        <ion-label class="center">{{pikto['nombre']}}</ion-label><br />
+                    <ion-img [src]="pikto['foto']" class="center" style="height: 7em; width: 7em; margin:0 auto;"></ion-img>
+                    <ion-card-content class="ion-text-center">
+                        <ion-label>{{pikto['nombre']}}</ion-label><br />
                     </ion-card-content>
                 </ion-card>
             </ion-col>

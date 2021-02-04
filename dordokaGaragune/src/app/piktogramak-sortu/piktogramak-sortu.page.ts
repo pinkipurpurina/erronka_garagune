@@ -116,7 +116,8 @@ export class PiktogramakSortuPage {
   async toastSortu(mns) {
     const toast = await this.toastController.create({
       color: 'dark',
-      duration: 2000,
+      position: 'top',
+      duration: 500,
       message: mns
     });
     toast.present();

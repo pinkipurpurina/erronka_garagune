@@ -62,17 +62,14 @@ export class AdminUserViewPage implements OnInit {
   }
 
   doRefresh(event) {
-    console.log('Begin async operation');
     this.erabiltzaileakIrakurri();
 
     setTimeout(() => {
-      console.log('Async operation has ended');
       event.target.complete();
     }, 2000);
   }
 
   delete(id: string) {
-    console.log(id);
     if (window.confirm("Estas segur@ de querer borrar este usuario?")) {
       this.firebaseConnect.deleteUser(id);
     }
